@@ -10,7 +10,7 @@ CREATE TABLE if NOT EXISTS polise_osiguranja
 	telefon VARCHAR(20) NOT NULL,
 	datumPutovanjaOd DATETIME NOT NULL,
 	datumPutovanjaDo DATETIME NOT NULL,
-	dodatniPodaci VARCHAR(255) NOT NULL,
+	dodatniPodaci VARCHAR(255) NULL,
 	PRIMARY KEY (idPolise)
 );
 
