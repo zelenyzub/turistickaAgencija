@@ -5417,7 +5417,7 @@ var render = function render() {
       },
       expression: "datumRodjenja"
     }
-  }), _c("br"), _vm._v(" "), _c("input", {
+  }), _c("br"), _c("br"), _vm._v(" "), _c("input", {
     staticClass: "btn btn-outline-primary",
     attrs: {
       type: "submit",
@@ -5521,37 +5521,23 @@ var staticRenderFns = [function () {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Home")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Pocetna")])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link px-2 text-muted",
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Features")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link px-2 text-muted",
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Pricing")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("FAQs")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("About")])])]), _vm._v(" "), _c("p", {
+  }, [_vm._v("O nama")])])]), _vm._v(" "), _c("p", {
     staticClass: "text-center text-muted"
-  }, [_vm._v("© 2021 Company, Inc")])]);
+  }, [_vm._v("© 2023 Osiguranje Savo")])]);
 }];
 render._withStripped = true;
 
