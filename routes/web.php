@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KupovinaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/osiguranje', function(){
-    return view('onlineKupovina');
-});
+Route::get('/osiguranje',[KupovinaController::class,'onlineKupovina']);

@@ -6,7 +6,7 @@ CREATE TABLE if NOT EXISTS polise_osiguranja
 	idPolise INT(11) NOT NULL AUTO_INCREMENT,
 	imeNosiocaOsiguranja VARCHAR(50) NOT NULL,
 	prezimeNosiocaOsiguranja VARCHAR(50) NOT NULL,
-	vrstaPolise VARCHAR(15) NOT NULL,
+	vrstaPolise ENUM('individualna','grupna') NOT NULL CHECK (vrstaPolise IN ('individualna','grupna')) COMMENT 'vrstaPolise moze biti individualna ili grupna',
 	telefon VARCHAR(20) NOT NULL,
 	datumPutovanjaOd DATETIME NOT NULL,
 	datumPutovanjaDo DATETIME NOT NULL,
@@ -27,27 +27,30 @@ CREATE TABLE if NOT EXISTS osiguranici (
 CREATE TABLE if NOT EXISTS blog_vesti
 (
 	idBloga INT(11) NOT NULL,
-	naslov VARCHAR(50) NOT NULL,
+	naslov VARCHAR(255) NOT NULL,
 	opis VARCHAR(255) NOT NULL,
 	tekst TEXT NOT NULL,
-	fotogravija VARCHAR(255) NOT NULL,
-	tipObjave VARCHAR(50) NOT NULL,
+	fotogravija TEXT NOT NULL,
+	tipObjave ENUM('blog','vest') NOT NULL CHECK (tipObjave IN ('blog','vest')) COMMENT 'tipObjave moze biti blog ili vest',
 	datumKreiranja DATETIME NOT NULL,
 	autor VARCHAR(255) NOT NULL,
-	statusBloga VARCHAR(50) NOT NULL,
+	statusBloga ENUM('objavljeno', 'uPripremi', 'arhivirano') NOT NULL CHECK (statusBloga IN ('objavljeno', 'uPripremi', 'arhivirano'))
+	COMMENT 'statusBloga moze biti objavljeno, uPripremi ili arhivirano',
 	datumObjavljivanja DATETIME NOT NULL,
 	datumArhiviranja DATETIME NOT NULL,
 	PRIMARY KEY (idBloga)
 );
 
-CREATE TABLE if NOT EXISTS administrator
+
+CREATE TABLE if NOT EXISTS korisnici
 (
-	idAdmin INT(11) NOT NULL AUTO_INCREMENT,
-	imeAdmina VARCHAR(50) NOT NULL,
-	prezimeAdmina VARCHAR(50) NOT NULL,
+	idKorisnik INT(11) NOT NULL AUTO_INCREMENT,
+	imeKorisnika VARCHAR(50) NOT NULL,
+	prezimeKorisnika VARCHAR(50) NOT NULL,
 	korisnickoIme VARCHAR(100) NOT NULL,
-	lozinka VARCHAR(30) NOT NULL,
-	PRIMARY KEY (idAdmin) 
+	lozinkaKorisnika VARCHAR(30) NOT NULL,
+	role ENUM('korisnik', 'admin') NOT NULL DEFAULT 'korisnik' COMMENT 'ROLE moze biti admin ili korisnik', 
+	PRIMARY KEY (idKorisnik)
 );
 
 
