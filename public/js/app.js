@@ -5109,7 +5109,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       datumOdmora: null,
       brojDana: 0,
-      vrstaOsiguranja: ''
+      vrstaOsiguranja: '',
+      osiguranici: [],
+      imeOsiguranika: '',
+      prezimeOsiguranika: '',
+      datumRodjenja: '',
+      naslovListe: false
     };
   },
   methods: {
@@ -5125,6 +5130,25 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.brojDana = 0;
       }
+    },
+    dodajOsiguranika: function dodajOsiguranika() {
+      if (this.vrstaOsiguranja === 'grupno') {
+        var osiguranik = {
+          ime: this.imeOsiguranika,
+          prezime: this.prezimeOsiguranika,
+          datumRodjenja: this.datumRodjenja
+        };
+        this.osiguranici.push(osiguranik);
+        this.naslovListe = true;
+
+        // Clear the form fields after adding an insured person
+        this.imeOsiguranika = '';
+        this.prezimeOsiguranika = '';
+        this.datumRodjenja = null;
+      }
+    },
+    formatirajDatum: function formatirajDatum(datumRodjenja) {
+      return moment__WEBPACK_IMPORTED_MODULE_2___default()(datumRodjenja).format('DD. MM. YYYY.');
     }
   }
 });
@@ -5208,7 +5232,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("span", {
     staticClass: "fs-4"
-  }, [_vm._v("Double header")])]), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("form", [_c("div", {
+  }, [_vm._v("Double header")])]), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-4"
@@ -5326,35 +5350,65 @@ var render = function render() {
   }), _c("br"), _c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _vm.vrstaOsiguranja === "grupno" ? _c("div", [_c("h4", [_vm._v("UNOS DODATNIH OSIGURANIKA")]), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
-      "for": "imeOsiguranika"
+      "for": "ime"
     }
   }, [_vm._v("Ime Osiguranika:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.imeOsiguranika,
+      expression: "imeOsiguranika"
+    }],
     staticClass: "form-control",
     attrs: {
       type: "text",
       id: "imeOsiguranika",
       placeholder: "Unesite ime osiguranika"
+    },
+    domProps: {
+      value: _vm.imeOsiguranika
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.imeOsiguranika = $event.target.value;
+      }
     }
   }), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
-      "for": "prezimeOsiguranika"
+      "for": "prezime"
     }
   }, [_vm._v("Prezime Osiguranika: ")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.prezimeOsiguranika,
+      expression: "prezimeOsiguranika"
+    }],
     staticClass: "form-control",
     attrs: {
       type: "text",
       id: "prezimeOsiguranika",
       placeholder: "Unesite prezime osiguranika"
+    },
+    domProps: {
+      value: _vm.prezimeOsiguranika
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.prezimeOsiguranika = $event.target.value;
+      }
     }
   }), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
-      "for": "datumRodjenja"
+      "for": "datRodjenja"
     }
   }, [_vm._v("Datum rodjenja: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
     attrs: {
-      format: "'DD. MM. YYYY.'"
+      format: "DD. MM. YYYY."
     },
     model: {
       value: _vm.datumRodjenja,
@@ -5369,6 +5423,9 @@ var render = function render() {
       type: "submit",
       name: "btnDodajOsiguranika",
       id: "btnDodajOsiguranika"
+    },
+    on: {
+      click: _vm.dodajOsiguranika
     }
   }), _c("br"), _c("br"), _vm._v(" "), _c("hr")], 1) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "btn btn-outline-success form-control",
@@ -5377,7 +5434,13 @@ var render = function render() {
       name: "btnDodajOsiguranika",
       id: "btnDodajOsiguranika"
     }
-  })], 1), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _vm._m(4)]);
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-md-8"
+  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")]), _vm._v(" "), _vm.naslovListe ? _c("h3", [_vm._v("Uneti osiguranici:")]) : _vm._e(), _vm._v(" "), _c("ul", _vm._l(_vm.osiguranici, function (osiguranik, index) {
+    return _c("li", {
+      key: index
+    }, [_vm._v("\n                    Ime: " + _vm._s(osiguranik.ime)), _c("br"), _vm._v("\n                    Prezime: " + _vm._s(osiguranik.prezime)), _c("br"), _vm._v("\n                    Datum rođenja: " + _vm._s(_vm.formatirajDatum(osiguranik.datumRodjenja)) + "\n                    "), _c("hr")]);
+  }), 0)])]), _vm._v(" "), _vm._m(3)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5446,12 +5509,6 @@ var staticRenderFns = [function () {
   return _c("h2", [_vm._v("\n        OSIGURANJE SAVO\n        "), _c("small", {
     staticClass: "text-muted"
   }, [_vm._v("Sigurnost koja prati vaše putovanje.")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "col-md-8"
-  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                    malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                    leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                    eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                    turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                    purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                    dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                    eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                    Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                    Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                    facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                    interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                    enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                    erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                    Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                    Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                    sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                    pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
