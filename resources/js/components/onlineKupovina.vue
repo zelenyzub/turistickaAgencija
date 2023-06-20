@@ -37,28 +37,31 @@
 
         <div class="row">
             <div class="col-md-4">
+
                 <label for="imeNosioca" class="form-label">Ime Nosioca Osiguranja:</label>
-                <input type="text" class="form-control" id="imeNosioca" placeholder="Unesite ime nosioca osiguranja"><br>
+                <input v-model="imeNosioca" type="text" class="form-control" id="imeNosioca"
+                    placeholder="Unesite ime nosioca osiguranja"><br>
 
 
                 <label for="prezimeNosioca" class="form-label">Prezime Nosioca: </label>
-                <input type="text" class="form-control" id="prezimeNosioca"
+                <input v-model="prezimeNosioca" type="text" class="form-control" id="prezimeNosioca"
                     placeholder="Unesite prezime nosioca osiguranja"><br>
 
 
                 <label for="vrstaOsiguranja" class="form-label">Vrsta Osiguranja</label>
-                <select v-model="vrstaOsiguranja" id="vrstaOsiguranja" class="form-select">
+                <select v-model="vrstaOsiguranja" id="vrstaOsiguranja" name="vrstaOsiguranja" class="form-select">
                     <option disabled value="">-----Izaberite Vrstu Osiguranja-----</option>
-                    <option value="individualno">Individualno</option>
-                    <option value="grupno">Grupno</option>
+                    <option value="individualna">Individualna</option>
+                    <option value="grupna">Grupna</option>
                 </select><br>
 
 
                 <label for="telefon" class="form-label">Telefon Nosioca: </label>
-                <input type="text" class="form-control" id="telefon" placeholder="Unesite telefon nosioca osiguranja"><br>
+                <input v-model="telefon" type="text" class="form-control" id="telefon"
+                    placeholder="Unesite telefon nosioca osiguranja"><br>
 
                 <label for="datumPutovanja" class="form-label">Izaberite datum pocetka putovanja: </label>
-                <date-picker v-model="datumOdmora" range :format="'DD. MM. YYYY.'"
+                <date-picker name="datumOdmora" v-model="datumOdmora" range :format="'DD. MM. YYYY.'"
                     @input="izracunajBrojDana"></date-picker><br>
 
                 <label for="brojDana">Ukupan broj dana:</label>
@@ -66,7 +69,7 @@
                 <hr>
 
 
-                <div v-if="vrstaOsiguranja === 'grupno'">
+                <div v-if="vrstaOsiguranja === 'grupna'">
 
                     <h4>UNOS DODATNIH OSIGURANIKA</h4>
 
@@ -86,11 +89,14 @@
                         @click="dodajOsiguranika"><br><br>
                     <hr>
                 </div>
+                <input type="submit" class="btn btn-outline-success form-control" name="btnDodajPolisu" id="btnDodajPolisu"
+                    value="Dodaj polisu" @click="dodajPolisu">
 
 
-                <input type="submit" class="btn btn-outline-success form-control" name="btnDodajOsiguranika"
-                    id="btnDodajOsiguranika">
+
+
             </div>
+
 
 
             <div class="col-md-8">
@@ -113,12 +119,13 @@
                     sem non leo scelerisque, et rhoncus odio gravida. Mauris
                     pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.</p>
 
-                <h3 v-if="naslovListe">Uneti osiguranici:</h3>
-                <ul>
+                <h3 v-if="naslovListe && vrstaOsiguranja === 'grupna'">Uneti osiguranici:</h3>
+                <ul v-if="vrstaOsiguranja === 'grupna'">
                     <li v-for="(osiguranik, index) in osiguranici" :key="index">
                         Ime: {{ osiguranik.ime }}<br>
                         Prezime: {{ osiguranik.prezime }}<br>
                         Datum rođenja: {{ formatirajDatum(osiguranik.datumRodjenja) }}
+                        <button v-on:click="obrisiOsiguranikaIzListe(index)" class="btn btn-outline-danger">Obriši</button>
                         <hr>
                     </li>
                 </ul>
@@ -143,6 +150,10 @@
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import moment from 'moment';
+import axios from 'axios'
+import path from 'path';
+import Swal from 'sweetalert2';
+
 
 
 export default {
@@ -157,9 +168,51 @@ export default {
             prezimeOsiguranika: '',
             datumRodjenja: '',
             naslovListe: false,
+            imeNosioca: '',
+            prezimeNosioca: '',
+            telefon: '',
+            datumOdmora: '',
+
         };
     },
     methods: {
+        dodajPolisu() {
+
+            const polisa = {
+                imeNosioca: this.imeNosioca,
+                prezimeNosioca: this.prezimeNosioca,
+                vrstaOsiguranja: this.vrstaOsiguranja,
+                telefon: this.telefon,
+                datumOdmora: this.datumOdmora
+            };
+
+            if (this.vrstaOsiguranja === 'grupna') {
+                polisa.osiguranici = this.osiguranici;
+            }
+
+            axios.post('/dodajPolisu', polisa)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Uspesno ste kupili polisu osiguranja'
+            });
+
+            this.imeNosioca = '';
+            this.prezimeNosioca = '';
+            this.vrstaOsiguranja = '';
+            this.telefon = '';
+            this.datumOdmora = null;
+            this.brojDana = 0;
+            this.naslovListe = false;
+            this.osiguranici = [];
+        },
+
         izracunajBrojDana() {
             if (this.datumOdmora && this.datumOdmora.length === 2) {
                 const pocetak = moment(this.datumOdmora[0]);
@@ -177,7 +230,7 @@ export default {
         },
 
         dodajOsiguranika() {
-            if (this.vrstaOsiguranja === 'grupno') {
+            if (this.vrstaOsiguranja === 'grupna') {
                 const osiguranik = {
                     ime: this.imeOsiguranika,
                     prezime: this.prezimeOsiguranika,
@@ -192,9 +245,15 @@ export default {
                 this.datumRodjenja = null;
             }
         },
+
+
         formatirajDatum(datumRodjenja) {
             return moment(datumRodjenja).format('DD. MM. YYYY.');
         },
+
+        /*obrisiOsiguranikaIzListe(index) {
+            this.osiguranici.splice(index, 1);
+        }*/
     },
 };
 
