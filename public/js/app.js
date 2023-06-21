@@ -5135,6 +5135,20 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   methods: {
     dodajPolisu: function dodajPolisu() {
+      if (this.imeNosioca === '' || this.prezimeNosioca === '' || this.vrstaOsiguranja === '' || this.telefon === '' || this.datumOdmora === null) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
+          icon: 'warning',
+          title: 'Sva polja su obavezna'
+        });
+        return;
+      }
+      if (this.vrstaOsiguranja === 'grupna' && this.osiguranici.length === 0) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
+          icon: 'warning',
+          title: 'Morate imati bar jednog dodatnog osiguranika u okviru grupne polise.'
+        });
+        return;
+      }
       var polisa = {
         imeNosioca: this.imeNosioca,
         prezimeNosioca: this.prezimeNosioca,
@@ -5185,8 +5199,6 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         };
         this.osiguranici.push(osiguranik);
         this.naslovListe = true;
-
-        // Clear the form fields after adding an insured person
         this.imeOsiguranika = '';
         this.prezimeOsiguranika = '';
         this.datumRodjenja = null;
@@ -5194,10 +5206,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     formatirajDatum: function formatirajDatum(datumRodjenja) {
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(datumRodjenja).format('DD. MM. YYYY.');
+    },
+    obrisiOsiguranikaIzListe: function obrisiOsiguranikaIzListe(index) {
+      this.osiguranici.splice(index, 1);
     }
-    /*obrisiOsiguranikaIzListe(index) {
-        this.osiguranici.splice(index, 1);
-    }*/
   }
 });
 
@@ -5300,7 +5312,8 @@ var render = function render() {
     attrs: {
       type: "text",
       id: "imeNosioca",
-      placeholder: "Unesite ime nosioca osiguranja"
+      placeholder: "Unesite ime nosioca osiguranja",
+      required: ""
     },
     domProps: {
       value: _vm.imeNosioca
@@ -5535,10 +5548,10 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "col-md-8"
-  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")]), _vm._v(" "), _vm.naslovListe && _vm.vrstaOsiguranja === "grupna" ? _c("h3", [_vm._v("Uneti osiguranici:")]) : _vm._e(), _vm._v(" "), _vm.vrstaOsiguranja === "grupna" ? _c("ul", _vm._l(_vm.osiguranici, function (osiguranik, index) {
+  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                    malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                    leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                    eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                    turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                    purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                    dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                    eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                    Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                    Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                    facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                    interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                    enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                    erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                    Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                    Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                    sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                    pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")]), _vm._v(" "), _vm.naslovListe && _vm.vrstaOsiguranja === "grupna" ? _c("h3", [_vm._v("Uneti osiguranici:")]) : _vm._e(), _vm._v(" "), _vm.vrstaOsiguranja === "grupna" ? _c("ul", _vm._l(_vm.osiguranici, function (osiguranik, index) {
     return _c("li", {
       key: index
-    }, [_vm._v("\n                    Ime: " + _vm._s(osiguranik.ime)), _c("br"), _vm._v("\n                    Prezime: " + _vm._s(osiguranik.prezime)), _c("br"), _vm._v("\n                    Datum rođenja: " + _vm._s(_vm.formatirajDatum(osiguranik.datumRodjenja)) + "\n                    "), _c("button", {
+    }, [_vm._v("\n                        Ime: " + _vm._s(osiguranik.ime)), _c("br"), _vm._v("\n                        Prezime: " + _vm._s(osiguranik.prezime)), _c("br"), _vm._v("\n                        Datum rođenja: " + _vm._s(_vm.formatirajDatum(osiguranik.datumRodjenja)) + "\n                        "), _c("button", {
       staticClass: "btn btn-outline-danger",
       on: {
         click: function click($event) {
@@ -5546,7 +5559,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Obriši")]), _vm._v(" "), _c("hr")]);
-  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(3)]);
+  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5612,9 +5625,120 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("h2", [_vm._v("\n        OSIGURANJE SAVO\n        "), _c("small", {
+  return _c("h2", [_vm._v("\n            OSIGURANJE SAVO\n            "), _c("small", {
     staticClass: "text-muted"
   }, [_vm._v("Sigurnost koja prati vaše putovanje.")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("section", {
+    staticClass: "vh-100 bg-image",
+    staticStyle: {
+      "background-image": "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"
+    }
+  }, [_c("div", {
+    staticClass: "mask d-flex align-items-center h-100 gradient-custom-3"
+  }, [_c("div", {
+    staticClass: "container h-100"
+  }, [_c("div", {
+    staticClass: "row d-flex justify-content-center align-items-center h-100"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-9 col-lg-7 col-xl-6"
+  }, [_c("div", {
+    staticClass: "card",
+    staticStyle: {
+      "border-radius": "15px"
+    }
+  }, [_c("div", {
+    staticClass: "card-body p-5"
+  }, [_c("h2", {
+    staticClass: "text-uppercase text-center mb-5"
+  }, [_vm._v("Create an account")]), _vm._v(" "), _c("form", [_c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      id: "form3Example1cg"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "form3Example1cg"
+    }
+  }, [_vm._v("Your Name")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "email",
+      id: "form3Example3cg"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "form3Example3cg"
+    }
+  }, [_vm._v("Your Email")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "password",
+      id: "form3Example4cg"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "form3Example4cg"
+    }
+  }, [_vm._v("Password")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "password",
+      id: "form3Example4cdg"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "form3Example4cdg"
+    }
+  }, [_vm._v("Repeat your password")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-check d-flex justify-content-center mb-5"
+  }, [_c("input", {
+    staticClass: "form-check-input me-2",
+    attrs: {
+      type: "checkbox",
+      value: "",
+      id: "form2Example3cg"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-check-label",
+    attrs: {
+      "for": "form2Example3g"
+    }
+  }, [_vm._v("\n                    I agree all statements in "), _c("a", {
+    staticClass: "text-body",
+    attrs: {
+      href: "#!"
+    }
+  }, [_c("u", [_vm._v("Terms of service")])])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("button", {
+    staticClass: "btn btn-success btn-block btn-lg gradient-custom-4 text-body",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("Register")])]), _vm._v(" "), _c("p", {
+    staticClass: "text-center text-muted mt-5 mb-0"
+  }, [_vm._v("Have already an account? "), _c("a", {
+    staticClass: "fw-bold text-body",
+    attrs: {
+      href: "#!"
+    }
+  }, [_c("u", [_vm._v("Login here")])])])])])])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
