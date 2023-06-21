@@ -7,37 +7,26 @@
                     <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
-                                <a href="/osiguranje"><button type="button" class="btn-close" aria-label="Close"></button></a>
-                                <h2 class="text-uppercase text-center mb-5">Registrujte se</h2>
+                                <a href="/osiguranje"><button type="button" class="btn-close"
+                                        aria-label="Close"></button></a>
+                                <h2 class="text-uppercase text-center mb-5">Uloguj se</h2>
 
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="imeKorisnika" class="form-control form-control-lg" />
-                                    <label class="form-label" for="imeKorisnika">Vase Ime</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="prezimeKorisnika" class="form-control form-control-lg" />
-                                    <label class="form-label" for="prezimeKorisnika">Vase Prezime</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="korisnickoIme" class="form-control form-control-lg" />
+                                    <input v-model="korisnickoIme" type="text" id="korisnickoIme" class="form-control form-control-lg" />
                                     <label class="form-label" for="korisnickoIme">Korisnicko Ime</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="lozinkaKorisnika" class="form-control form-control-lg" />
+                                    <input v-model="lozinkaKorisnika" type="password" id="lozinkaKorisnika" class="form-control form-control-lg" />
+                                    <input hidden v-model="role" type="text" id="role" value="admin"/>
                                     <label class="form-label" for="lozinkaKorisnika">Lozinku</label>
-                                </div>
-
-                                <div class="form-outline mb-4">
-                                    <input type="password" id="lozinkaKorisnika1" class="form-control form-control-lg" />
-                                    <label class="form-label" for="lozinkaKorisnika1">Ponovite Lozinku</label>
                                 </div>
 
                                 <div class="d-flex justify-content-center">
                                     <button type="button"
-                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Registrujte se</button>
+                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                                        @click="login">Uloguj
+                                        se</button>
                                 </div>
 
                             </div>
@@ -49,15 +38,47 @@
     </section>
 </template>
 <script>
+
+//import DatePicker from 'vue2-datepicker';
+//import 'vue2-datepicker/index.css';
+//import moment from 'moment';
+//import path from 'path';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+
 export default {
     components: {},
     data() {
         return {
-
+            korisnickoIme: '',
+            lozinkaKorisnika: '',
+            role: 'admin',
         };
     },
     methods: {
-
+        login() {
+            const podaciAdmin = {
+                korisnickoIme: this.korisnickoIme,
+                lozinkaKorisnika: this.lozinkaKorisnika,
+                role: this.role
+            };
+                axios.post('/login', podaciAdmin)
+                .then(response => {
+                    if (response.data.success) {
+                        this.$router.push('/admin');
+                    }
+                    else {
+                        console.log(response.data.error);
+                        new Swal({
+                            icon: 'error',
+                            title: 'Neispravni podaci za admina.'
+                        });
+                    }
+                })
+            
+ 
+        },
     },
 };
 </script>

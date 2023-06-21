@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\KorisnikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KupovinaController;
 
@@ -21,3 +22,8 @@ Route::get('/', function () {
 Route::get('/osiguranje',[KupovinaController::class,'onlineKupovina']);
 Route::post('/dodajPolisu',[KupovinaController::class,'dodajPolisu']);
 Route::get('/registracija',[KupovinaController::class,'registracijaKorisnika']);
+Route::get('/loginKorisnika',[KupovinaController::class,'loginKorisnika']);
+Route::post('/login',[KupovinaController::class,'login']);
+Route::get('/admin',[KupovinaController::class,'adminStrana']);
+
+Route::post('sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);

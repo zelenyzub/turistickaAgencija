@@ -52,6 +52,10 @@ CREATE TABLE if NOT EXISTS korisnici
 	role ENUM('korisnik', 'admin') NOT NULL DEFAULT 'korisnik' COMMENT 'ROLE moze biti admin ili korisnik', 
 	PRIMARY KEY (idKorisnik)
 );
+INSERT INTO korisnici (imeKorisnika, prezimeKorisnika, korisnickoIme, lozinkaKorisnika, role)
+VALUES ('Savo', 'Novakovic', 'admin', 'admin', 'admin');
+
+
 
 
 

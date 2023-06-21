@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\KupovinaPolise;
 use App\Models\Osiguranici;
 use Carbon\Carbon;
@@ -16,6 +17,15 @@ class KupovinaController extends Controller
     public function registracijaKorisnika()
     {
         return view('registracija');
+    }
+
+    public function loginKorisnika()
+    {
+        return view('login');
+    }
+    public function adminStrana()
+    {
+        return view('admin');
     }
 
     public function dodajPolisu(Request $request)
@@ -40,5 +50,22 @@ class KupovinaController extends Controller
 
         return response()->json(['message' => 'Polisa osiguranja je uspešno dodata'], );
 
+    }
+
+    public function login(Request $request)
+    { {
+            $korisnickoIme = $request->input('korisnickoIme');
+            $lozinkaKorisnika = $request->input('lozinkaKorisnika');
+            $role = $request->input('role');
+            $ulogovan = new Admin();
+            $ulogovan->login($korisnickoIme, $lozinkaKorisnika, $role);
+
+            if ($ulogovan) {
+                return redirect('/admin');
+            } else {
+
+                return back()->with('error', 'Pogrešno korisničko ime, lozinka ili uloga.');
+            }
+        }
     }
 }

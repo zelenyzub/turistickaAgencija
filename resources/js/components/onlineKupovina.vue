@@ -11,7 +11,7 @@
                         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">O nama</a></li>
                     </ul>
                     <ul class="nav">
-                        <li class="nav-item"><a href="#" class="btn btn-outline-success">Uloguj se</a></li>
+                        <li class="nav-item"><a href="/loginKorisnika" class="btn btn-outline-success">Uloguj se</a></li>
                         <li class="nav-item"><a href="/registracija" class="btn btn-outline-info">Registruj
                                 se</a></li>
                     </ul>
