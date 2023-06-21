@@ -20,3 +20,4 @@ Route::get('/', function () {
 });
 Route::get('/osiguranje',[KupovinaController::class,'onlineKupovina']);
 Route::post('/dodajPolisu',[KupovinaController::class,'dodajPolisu']);
+Route::get('/registracija',[KupovinaController::class,'registracijaKorisnika']);

@@ -5215,6 +5215,27 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {},
+  data: function data() {
+    return {};
+  },
+  methods: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -5548,10 +5569,10 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "col-md-8"
-  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                    malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                    leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                    eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                    turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                    purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                    dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                    eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                    Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                    Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                    facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                    interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                    enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                    erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                    Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                    Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                    sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                    pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")]), _vm._v(" "), _vm.naslovListe && _vm.vrstaOsiguranja === "grupna" ? _c("h3", [_vm._v("Uneti osiguranici:")]) : _vm._e(), _vm._v(" "), _vm.vrstaOsiguranja === "grupna" ? _c("ul", _vm._l(_vm.osiguranici, function (osiguranik, index) {
+  }, [_c("p", [_vm._v("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n                malesuada nisl id elit faucibus luctus. Proin sit amet bibendum\n                leo. Aliquam erat volutpat. Sed pulvinar dui nec nulla sagittis,\n                eu fringilla massa fermentum. Nullam ac cursus ligula. Sed ullamcorper,\n                turpis id tristique eleifend, ex mi sagittis mi, non venenatis\n                purus nisl vitae magna. Sed dapibus, tortor ac efficitur\n                dignissim, massa ipsum cursus arcu, ac scelerisque mi velit\n                eu orci. Phasellus at mauris id velit sollicitudin tempus.\n                Nunc consequat tortor id lectus iaculis finibus. Nullam vitae lacinia lorem.\n                Etiam non massa ut nulla ullamcorper suscipit non vel odio. Nulla\n                facilisi. Aenean interdum tellus urna, sed hendrerit libero\n                interdum vel. Proin et ligula ut sem pharetra euismod in ac\n                enim. Aliquam commodo scelerisque ipsum ac euismod. Aliquam\n                erat volutpat. Aliquam id rhoncus neque, a fringilla ipsum.\n                Donec hendrerit libero sapien, ut malesuada odio imperdiet a.\n                Fusce gravida venenatis tellus ut scelerisque. Cras pharetra\n                sem non leo scelerisque, et rhoncus odio gravida. Mauris\n                pharetra augue eu interdum feugiat. In venenatis dolor ut interdum vulputate.")]), _vm._v(" "), _vm.naslovListe && _vm.vrstaOsiguranja === "grupna" ? _c("h3", [_vm._v("Uneti osiguranici:")]) : _vm._e(), _vm._v(" "), _vm.vrstaOsiguranja === "grupna" ? _c("ul", _vm._l(_vm.osiguranici, function (osiguranik, index) {
     return _c("li", {
       key: index
-    }, [_vm._v("\n                        Ime: " + _vm._s(osiguranik.ime)), _c("br"), _vm._v("\n                        Prezime: " + _vm._s(osiguranik.prezime)), _c("br"), _vm._v("\n                        Datum rođenja: " + _vm._s(_vm.formatirajDatum(osiguranik.datumRodjenja)) + "\n                        "), _c("button", {
+    }, [_vm._v("\n                    Ime: " + _vm._s(osiguranik.ime)), _c("br"), _vm._v("\n                    Prezime: " + _vm._s(osiguranik.prezime)), _c("br"), _vm._v("\n                    Datum rođenja: " + _vm._s(_vm.formatirajDatum(osiguranik.datumRodjenja)) + "\n                    "), _c("button", {
       staticClass: "btn btn-outline-danger",
       on: {
         click: function click($event) {
@@ -5559,7 +5580,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Obriši")]), _vm._v(" "), _c("hr")]);
-  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4)]);
+  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(3)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -5606,9 +5627,9 @@ var staticRenderFns = [function () {
   }, [_c("a", {
     staticClass: "btn btn-outline-info",
     attrs: {
-      href: "#"
+      href: "/registracija"
     }
-  }, [_vm._v("Registruj se")])])])])]);
+  }, [_vm._v("Registruj\n                            se")])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -5625,120 +5646,9 @@ var staticRenderFns = [function () {
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("h2", [_vm._v("\n            OSIGURANJE SAVO\n            "), _c("small", {
+  return _c("h2", [_vm._v("\n        OSIGURANJE SAVO\n        "), _c("small", {
     staticClass: "text-muted"
   }, [_vm._v("Sigurnost koja prati vaše putovanje.")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("section", {
-    staticClass: "vh-100 bg-image",
-    staticStyle: {
-      "background-image": "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"
-    }
-  }, [_c("div", {
-    staticClass: "mask d-flex align-items-center h-100 gradient-custom-3"
-  }, [_c("div", {
-    staticClass: "container h-100"
-  }, [_c("div", {
-    staticClass: "row d-flex justify-content-center align-items-center h-100"
-  }, [_c("div", {
-    staticClass: "col-12 col-md-9 col-lg-7 col-xl-6"
-  }, [_c("div", {
-    staticClass: "card",
-    staticStyle: {
-      "border-radius": "15px"
-    }
-  }, [_c("div", {
-    staticClass: "card-body p-5"
-  }, [_c("h2", {
-    staticClass: "text-uppercase text-center mb-5"
-  }, [_vm._v("Create an account")]), _vm._v(" "), _c("form", [_c("div", {
-    staticClass: "form-outline mb-4"
-  }, [_c("input", {
-    staticClass: "form-control form-control-lg",
-    attrs: {
-      type: "text",
-      id: "form3Example1cg"
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "form3Example1cg"
-    }
-  }, [_vm._v("Your Name")])]), _vm._v(" "), _c("div", {
-    staticClass: "form-outline mb-4"
-  }, [_c("input", {
-    staticClass: "form-control form-control-lg",
-    attrs: {
-      type: "email",
-      id: "form3Example3cg"
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "form3Example3cg"
-    }
-  }, [_vm._v("Your Email")])]), _vm._v(" "), _c("div", {
-    staticClass: "form-outline mb-4"
-  }, [_c("input", {
-    staticClass: "form-control form-control-lg",
-    attrs: {
-      type: "password",
-      id: "form3Example4cg"
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "form3Example4cg"
-    }
-  }, [_vm._v("Password")])]), _vm._v(" "), _c("div", {
-    staticClass: "form-outline mb-4"
-  }, [_c("input", {
-    staticClass: "form-control form-control-lg",
-    attrs: {
-      type: "password",
-      id: "form3Example4cdg"
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "form3Example4cdg"
-    }
-  }, [_vm._v("Repeat your password")])]), _vm._v(" "), _c("div", {
-    staticClass: "form-check d-flex justify-content-center mb-5"
-  }, [_c("input", {
-    staticClass: "form-check-input me-2",
-    attrs: {
-      type: "checkbox",
-      value: "",
-      id: "form2Example3cg"
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-check-label",
-    attrs: {
-      "for": "form2Example3g"
-    }
-  }, [_vm._v("\n                    I agree all statements in "), _c("a", {
-    staticClass: "text-body",
-    attrs: {
-      href: "#!"
-    }
-  }, [_c("u", [_vm._v("Terms of service")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex justify-content-center"
-  }, [_c("button", {
-    staticClass: "btn btn-success btn-block btn-lg gradient-custom-4 text-body",
-    attrs: {
-      type: "button"
-    }
-  }, [_vm._v("Register")])]), _vm._v(" "), _c("p", {
-    staticClass: "text-center text-muted mt-5 mb-0"
-  }, [_vm._v("Have already an account? "), _c("a", {
-    staticClass: "fw-bold text-body",
-    attrs: {
-      href: "#!"
-    }
-  }, [_c("u", [_vm._v("Login here")])])])])])])])])])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -5774,6 +5684,127 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm._m(0);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("section", {
+    staticClass: "vh-100 bg-image modal-overlay",
+    staticStyle: {
+      "background-image": "url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp')"
+    }
+  }, [_c("div", {
+    staticClass: "mask d-flex align-items-center h-100 gradient-custom-3"
+  }, [_c("div", {
+    staticClass: "container h-100"
+  }, [_c("div", {
+    staticClass: "row d-flex justify-content-center align-items-center h-100"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-9 col-lg-7 col-xl-6"
+  }, [_c("div", {
+    staticClass: "card",
+    staticStyle: {
+      "border-radius": "15px"
+    }
+  }, [_c("div", {
+    staticClass: "card-body p-5"
+  }, [_c("h2", {
+    staticClass: "text-uppercase text-center mb-5"
+  }, [_vm._v("Registrujte se")]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      id: "imeKorisnika"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "imeKorisnika"
+    }
+  }, [_vm._v("Vase Ime")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      id: "prezimeKorisnika"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "prezimeKorisnika"
+    }
+  }, [_vm._v("Vase Prezime")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "text",
+      id: "korisnickoIme"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "korisnickoIme"
+    }
+  }, [_vm._v("Korisnicko Ime")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "password",
+      id: "lozinkaKorisnika"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "lozinkaKorisnika"
+    }
+  }, [_vm._v("Lozinku")])]), _vm._v(" "), _c("div", {
+    staticClass: "form-outline mb-4"
+  }, [_c("input", {
+    staticClass: "form-control form-control-lg",
+    attrs: {
+      type: "password",
+      id: "lozinkaKorisnika1"
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "lozinkaKorisnika1"
+    }
+  }, [_vm._v("Ponovite Lozinku")])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-center"
+  }, [_c("button", {
+    staticClass: "btn btn-success btn-block btn-lg gradient-custom-4 text-body",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("Registrujte se")])])])])])])])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -5802,7 +5833,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 
 Vue.component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]));
 Vue.component('osiguranje', (__webpack_require__(/*! ./components/onlineKupovina.vue */ "./resources/js/components/onlineKupovina.vue")["default"]));
-
+Vue.component('registracija', (__webpack_require__(/*! ./components/registracija.vue */ "./resources/js/components/registracija.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -10339,6 +10370,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".mx-icon-left:before,.mx-icon-right:before,.mx-icon-double-left:before,.mx-icon-double-right:before,.mx-icon-double-left:after,.mx-icon-double-right:after{content:\"\";position:relative;top:-1px;display:inline-block;width:10px;height:10px;vertical-align:middle;border-style:solid;border-color:currentColor;border-width:2px 0 0 2px;border-radius:1px;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-transform-origin:center;transform-origin:center;-webkit-transform:rotate(-45deg) scale(0.7);transform:rotate(-45deg) scale(0.7)}.mx-icon-double-left:after{left:-4px}.mx-icon-double-right:before{left:4px}.mx-icon-right:before,.mx-icon-double-right:before,.mx-icon-double-right:after{-webkit-transform:rotate(135deg) scale(0.7);transform:rotate(135deg) scale(0.7)}.mx-btn{-webkit-box-sizing:border-box;box-sizing:border-box;line-height:1;font-size:14px;font-weight:500;padding:7px 15px;margin:0;cursor:pointer;background-color:transparent;outline:none;border:1px solid rgba(0,0,0,.1);border-radius:4px;color:#73879c;white-space:nowrap}.mx-btn:hover{border-color:#1284e7;color:#1284e7}.mx-btn:disabled,.mx-btn.disabled{color:#ccc;cursor:not-allowed}.mx-btn-text{border:0;padding:0 4px;text-align:left;line-height:inherit}.mx-scrollbar{height:100%}.mx-scrollbar:hover .mx-scrollbar-track{opacity:1}.mx-scrollbar-wrap{height:100%;overflow-x:hidden;overflow-y:auto}.mx-scrollbar-track{position:absolute;top:2px;right:2px;bottom:2px;width:6px;z-index:1;border-radius:4px;opacity:0;-webkit-transition:opacity .24s ease-out;transition:opacity .24s ease-out}.mx-scrollbar-track .mx-scrollbar-thumb{position:absolute;width:100%;height:0;cursor:pointer;border-radius:inherit;background-color:rgba(144,147,153,.3);-webkit-transition:background-color .3s;transition:background-color .3s}.mx-zoom-in-down-enter-active,.mx-zoom-in-down-leave-active{opacity:1;-webkit-transform:scaleY(1);transform:scaleY(1);-webkit-transition:opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);transition:opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);transition:transform .3s cubic-bezier(0.23, 1, 0.32, 1),opacity .3s cubic-bezier(0.23, 1, 0.32, 1);transition:transform .3s cubic-bezier(0.23, 1, 0.32, 1),opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);-webkit-transform-origin:center top;transform-origin:center top}.mx-zoom-in-down-enter,.mx-zoom-in-down-enter-from,.mx-zoom-in-down-leave-to{opacity:0;-webkit-transform:scaleY(0);transform:scaleY(0)}.mx-datepicker{position:relative;display:inline-block;width:210px}.mx-datepicker svg{width:1em;height:1em;vertical-align:-0.15em;fill:currentColor;overflow:hidden}.mx-datepicker-range{width:320px}.mx-datepicker-inline{width:auto}.mx-input-wrapper{position:relative}.mx-input{display:inline-block;-webkit-box-sizing:border-box;box-sizing:border-box;width:100%;height:34px;padding:6px 30px;padding-left:10px;font-size:14px;line-height:1.4;color:#555;background-color:#fff;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075)}.mx-input:hover,.mx-input:focus{border-color:#409aff}.mx-input:disabled,.mx-input.disabled{color:#ccc;background-color:#f3f3f3;border-color:#ccc;cursor:not-allowed}.mx-input:focus{outline:none}.mx-input::-ms-clear{display:none}.mx-icon-calendar,.mx-icon-clear{position:absolute;top:50%;right:8px;-webkit-transform:translateY(-50%);transform:translateY(-50%);font-size:16px;line-height:1;color:rgba(0,0,0,.5);vertical-align:middle}.mx-icon-clear{cursor:pointer}.mx-icon-clear:hover{color:rgba(0,0,0,.8)}.mx-datepicker-main{font:14px/1.5 \"Helvetica Neue\",Helvetica,Arial,\"Microsoft Yahei\",sans-serif;color:#73879c;background-color:#fff;border:1px solid #e8e8e8}.mx-datepicker-popup{position:absolute;margin-top:1px;margin-bottom:1px;-webkit-box-shadow:0 6px 12px rgba(0,0,0,.175);box-shadow:0 6px 12px rgba(0,0,0,.175);z-index:2001}.mx-datepicker-sidebar{float:left;-webkit-box-sizing:border-box;box-sizing:border-box;width:100px;padding:6px;overflow:auto}.mx-datepicker-sidebar+.mx-datepicker-content{margin-left:100px;border-left:1px solid #e8e8e8}.mx-datepicker-body{position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.mx-btn-shortcut{display:block;padding:0 6px;line-height:24px}.mx-range-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex}@media(max-width: 750px){.mx-range-wrapper{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}}.mx-datepicker-header{padding:6px 8px;border-bottom:1px solid #e8e8e8}.mx-datepicker-footer{padding:6px 8px;text-align:right;border-top:1px solid #e8e8e8}.mx-calendar{-webkit-box-sizing:border-box;box-sizing:border-box;width:248px;padding:6px 12px}.mx-calendar+.mx-calendar{border-left:1px solid #e8e8e8}.mx-calendar-header,.mx-time-header{-webkit-box-sizing:border-box;box-sizing:border-box;height:34px;line-height:34px;text-align:center;overflow:hidden}.mx-btn-icon-left,.mx-btn-icon-double-left{float:left}.mx-btn-icon-right,.mx-btn-icon-double-right{float:right}.mx-calendar-header-label{font-size:14px}.mx-calendar-decade-separator{margin:0 2px}.mx-calendar-decade-separator:after{content:\"~\"}.mx-calendar-content{position:relative;height:224px;-webkit-box-sizing:border-box;box-sizing:border-box}.mx-calendar-content .cell{cursor:pointer}.mx-calendar-content .cell:hover{color:#73879c;background-color:#f3f9fe}.mx-calendar-content .cell.active{color:#fff;background-color:#1284e7}.mx-calendar-content .cell.in-range,.mx-calendar-content .cell.hover-in-range{color:#73879c;background-color:#dbedfb}.mx-calendar-content .cell.disabled{cursor:not-allowed;color:#ccc;background-color:#f3f3f3}.mx-calendar-week-mode .mx-date-row{cursor:pointer}.mx-calendar-week-mode .mx-date-row:hover{background-color:#f3f9fe}.mx-calendar-week-mode .mx-date-row.mx-active-week{background-color:#dbedfb}.mx-calendar-week-mode .mx-date-row .cell:hover{color:inherit;background-color:transparent}.mx-calendar-week-mode .mx-date-row .cell.active{color:inherit;background-color:transparent}.mx-week-number{opacity:.5}.mx-table{table-layout:fixed;border-collapse:separate;border-spacing:0;width:100%;height:100%;-webkit-box-sizing:border-box;box-sizing:border-box;text-align:center}.mx-table th{padding:0;font-weight:500;vertical-align:middle}.mx-table td{padding:0;vertical-align:middle}.mx-table-date td,.mx-table-date th{height:32px;font-size:12px}.mx-table-date .today{color:#2a90e9}.mx-table-date .cell.not-current-month{color:#ccc;background:none}.mx-time{-webkit-box-flex:1;-ms-flex:1;flex:1;width:224px;background:#fff}.mx-time+.mx-time{border-left:1px solid #e8e8e8}.mx-calendar-time{position:absolute;top:0;left:0;width:100%;height:100%}.mx-time-header{border-bottom:1px solid #e8e8e8}.mx-time-content{height:224px;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden}.mx-time-columns{display:-webkit-box;display:-ms-flexbox;display:flex;width:100%;height:100%;overflow:hidden}.mx-time-column{-webkit-box-flex:1;-ms-flex:1;flex:1;position:relative;border-left:1px solid #e8e8e8;text-align:center}.mx-time-column:first-child{border-left:0}.mx-time-column .mx-time-list{margin:0;padding:0;list-style:none}.mx-time-column .mx-time-list::after{content:\"\";display:block;height:192px}.mx-time-column .mx-time-item{cursor:pointer;font-size:12px;height:32px;line-height:32px}.mx-time-column .mx-time-item:hover{color:#73879c;background-color:#f3f9fe}.mx-time-column .mx-time-item.active{color:#1284e7;background-color:transparent;font-weight:700}.mx-time-column .mx-time-item.disabled{cursor:not-allowed;color:#ccc;background-color:#f3f3f3}.mx-time-option{cursor:pointer;padding:8px 10px;font-size:14px;line-height:20px}.mx-time-option:hover{color:#73879c;background-color:#f3f9fe}.mx-time-option.active{color:#1284e7;background-color:transparent;font-weight:700}.mx-time-option.disabled{cursor:not-allowed;color:#ccc;background-color:#f3f3f3}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.gradient-custom-3 {\r\n    /* fallback for old browsers */\r\n    background: #84fab0;\r\n\r\n    /* Chrome 10-25, Safari 5.1-6 */\r\n\r\n    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\n    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))\n}\n.gradient-custom-4 {\r\n    /* fallback for old browsers */\r\n    background: #84fab0;\r\n\r\n    /* Chrome 10-25, Safari 5.1-6 */\r\n\r\n    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\n    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -51471,6 +51526,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_style_index_0_id_990aa6e6_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_style_index_0_id_990aa6e6_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_style_index_0_id_990aa6e6_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -56022,6 +56107,47 @@ component.options.__file = "resources/js/components/onlineKupovina.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/registracija.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/registracija.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registracija.vue?vue&type=template&id=990aa6e6& */ "./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6&");
+/* harmony import */ var _registracija_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registracija.vue?vue&type=script&lang=js& */ "./resources/js/components/registracija.vue?vue&type=script&lang=js&");
+/* harmony import */ var _registracija_vue_vue_type_style_index_0_id_990aa6e6_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& */ "./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _registracija_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__.render,
+  _registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/registracija.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -56051,6 +56177,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_onlineKupovina_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./onlineKupovina.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/onlineKupovina.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_onlineKupovina_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/registracija.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/registracija.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./registracija.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -56084,6 +56226,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_onlineKupovina_vue_vue_type_template_id_d52584e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_onlineKupovina_vue_vue_type_template_id_d52584e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./onlineKupovina.vue?vue&type=template&id=d52584e6& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/onlineKupovina.vue?vue&type=template&id=d52584e6&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_template_id_990aa6e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./registracija.vue?vue&type=template&id=990aa6e6& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=template&id=990aa6e6&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_registracija_vue_vue_type_style_index_0_id_990aa6e6_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/registracija.vue?vue&type=style&index=0&id=990aa6e6&lang=css&");
 
 
 /***/ }),

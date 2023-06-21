@@ -13,6 +13,10 @@ class KupovinaController extends Controller
     {
         return view('onlineKupovina');
     }
+    public function registracijaKorisnika()
+    {
+        return view('registracija');
+    }
 
     public function dodajPolisu(Request $request)
     {
