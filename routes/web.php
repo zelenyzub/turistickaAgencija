@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\KorisnikController;
+use App\Http\Controllers\TabeleContreller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KupovinaController;
 
@@ -25,5 +26,10 @@ Route::get('/registracija',[KupovinaController::class,'registracijaKorisnika']);
 Route::get('/loginKorisnika',[KupovinaController::class,'loginKorisnika']);
 Route::post('/login',[KupovinaController::class,'login']);
 Route::get('/admin',[KupovinaController::class,'adminStrana']);
+Route::get('/tabelaBlog',[TabeleContreller::class,'tabelaBlogStrana']);
+Route::get('/prikazBlog',[TabeleContreller::class,'tabelaBlog']);
+Route::post('/obrisiBlog',[TabeleContreller::class,'obrisiBlog']);
+Route::get('/tabelaOsiguranja',[TabeleContreller::class,'tabelaOsiguranjaStrana']);
+
 
 Route::post('/sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);

@@ -24,6 +24,8 @@ Vue.component('osiguranje',require('./components/onlineKupovina.vue').default);
 Vue.component('registracija',require('./components/registracija.vue').default);
 Vue.component('login',require('./components/login.vue').default);
 Vue.component('admin',require('./components/admin.vue').default);
+Vue.component('tabelablog',require('./components/tabelaBlog.vue').default);
+Vue.component('tabelaosiguranja',require('./components/tabelaOsiguranja.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

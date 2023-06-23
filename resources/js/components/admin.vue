@@ -8,12 +8,10 @@
                                 aria-current="page">Osiguranja</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Blog</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2"
-                                @click="blogTabela = true, napraviBlog = false">Blog
+                        <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
                                 Tabela</a></li>
-                        <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Osiguranja Tabela</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2"
-                                @click="napraviBlog = true, blogTabela = false">Napravi
+                        <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja Tabela</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2" @click="napraviBlog = true">Napravi
                                 Blog</a></li>
                     </ul>
                     <ul class="nav">
@@ -87,13 +85,6 @@
             <input type="submit" class="btn btn-info" value="Sacuvaj" @click="sacuvajBlog">
         </section>
 
-        <section v-if="blogTabela" @load="tabelaBlog">
-            <h1 class=".mojNaslov">Blogovi</h1>
-            <hr>
-
-
-        </section>
-
         <footer class="footer">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pocetna</a></li>
@@ -113,10 +104,8 @@ import Swal from 'sweetalert2';
 import axios from 'axios'
 import { format } from "path";
 
-import DataTables from 'datatables.net';
-
 export default {
-    components: { VueEditor, DatePicker},
+    components: { VueEditor, DatePicker },
     data() {
         return {
 
@@ -132,7 +121,6 @@ export default {
             datumArhiviranja: '',
             autor: '',
             fotografija: null,
-            blogTabela: false,
         };
     },
     methods: {
@@ -213,6 +201,9 @@ export default {
             this.statusBloga = 'uPripremi';
         },
 
+        tabelaBlog() {
+
+        },
 
 
     },

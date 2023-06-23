@@ -24,7 +24,12 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "data-table-vue-v3": "^1.0.16",
+        "datatables.net": "^1.13.4",
+        "datatables.net-select": "^1.6.2",
         "datatables.net-vue3": "^2.1.1",
+        "jl-datatable": "^1.1.1",
+        "jquery": "^3.7.0",
         "path": "^0.12.7",
         "vue-axios": "^3.5.2",
         "vue-moment": "^4.1.0",
