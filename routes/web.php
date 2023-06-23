@@ -26,4 +26,4 @@ Route::get('/loginKorisnika',[KupovinaController::class,'loginKorisnika']);
 Route::post('/login',[KupovinaController::class,'login']);
 Route::get('/admin',[KupovinaController::class,'adminStrana']);
 
-Route::post('sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);
+Route::post('/sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);

@@ -26,18 +26,18 @@ CREATE TABLE if NOT EXISTS osiguranici (
 
 CREATE TABLE if NOT EXISTS blog_vesti
 (
-	idBloga INT(11) NOT NULL,
+	idBloga INT(11) NOT NULL AUTO_INCREMENT,
 	naslov VARCHAR(255) NOT NULL,
 	opis VARCHAR(255) NOT NULL,
 	tekst TEXT NOT NULL,
-	fotogravija TEXT NOT NULL,
+	fotografija TEXT NOT NULL,
 	tipObjave ENUM('blog','vest') NOT NULL CHECK (tipObjave IN ('blog','vest')) COMMENT 'tipObjave moze biti blog ili vest',
 	datumKreiranja DATETIME NOT NULL,
 	autor VARCHAR(255) NOT NULL,
 	statusBloga ENUM('objavljeno', 'uPripremi', 'arhivirano') NOT NULL CHECK (statusBloga IN ('objavljeno', 'uPripremi', 'arhivirano'))
 	COMMENT 'statusBloga moze biti objavljeno, uPripremi ili arhivirano',
-	datumObjavljivanja DATETIME NOT NULL,
-	datumArhiviranja DATETIME NOT NULL,
+	datumObjavljivanja DATETIME NULL,
+	datumArhiviranja DATETIME NULL,
 	PRIMARY KEY (idBloga)
 );
 

@@ -8,9 +8,12 @@
                                 aria-current="page">Osiguranja</a>
                         </li>
                         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Blog</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Blog Tabela</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2"
+                                @click="blogTabela = true, napraviBlog = false">Blog
+                                Tabela</a></li>
                         <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Osiguranja Tabela</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2" @click="napraviBlog = true">Napravi
+                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2"
+                                @click="napraviBlog = true, blogTabela = false">Napravi
                                 Blog</a></li>
                     </ul>
                     <ul class="nav">
@@ -34,10 +37,10 @@
                 <label for="tekst" class="form-label">Tekst</label>
                 <vue-editor v-model="tekst"></vue-editor>
             </div>
-
+            <!--Fotografijaaa-->
             <div class="mb-3">
                 <label for="fotografija" class="form-label">Izaberite Fotografiju</label>
-                <input @change="fotografija" class="form-control" type="file" id="fotografija">
+                <input class="form-control" type="file" id="fotografija" @change="handleFotografijaChange">
             </div>
 
             <label for="tipObjave" class="form-label">Tip Objave</label>
@@ -58,25 +61,37 @@
                 <input v-model="autor" type="text" class="form-control" id="autor">
             </div>
 
-            <label for="statusBloga" class="form-label">StatusBloga</label>
+            <!----<label for="statusBloga" class="form-label">StatusBloga</label>
             <select v-model="statusBloga" id="statusBloga" name="statusBloga" class="form-select">
                 <option disabled value="">-----Izaberite Tip Objave-----</option>
                 <option value="objavljeno">Objavljeno</option>
                 <option value="uPripremi">U Pripremi</option>
                 <option value="arhivirano">Arhivirano</option>
-            </select><br>
+            </select><br>!-->
 
             <div class="mb-3">
+                <label for="statusBloga" class="form-label">Status Bloga</label>
+                <input v-model="statusBloga" type="text" class="form-control" id="statusBloga" disabled>
+            </div>
+
+            <!--<div class="mb-3">
                 <label for="datumObjavljivanja" class="form-label">Datum Objavljivanja</label><br>
-                <date-picker v-model="datumObjavljivanja"></date-picker>
+                <date-picker v-model="datumObjavljivanja" :format="'DD. MM. YYYY.'"></date-picker>
             </div>
 
             <div class="mb-3">
                 <label for="datumArhiviranja" class="form-label">Datum Arhiviranja</label><br>
-                <date-picker v-model="datumArhiviranja"></date-picker>
-            </div>
+                <date-picker v-model="datumArhiviranja" :format="'DD. MM. YYYY.'"></date-picker>
+            </div>!-->
 
             <input type="submit" class="btn btn-info" value="Sacuvaj" @click="sacuvajBlog">
+        </section>
+
+        <section v-if="blogTabela" @load="tabelaBlog">
+            <h1 class=".mojNaslov">Blogovi</h1>
+            <hr>
+
+
         </section>
 
         <footer class="footer">
@@ -96,11 +111,15 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import Swal from 'sweetalert2';
 import axios from 'axios'
+import { format } from "path";
+
+import DataTables from 'datatables.net';
 
 export default {
-    components: { VueEditor, DatePicker },
+    components: { VueEditor, DatePicker},
     data() {
         return {
+
             tekst: '',
             datumKreiranja: new Date(),
             dateFormat: "DD. MM. YYYY. - HH:mm",
@@ -108,28 +127,30 @@ export default {
             naslov: '',
             opis: '',
             tipObjave: '',
-            statusBloga: '',
+            statusBloga: 'uPripremi',
             datumObjavljivanja: '',
             datumArhiviranja: '',
             autor: '',
             fotografija: null,
-
-
+            blogTabela: false,
         };
     },
     methods: {
+
+        handleFotografijaChange(event) {
+            this.selectedFotografija = event.target.files[0];
+        },
+
         sacuvajBlog() {
+
             if (
                 this.naslov === '' ||
                 this.opis === '' ||
                 this.tekst === '' ||
-                this.fotografija === null ||
                 this.tipObjave === '' ||
                 this.datumKreiranja === '' ||
                 this.autor === '' ||
-                this.statusBloga === '' ||
-                this.datumObjavljivanja === '' ||
-                this.datumArhiviranja === ''
+                this.statusBloga === ''
             ) {
                 Swal.fire({
                     icon: 'warning',
@@ -138,32 +159,62 @@ export default {
                 return;
             }
 
-            const blog = {
+
+            const formData = new FormData();
+            formData.append('naslov', this.naslov);
+            formData.append('opis', this.opis);
+            formData.append('tekst', this.tekst);
+            formData.append('fotografija', this.selectedFotografija);
+            formData.append('tipObjave', this.tipObjave);
+            formData.append('datumKreiranja', this.datumKreiranja.toISOString());
+            formData.append('autor', this.autor);
+            formData.append('statusBloga', this.statusBloga);
+            /*const blog = {
                 naslov: this.naslov,
                 opis: this.opis,
                 tekst: this.tekst,
-                fotografija: this.fotografija,
                 tipObjave: this.tipObjave,
                 datumKreiranja: this.datumKreiranja,
                 autor: this.autor,
                 statusBloga: this.statusBloga,
                 datumObjavljivanja: this.datumObjavljivanja,
-                datumArhiviranja: this.datumArhiviranja
-            };
+                datumArhiviranja: this.datumArhiviranja,
+                fotografija: this.fotografija,
+            };*/
 
-            axios.post('/sacuvajBlog', blog)
+
+
+            axios.post('/sacuvajBlog', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(response => {
                     console.log(response.data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Uspesno ste sacuvali vas blog.'
+                    });
                 })
                 .catch(error => {
                     console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Greska'
+                    });
                 });
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Uspesno ste sacuvali vas blog.'
-            });
-        }
+            this.naslov = '';
+            this.opis = '';
+            this.tekst = '';
+            this.tipObjave = '';
+            this.datumKreiranja = new Date();
+            this.autor = '';
+            this.statusBloga = 'uPripremi';
+        },
+
+
+
     },
 };
 </script>
@@ -175,5 +226,9 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+}
+
+.mojNaslov {
+    text-align: center;
 }
 </style>
