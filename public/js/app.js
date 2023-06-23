@@ -5461,6 +5461,9 @@ __webpack_require__.r(__webpack_exports__);
         }, {
           'targets': 7,
           'orderable': false
+        }, {
+          'targets': 8,
+          'orderable': false
         }],
         'columns': [{
           'data': 'idBloga'
@@ -5477,6 +5480,8 @@ __webpack_require__.r(__webpack_exports__);
           'data': 'naslov'
         }, {
           'data': 'opis'
+        }, {
+          'data': 'tipObjave'
         }, {
           'data': 'statusBloga'
         }, {
@@ -5526,6 +5531,116 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.prikaziBlogove();
     this.obrisiBlog();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.mjs");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  methods: {
+    prikaziOsiguranike: function prikaziOsiguranike() {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: '/prikaziOsiguranike'
+        },
+        'columnDefs': [{
+          'targets': 0,
+          'orderable': true
+        }, {
+          'targets': 1,
+          'orderable': true
+        }, {
+          'targets': 2,
+          'orderable': true
+        }, {
+          'targets': 3,
+          'orderable': true
+        }, {
+          'targets': 4,
+          'orderable': false
+        }, {
+          'targets': 5,
+          'orderable': false
+        }, {
+          'targets': 6,
+          'orderable': false
+        }, {
+          'targets': 7,
+          'orderable': false
+        }],
+        'columns': [{
+          'data': 'idPolise'
+        }, {
+          'data': 'imeNosiocaOsiguranja'
+        }, {
+          'data': 'prezimeNosiocaOsiguranja'
+        }, {
+          'data': 'vrstaPolise'
+        }, {
+          'data': 'telefon'
+        }, {
+          data: 'datumPutovanjaOd',
+          render: function render(data, type, row) {
+            if (type === 'display' || type === 'filter') {
+              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY. ');
+              return formattedDateTime;
+            }
+            return data;
+          }
+        }, {
+          data: 'datumPutovanjaDo',
+          render: function render(data, type, row) {
+            if (type === 'display' || type === 'filter') {
+              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY. ');
+              return formattedDateTime;
+            }
+            return data;
+          }
+        }, {
+          data: null,
+          render: function render(data, type, row) {
+            if (type === 'display') {
+              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnIzmeni\" data-korisnik-id=\"".concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                    </ul>\n                </div>");
+              return dropdownHtml;
+            }
+            return '';
+          }
+        }]
+      });
+    }
+  },
+  mounted: function mounted() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
+    });
+    this.prikaziOsiguranike();
   }
 });
 
@@ -6637,6 +6752,10 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
+  }, [_vm._v("Tip Objave")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
   }, [_vm._v("Status")]), _vm._v(" "), _c("th", {
     attrs: {
       scope: "col"
@@ -6650,6 +6769,92 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")])])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm._m(0);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "container"
+  }, [_c("section", [_c("h1", [_vm._v("Osiguranja")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("table", {
+    staticClass: "table",
+    attrs: {
+      id: "tabelaOsiguranja"
+    }
+  }, [_c("thead", [_c("tr", [_c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("ID")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Ime Nosioca")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Prezime Nosioca")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Vrsta Polise")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Telefon")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Datum Pocetka")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Datum Kraja")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")]), _vm._v(" "), _c("table", {
+    staticClass: "table",
+    staticStyle: {
+      display: "none"
+    },
+    attrs: {
+      id: "tabelaOsiguranici"
+    }
+  }, [_c("thead", [_c("tr", [_c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Ime")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Prezime")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Datum Rodjenja")])])]), _vm._v(" "), _c("tbody")])])]);
 }];
 render._withStripped = true;
 
@@ -81623,17 +81828,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabelaOsiguranja.vue?vue&type=template&id=72d4b85a& */ "./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a&");
+/* harmony import */ var _tabelaOsiguranja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabelaOsiguranja.vue?vue&type=script&lang=js& */ "./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _tabelaOsiguranja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -81641,6 +81849,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/components/tabelaOsiguranja.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
@@ -81742,6 +81952,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaOsiguranja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tabelaOsiguranja.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaOsiguranja_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -81840,6 +82066,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaBlog_vue_vue_type_template_id_49114332___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaBlog_vue_vue_type_template_id_49114332___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tabelaBlog.vue?vue&type=template&id=49114332& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaBlog.vue?vue&type=template&id=49114332&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tabelaOsiguranja_vue_vue_type_template_id_72d4b85a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tabelaOsiguranja.vue?vue&type=template&id=72d4b85a& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/tabelaOsiguranja.vue?vue&type=template&id=72d4b85a&");
 
 
 /***/ }),

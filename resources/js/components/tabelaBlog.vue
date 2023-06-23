@@ -11,6 +11,7 @@
                         <th scope="col">Datum Kreiranja</th>
                         <th scope="col">Naslov</th>
                         <th scope="col">Opis</th>
+                        <th scope="col">Tip Objave</th>
                         <th scope="col">Status</th>
                         <th scope="col">Datum Objavljivanja</th>
                         <th scope="col">Autor</th>
@@ -76,6 +77,10 @@ export default {
                         'targets': 7,
                         'orderable': false,
                     },
+                    {
+                        'targets': 8,
+                        'orderable': false,
+                    },
                 ],
 
                 'columns': [
@@ -92,6 +97,7 @@ export default {
                     },
                     { 'data': 'naslov' },
                     { 'data': 'opis' },
+                    {'data': 'tipObjave'},
                     { 'data': 'statusBloga' },
                     {
                         data: 'datumObjavljivanja',
