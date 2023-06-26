@@ -10,7 +10,8 @@
                         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Blog</a></li>
                         <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
                                 Tabela</a></li>
-                        <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja Tabela</a></li>
+                        <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
+                                Tabela</a></li>
                         <li class="nav-item"><a href="#" class="nav-link link-dark px-2" @click="napraviBlog = true">Napravi
                                 Blog</a></li>
                     </ul>
@@ -50,7 +51,7 @@
 
             <div class="mb-3">
                 <label for="datumKreiranja" class="form-label">Datum Kreiranja</label><br>
-                <date-picker v-model="datumKreiranja" :format="dateFormat"></date-picker>
+                <date-picker v-model="datumKreiranja" :format="'DD. MM. YYYY.'" ></date-picker>
             </div>
 
 
@@ -111,7 +112,6 @@ export default {
 
             tekst: '',
             datumKreiranja: new Date(),
-            dateFormat: "DD. MM. YYYY. - HH:mm",
             napraviBlog: false,
             naslov: '',
             opis: '',
@@ -146,7 +146,6 @@ export default {
                 });
                 return;
             }
-
 
             const formData = new FormData();
             formData.append('naslov', this.naslov);

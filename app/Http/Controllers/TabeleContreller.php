@@ -30,8 +30,21 @@ class TabeleContreller extends Controller
 
         return response()->json($data);
     }
+    public function tabelaOsiguranici(Request $request)
+    {
+        $model = new Tabele();
+        $upit = $model->tabelaOsiguranici($request->all());
 
-    public function tabelaOsiguranja(Request $request){
+        $data['draw'] = $request->draw;
+        $data['recordsFiltered'] = $upit['filtered'];
+        $data['recordsTotal'] = count($upit['data']);
+        $data['data'] = $upit['data'];
+
+        return response()->json($data);
+    }
+
+    public function tabelaOsiguranja(Request $request)
+    {
         $model = new Tabele();
         $upit = $model->tabelaOsiguranja($request->all());
 
@@ -43,6 +56,7 @@ class TabeleContreller extends Controller
         return response()->json($data);
     }
 
+
     public function obrisiBlog(Request $request)
     {
         $idBloga = $request->input('idBloga');
@@ -50,6 +64,6 @@ class TabeleContreller extends Controller
         $obrisi = $obrisi->obrisiBlog($idBloga);
 
         return response()->json(['success' => true]);
-    
+
     }
 }

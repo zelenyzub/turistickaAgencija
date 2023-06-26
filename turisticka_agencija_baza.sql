@@ -32,7 +32,7 @@ CREATE TABLE if NOT EXISTS blog_vesti
 	tekst TEXT NOT NULL,
 	fotografija TEXT NOT NULL,
 	tipObjave ENUM('blog','vest') NOT NULL CHECK (tipObjave IN ('blog','vest')) COMMENT 'tipObjave moze biti blog ili vest',
-	datumKreiranja DATETIME NOT NULL,
+	datumKreiranja TIMESTAMP NOT NULL,
 	autor VARCHAR(255) NOT NULL,
 	statusBloga ENUM('objavljeno', 'uPripremi', 'arhivirano') NOT NULL CHECK (statusBloga IN ('objavljeno', 'uPripremi', 'arhivirano'))
 	COMMENT 'statusBloga moze biti objavljeno, uPripremi ili arhivirano',

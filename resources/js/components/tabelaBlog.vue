@@ -89,7 +89,7 @@ export default {
                         data: 'datumKreiranja',
                         render: function (data, type, row) {
                             if (type === 'display' || type === 'filter') {
-                                var formattedDateTime = moment(data).format('DD. MM. YYYY. HH:mm');
+                                var formattedDateTime = moment(data).format('DD. MM. YYYY.');
                                 return formattedDateTime;
                             }
                             return data;

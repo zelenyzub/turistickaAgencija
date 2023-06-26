@@ -22,18 +22,6 @@
                 </tbody>
             </table>
 
-            <table class="table" id="tabelaOsiguranici" style="display: none;">
-                <thead>
-                    <tr>
-                        <th scope="col">Ime</th>
-                        <th scope="col">Prezime</th>
-                        <th scope="col">Datum Rodjenja</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
 
         </section>
     </div>
@@ -44,19 +32,50 @@ import axios from 'axios';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
 import moment from 'moment';
+function format(ime, prezime, datumRodjenja) {
 
+
+    return (
+        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        '<tr>' +
+        '<td>Ime:</td>' +
+        '<td>' +
+        ime +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Prezime:</td>' +
+        '<td>' +
+        prezime +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Datum:</td>' +
+        '<td>' +
+        datumRodjenja +
+        '</td>' +
+        '</tr>' +
+        '</table>'
+    );
+};
 export default {
     components: { DataTable },
-
+    data() {
+        return {
+            table: null,
+        };
+    },
     methods: {
+
+
         prikaziOsiguranike() {
 
 
-            $('#tabelaOsiguranja').DataTable({
+            var table = $('#tabelaOsiguranja').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '/prikaziOsiguranike',
+                    url: '/prikaziOsiguranja',
                 },
                 'columnDefs': [
                     {
@@ -74,6 +93,14 @@ export default {
                     {
                         'targets': 3,
                         'orderable': true,
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === 'grupna') {
+                                    return `<button class="btn btn-outline-success btnDetalji" data-id-polise="${row.idPolise}">${data}</button>`;
+                                }
+                            }
+                            return data;
+                        },
                     },
                     {
                         'targets': 4,
@@ -119,7 +146,7 @@ export default {
                             return data;
                         }
                     },
-                    
+
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -144,12 +171,99 @@ export default {
                 ],
             });
 
+            $(document).on('click', '.btnDetalji', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                } else {
+                    //alert(1)
+
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
+
+
         },
+
+        prikaziDodatne() {
+
+            var self = this;
+
+            var data = {
+                ime: this.ime, 
+                prezime: this.prezime, 
+                datumRodjenja: this.datumRodjenja 
+            };
+            $('#tabelaOsiguranici').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/prikaziOsiguranike',
+                    method: 'POST',
+                    data: data,
+                    context: self,
+                    success: function (response) {
+
+                        var podaci = response.data;
+
+                        var ime = podaci[0].ime;
+                        var prezime = podaci[0].prezime;
+                        var datumRodjenja = podaci[0].datumRodjenja;
+
+                        var formatiraniPodaci = format(ime, prezime, datumRodjenja);
+                        console.log(formatiraniPodaci);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                },
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'orderable': true,
+                    },
+                    {
+                        'targets': 1,
+                        'orderable': true,
+                    },
+                    {
+                        'targets': 2,
+                        'orderable': false,
+                    },
+                ],
+
+                'columns': [
+                    { 'data': 'idPolise' },
+                    { 'data': 'ime' },
+                    { 'data': 'prezime' },
+                    {
+                        data: 'datumRodjenja',
+                        render: function (data, type, row) {
+                            if (type === 'display' || type === 'filter') {
+                                var formattedDateTime = moment(data).format('DD. MM. YYYY. ');
+                                return formattedDateTime;
+                            }
+                            return data;
+                        }
+                    },
+                ],
+            });
+
+
+        },
+
+
     },
     mounted() {
         $(document).on('click', '.dropdown-toggle', function () {
             $(this).siblings('.dropdown-menu').toggle();
         });
+
+
         this.prikaziOsiguranike();
 
     }

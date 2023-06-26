@@ -5118,7 +5118,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tekst: '',
       datumKreiranja: new Date(),
-      dateFormat: "DD. MM. YYYY. - HH:mm",
       napraviBlog: false,
       naslov: '',
       opis: '',
@@ -5471,7 +5470,7 @@ __webpack_require__.r(__webpack_exports__);
           data: 'datumKreiranja',
           render: function render(data, type, row) {
             if (type === 'display' || type === 'filter') {
-              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY. HH:mm');
+              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY.');
               return formattedDateTime;
             }
             return data;
@@ -5558,17 +5557,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function format(ime, prezime, datumRodjenja) {
+  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + '<tr>' + '<td>Ime:</td>' + '<td>' + ime + '</td>' + '</tr>' + '<tr>' + '<td>Prezime:</td>' + '<td>' + prezime + '</td>' + '</tr>' + '<tr>' + '<td>Datum:</td>' + '<td>' + datumRodjenja + '</td>' + '</tr>' + '</table>';
+}
+;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  data: function data() {
+    return {
+      table: null
+    };
+  },
   methods: {
     prikaziOsiguranike: function prikaziOsiguranike() {
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable({
+      var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-          url: '/prikaziOsiguranike'
+          url: '/prikaziOsiguranja'
         },
         'columnDefs': [{
           'targets': 0,
@@ -5581,7 +5589,15 @@ __webpack_require__.r(__webpack_exports__);
           'orderable': true
         }, {
           'targets': 3,
-          'orderable': true
+          'orderable': true,
+          render: function render(data, type, row) {
+            if (type === 'display') {
+              if (data === 'grupna') {
+                return "<button class=\"btn btn-outline-success btnDetalji\" data-id-polise=\"".concat(row.idPolise, "\">").concat(data, "</button>");
+              }
+            }
+            return data;
+          }
         }, {
           'targets': 4,
           'orderable': false
@@ -5631,6 +5647,74 @@ __webpack_require__.r(__webpack_exports__);
               return dropdownHtml;
             }
             return '';
+          }
+        }]
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnDetalji', function () {
+        var tr = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).closest('tr');
+        var row = table.row(tr);
+        if (row.child.isShown()) {
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          //alert(1)
+
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
+    },
+    prikaziDodatne: function prikaziDodatne() {
+      var self = this;
+      var data = {
+        ime: this.ime,
+        prezime: this.prezime,
+        datumRodjenja: this.datumRodjenja
+      };
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranici').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+          url: '/prikaziOsiguranike',
+          method: 'POST',
+          data: data,
+          context: self,
+          success: function success(response) {
+            var podaci = response.data;
+            var ime = podaci[0].ime;
+            var prezime = podaci[0].prezime;
+            var datumRodjenja = podaci[0].datumRodjenja;
+            var formatiraniPodaci = format(ime, prezime, datumRodjenja);
+            console.log(formatiraniPodaci);
+          },
+          error: function error(_error) {
+            console.log(_error);
+          }
+        },
+        'columnDefs': [{
+          'targets': 0,
+          'orderable': true
+        }, {
+          'targets': 1,
+          'orderable': true
+        }, {
+          'targets': 2,
+          'orderable': false
+        }],
+        'columns': [{
+          'data': 'idPolise'
+        }, {
+          'data': 'ime'
+        }, {
+          'data': 'prezime'
+        }, {
+          data: 'datumRodjenja',
+          render: function render(data, type, row) {
+            if (type === 'display' || type === 'filter') {
+              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY. ');
+              return formattedDateTime;
+            }
+            return data;
           }
         }]
       });
@@ -5859,7 +5943,7 @@ var render = function render() {
     }
   }, [_vm._v("Datum Kreiranja")]), _c("br"), _vm._v(" "), _c("date-picker", {
     attrs: {
-      format: _vm.dateFormat
+      format: "DD. MM. YYYY."
     },
     model: {
       value: _vm.datumKreiranja,
@@ -5980,7 +6064,7 @@ var staticRenderFns = [function () {
     attrs: {
       href: "/tabelaOsiguranja"
     }
-  }, [_vm._v("Osiguranja Tabela")])]);
+  }, [_vm._v("Osiguranja\n                            Tabela")])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -6834,27 +6918,7 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")]), _vm._v(" "), _c("table", {
-    staticClass: "table",
-    staticStyle: {
-      display: "none"
-    },
-    attrs: {
-      id: "tabelaOsiguranici"
-    }
-  }, [_c("thead", [_c("tr", [_c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Ime")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Prezime")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Datum Rodjenja")])])]), _vm._v(" "), _c("tbody")])])]);
+  }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")])])]);
 }];
 render._withStripped = true;
 

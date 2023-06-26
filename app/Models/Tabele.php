@@ -89,19 +89,14 @@ class Tabele extends Model
                 'polise_osiguranja.vrstaPolise',
                 'polise_osiguranja.telefon',
                 'polise_osiguranja.datumPutovanjaOd',
-                'polise_osiguranja.datumPutovanjaDo',
-                'osiguranici.ime',
-                'osiguranici.prezime',
-                'osiguranici.datumRodjenja'
+                'polise_osiguranja.datumPutovanjaDo'
             )
-            ->leftJoin('osiguranici', 'osiguranici.idPolise', '=', 'polise_osiguranja.idPolise')
             ->orderBy($sort, $sorting);
 
         if (!empty($search)) {
             $filteri = $filteri->whereRaw("(polise_osiguranja.imeNosiocaOsiguranja
             LIKE '%{$search}%' OR polise_osiguranja.prezimeNosiocaOsiguranja LIKE '%{$search}%' OR
-            polise_osiguranja.vrstaPolise LIKE '%{$search}%' OR
-            osiguranici.ime LIKE '%{$search}%' OR osiguranici.prezime LIKE '%{$search}%')");
+            polise_osiguranja.vrstaPolise LIKE '%{$search}%')");
         }
 
         $filtered = $filteri->count();
@@ -115,6 +110,61 @@ class Tabele extends Model
             'data' => $total
         ];
     }
+
+    public function tabelaOsiguranici($request)
+    {
+        $start = $request['start'];
+        $length = $request['length'];
+        $sort = 'osiguranici.idPolise';
+        dd($request);
+        $sorting = 'asc';
+        $search = $request['search']['value'];
+
+        switch ($request['order'][0]['column']) {
+            case '0':
+                $sort = 'idOsiguranika';
+                break;
+            case '1':
+                $sort = 'ime';
+                break;
+            case '2':
+                $sort = 'prezime';
+                break;
+            case '3':
+                $sort = 'datumRodjenja';
+                break;
+        }
+
+        $sorting = $request['order'][0]['dir'];
+
+        $filteri = DB::table('osiguranici')
+            ->select(
+                'osiguranici.idPolise',
+                'osiguranici.ime',
+                'osiguranici.prezime',
+                'osiguranici.datumRodjenja'
+            )
+            ->orderBy($sort, $sorting);
+
+        if (!empty($search)) {
+            $filteri = $filteri->whereRaw("(osiguranici.ime
+            LIKE '%{$search}%' OR osiguranici.prezime LIKE '%{$search}%')");
+        }
+
+        $filtered = $filteri->count();
+
+        $total = $filteri->offset($start)
+            ->limit($length)
+            ->get();
+
+        return [
+            'filtered' => $filtered,
+            'data' => $total
+        ];
+        
+    }
+    
+
 
 
     public function obrisiBlog($idBloga)
