@@ -11,9 +11,9 @@
                         <th scope="col">Datum Kreiranja</th>
                         <th scope="col">Naslov</th>
                         <th scope="col">Opis</th>
+                        <th scope="col">Fotografija</th>
                         <th scope="col">Tip Objave</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Datum Objavljivanja</th>
                         <th scope="col">Autor</th>
                         <th scope="col">Akcije</th>
                     </tr>
@@ -32,13 +32,14 @@ import axios from 'axios';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 
 export default {
     components: { DataTable },
     methods: {
         prikaziBlogove() {
-            $('#tabelaBlog').DataTable({
+            var table = $('#tabelaBlog').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -63,7 +64,7 @@ export default {
                     },
                     {
                         'targets': 4,
-                        'orderable': true,
+                        'orderable': false,
                     },
                     {
                         'targets': 5,
@@ -71,7 +72,7 @@ export default {
                     },
                     {
                         'targets': 6,
-                        'orderable': true,
+                        'orderable': false,
                     },
                     {
                         'targets': 7,
@@ -97,18 +98,18 @@ export default {
                     },
                     { 'data': 'naslov' },
                     { 'data': 'opis' },
-                    {'data': 'tipObjave'},
-                    { 'data': 'statusBloga' },
                     {
-                        data: 'datumObjavljivanja',
+                        data: 'fotografija',
                         render: function (data, type, row) {
-                            if (type === 'display' || type === 'filter') {
-                                var formattedDateTime = moment(data).format('DD. MM. YYYY.');
-                                return formattedDateTime;
+                            if (type === 'display') {
+                                var fotografijaHtml = `<img src="${data}" alt="Fotografija" width="100">`;
+                                return fotografijaHtml;
                             }
-                            return data;
+                            return '';
                         }
                     },
+                    { 'data': 'tipObjave' },
+                    { 'data': 'statusBloga' },
                     { 'data': 'autor' },
                     {
                         data: null,
@@ -139,22 +140,51 @@ export default {
         },
 
 
-        obrisiBlog(idBloga) {
+        obrisiBlog() {
+            var table = $('#tabelaBlog').DataTable();
             $(document).on('click', '.btnObrisi', function () {
-                $.ajax({
-                    url: '/obrisiBlog',
-                    method: 'post',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: {
-                        idBloga: idBloga,
-                    },
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var idBloga = row.data().idBloga;
+                //alert(idBloga)
 
-                    success: function (data) {
-                        $('#tabelaKorisnici').DataTable().ajax.reload();
-                    }
-                });
+                Swal.fire({
+                    title: 'Potvrda',
+                    text: 'Da li ste sigurni da želite da obrišete blog?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Obrisi',
+                    cancelButtonText: 'Odustani'
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/obrisiBlog',
+                                method: 'post',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {
+                                    idBloga: idBloga,
+                                },
+
+                                success: function (data) {
+                                    $('#tabelaBlog').DataTable().ajax.reload();
+                                }
+                            });
+
+                            Swal.fire({
+                                title: 'Uspesno ste obrisali blog.',
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
+
+
             });
         },
 

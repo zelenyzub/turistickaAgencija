@@ -68,7 +68,9 @@ export default {
                     if (response.data.success) {
                         this.$router.push('/admin');
                     }
+                    
                     else {
+
                         console.log(response.data.error);
                         new Swal({
                             icon: 'error',

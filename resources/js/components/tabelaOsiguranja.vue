@@ -24,6 +24,7 @@
 
 
         </section>
+        
     </div>
 </template>
 
@@ -212,7 +213,6 @@ export default {
                 }
             });
 
-
         },
 
         obrisiPolisu() {
@@ -256,6 +256,11 @@ export default {
                     }
                 });
             });
+        },
+        redirectToIzmeniPolisu(idPolise) {
+            // Preusmeravanje na novu stranicu za izmenu polise
+            // Prenos podataka idPolise
+            window.location.href = '/izmeni';
         },
 
         /*prikaziDodatne() {
@@ -329,7 +334,12 @@ export default {
         $(document).on('click', '.dropdown-toggle', function () {
             $(this).siblings('.dropdown-menu').toggle();
         });
-
+        $(document).on('click', '.btnIzmeni', (event) => {
+            event.preventDefault();
+            const idPolise = $(event.currentTarget).data('polisa-id');
+            alert(idPolise)
+            this.redirectToIzmeniPolisu(idPolise);
+        });
 
         this.prikaziOsiguranike();
         this.obrisiPolisu();

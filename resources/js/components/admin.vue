@@ -156,20 +156,7 @@ export default {
             formData.append('datumKreiranja', this.datumKreiranja.toISOString());
             formData.append('autor', this.autor);
             formData.append('statusBloga', this.statusBloga);
-            /*const blog = {
-                naslov: this.naslov,
-                opis: this.opis,
-                tekst: this.tekst,
-                tipObjave: this.tipObjave,
-                datumKreiranja: this.datumKreiranja,
-                autor: this.autor,
-                statusBloga: this.statusBloga,
-                datumObjavljivanja: this.datumObjavljivanja,
-                datumArhiviranja: this.datumArhiviranja,
-                fotografija: this.fotografija,
-            };*/
-
-
+  
 
             axios.post('/sacuvajBlog', formData, {
                 headers: {

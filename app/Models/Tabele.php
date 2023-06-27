@@ -179,4 +179,16 @@ class Tabele extends Model
         ->delete();
         return $query;
     }
+
+    public function izmeniPolisu($idPolise,$imeNosioca,$prezimeNosioca,$telefon,$datumPutovanjaOd,$datumPutovanjaDo){
+        DB::table('polise_osiguranja')
+        ->where('idPolise', $idPolise)
+        ->update([
+            'imeNosiocaOsiguranja' => $imeNosioca,
+            'prezimeNosiocaOsiguranja' => $prezimeNosioca,
+            'telefon' => $telefon,
+            'datumPutovanjaOd' => $datumPutovanjaOd,
+            'datumPutovanjaDo' => $datumPutovanjaDo,
+        ]);
+    }
 }

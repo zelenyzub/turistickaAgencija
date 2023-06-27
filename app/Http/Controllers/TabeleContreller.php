@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tabele;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TabeleContreller extends Controller
@@ -14,6 +15,10 @@ class TabeleContreller extends Controller
     public function tabelaOsiguranjaStrana()
     {
         return view('tabelaOsiguranja');
+    }
+    public function izmeniPolisuStrana()
+    {
+        return view('izmeniPolisu');
     }
 
 
@@ -59,9 +64,8 @@ class TabeleContreller extends Controller
 
     public function obrisiBlog(Request $request)
     {
-        $idBloga = $request->input('idBloga');
         $obrisi = new Tabele;
-        $obrisi = $obrisi->obrisiBlog($idBloga);
+        $obrisi = $obrisi->obrisiBlog($request->all());
 
         return response()->json(['success' => true]);
 
@@ -74,5 +78,20 @@ class TabeleContreller extends Controller
 
         return response()->json(['success' => true]);
 
+    }
+    public function izmeniPolisu(Request $request){
+
+       
+        $idPolise = $request->input('idPolise');
+        $imeNosioca = $request->input('imeNosioca');
+        $prezimeNosioca = $request->input('prezimeNosioca');
+        $telefon = $request->input('telefon');
+        $datumPutovanjaOd = Carbon::parse($request->input('datumOdmora')[0])->toDateString();
+        $datumPutovanjaDo = Carbon::parse($request->input('datumOdmora')[1])->toDateString();
+
+        $query = new Tabele();
+        $query->izmeniPolisu($idPolise,$imeNosioca,$prezimeNosioca,$telefon,$datumPutovanjaOd,$datumPutovanjaDo);
+
+        return response()->json(['message' => 'Polisa osiguranja je uspešno izmenjena'], );
     }
 }
