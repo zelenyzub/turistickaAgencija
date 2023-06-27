@@ -5557,10 +5557,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function format(ime, prezime, datumRodjenja) {
-  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + '<tr>' + '<td>Ime:</td>' + '<td>' + ime + '</td>' + '</tr>' + '<tr>' + '<td>Prezime:</td>' + '<td>' + prezime + '</td>' + '</tr>' + '<tr>' + '<td>Datum:</td>' + '<td>' + datumRodjenja + '</td>' + '</tr>' + '</table>';
+function detalji(imena, prezimena, datumiRodjenja) {
+  var tableHTML = "\n        <table class=\"table\" cellpadding=\"5\" cellspacing=\"0\" border=\"1\" style=\"padding-left:50px;\">\n          <tr>\n            <th>Ime</th>\n            <th>Prezime</th>\n            <th>Datum</th>\n          </tr>";
+  for (var i = 0; i < imena.length; i++) {
+    tableHTML += "\n          <tr>\n            <td>".concat(imena[i], "</td>\n            <td>").concat(prezimena[i], "</td>\n            <td>").concat(datumiRodjenja[i], "</td>\n          </tr>");
+  }
+  tableHTML += "</table>";
+  return tableHTML;
 }
-;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -5658,67 +5662,90 @@ function format(ime, prezime, datumRodjenja) {
           tr.removeClass('shown');
         } else {
           //alert(1)
-
-          row.child(format(row.data())).show();
-          tr.addClass('shown');
+          var imena = [];
+          var prezimena = [];
+          var datumiRodjenja = [];
+          var idPolise = row.data().idPolise;
+          //alert(idPolise);
+          axios__WEBPACK_IMPORTED_MODULE_0___default().post('/prikaziOsiguranike').then(function (response) {
+            var data = response.data.data;
+            console.log('Podaci:', data);
+            data.forEach(function (item) {
+              if (item.idPolise === idPolise) {
+                imena.push(item.ime);
+                prezimena.push(item.prezime);
+                var date = new Date(item.datumRodjenja);
+                var day = date.getDate().toString().padStart(2, '0');
+                var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                var year = date.getFullYear();
+                var formattedDate = "".concat(day, ".").concat(month, ".").concat(year);
+                datumiRodjenja.push(formattedDate);
+                row.child(detalji(imena, prezimena, datumiRodjenja)).show();
+                tr.addClass('shown');
+              }
+            });
+          })["catch"](function (error) {
+            console.log('Greška:', error);
+          });
         }
       });
-    },
-    prikaziDodatne: function prikaziDodatne() {
-      var self = this;
-      var data = {
-        ime: this.ime,
-        prezime: this.prezime,
-        datumRodjenja: this.datumRodjenja
-      };
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranici').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-          url: '/prikaziOsiguranike',
-          method: 'POST',
-          data: data,
-          context: self,
-          success: function success(response) {
-            var podaci = response.data;
-            var ime = podaci[0].ime;
-            var prezime = podaci[0].prezime;
-            var datumRodjenja = podaci[0].datumRodjenja;
-            var formatiraniPodaci = format(ime, prezime, datumRodjenja);
-            console.log(formatiraniPodaci);
-          },
-          error: function error(_error) {
-            console.log(_error);
-          }
-        },
-        'columnDefs': [{
-          'targets': 0,
-          'orderable': true
-        }, {
-          'targets': 1,
-          'orderable': true
-        }, {
-          'targets': 2,
-          'orderable': false
-        }],
-        'columns': [{
-          'data': 'idPolise'
-        }, {
-          'data': 'ime'
-        }, {
-          'data': 'prezime'
-        }, {
-          data: 'datumRodjenja',
-          render: function render(data, type, row) {
-            if (type === 'display' || type === 'filter') {
-              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY. ');
-              return formattedDateTime;
-            }
-            return data;
-          }
-        }]
-      });
     }
+    /*prikaziDodatne() {
+          var data = {
+            ime: this.ime,
+            prezime: this.prezime,
+            datumRodjenja: this.datumRodjenja,
+        };
+        $('#tabelaOsiguranici').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '/prikaziOsiguranike',
+                method: 'POST',
+                data: data,
+                  success: function (response) {
+                      var podaci = response.data;
+                      var ime = podaci[0].ime;
+                    var prezime = podaci[0].prezime;
+                    var datumRodjenja = podaci[0].datumRodjenja;
+                      var formatiraniPodaci = format(ime, prezime, datumRodjenja);
+                    console.log(formatiraniPodaci);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            },
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'orderable': true,
+                },
+                {
+                    'targets': 1,
+                    'orderable': true,
+                },
+                {
+                    'targets': 2,
+                    'orderable': false,
+                },
+            ],
+              'columns': [
+                { 'data': 'idPolise' },
+                { 'data': 'ime' },
+                { 'data': 'prezime' },
+                {
+                    data: 'datumRodjenja',
+                    render: function (data, type, row) {
+                        if (type === 'display' || type === 'filter') {
+                            var formattedDateTime = moment(data).format('DD. MM. YYYY. ');
+                            return formattedDateTime;
+                        }
+                        return data;
+                    }
+                },
+            ],
+        });
+        },*/
   },
   mounted: function mounted() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {

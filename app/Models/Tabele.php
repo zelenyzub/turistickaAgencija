@@ -113,29 +113,28 @@ class Tabele extends Model
 
     public function tabelaOsiguranici($request)
     {
-        $start = $request['start'];
-        $length = $request['length'];
-        $sort = 'osiguranici.idPolise';
-        dd($request);
-        $sorting = 'asc';
-        $search = $request['search']['value'];
+        $start = isset($request['start']) ? $request['start'] : 0;;
+        $length = isset($request['length']) ? $request['length'] : 10;
+        $orderColumn = isset($request['order'][0]['column']) ? $request['order'][0]['column'] : 0;
+        $orderDir = isset($request['order'][0]['dir']) ? $request['order'][0]['dir'] : 'asc';
+        $search = isset($request['search']['value']) ? $request['search']['value'] : '';
 
-        switch ($request['order'][0]['column']) {
+        switch ($orderColumn) {
             case '0':
-                $sort = 'idOsiguranika';
+                $orderColumn = 'idOsiguranika';
                 break;
             case '1':
-                $sort = 'ime';
+                $orderColumn = 'ime';
                 break;
             case '2':
-                $sort = 'prezime';
+                $orderColumn = 'prezime';
                 break;
             case '3':
-                $sort = 'datumRodjenja';
+                $orderColumn = 'datumRodjenja';
                 break;
         }
 
-        $sorting = $request['order'][0]['dir'];
+
 
         $filteri = DB::table('osiguranici')
             ->select(
@@ -144,7 +143,7 @@ class Tabele extends Model
                 'osiguranici.prezime',
                 'osiguranici.datumRodjenja'
             )
-            ->orderBy($sort, $sorting);
+            ->orderBy($orderColumn, $orderDir);
 
         if (!empty($search)) {
             $filteri = $filteri->whereRaw("(osiguranici.ime

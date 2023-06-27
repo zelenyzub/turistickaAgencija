@@ -32,32 +32,29 @@ import axios from 'axios';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
 import moment from 'moment';
-function format(ime, prezime, datumRodjenja) {
 
+function detalji(imena, prezimena, datumiRodjenja) {
+    var tableHTML = `
+        <table class="table" cellpadding="5" cellspacing="0" border="1" style="padding-left:50px;">
+          <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Datum</th>
+          </tr>`;
 
-    return (
-        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        '<tr>' +
-        '<td>Ime:</td>' +
-        '<td>' +
-        ime +
-        '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Prezime:</td>' +
-        '<td>' +
-        prezime +
-        '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Datum:</td>' +
-        '<td>' +
-        datumRodjenja +
-        '</td>' +
-        '</tr>' +
-        '</table>'
-    );
-};
+    for (var i = 0; i < imena.length; i++) {
+        tableHTML += `
+          <tr>
+            <td>${imena[i]}</td>
+            <td>${prezimena[i]}</td>
+            <td>${datumiRodjenja[i]}</td>
+          </tr>`;
+    }
+
+    tableHTML += `</table>`;
+
+    return tableHTML;
+}
 export default {
     components: { DataTable },
     data() {
@@ -180,23 +177,47 @@ export default {
                     tr.removeClass('shown');
                 } else {
                     //alert(1)
+                    var imena = [];
+                    var prezimena = [];
+                    var datumiRodjenja = [];
+                    var idPolise = row.data().idPolise;
+                    //alert(idPolise);
+                    axios.post('/prikaziOsiguranike')
+                        .then(function (response) {
+                            var data = response.data.data;
+                            console.log('Podaci:', data);
 
-                    row.child(format(row.data())).show();
-                    tr.addClass('shown');
+                            data.forEach(function (item) {
+                                if (item.idPolise === idPolise) {
+                                    imena.push(item.ime);
+                                    prezimena.push(item.prezime);
+                                    var date = new Date(item.datumRodjenja);
+                                    var day = date.getDate().toString().padStart(2, '0');
+                                    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                    var year = date.getFullYear();
+                                    var formattedDate = `${day}.${month}.${year}`;
+                                    datumiRodjenja.push(formattedDate);
+                                    row.child(detalji(imena, prezimena, datumiRodjenja)).show();
+                                    tr.addClass('shown');
+                                }
+                            });
+                        })
+                        .catch(function (error) {
+
+                            console.log('Greška:', error);
+                        });
                 }
             });
 
 
         },
 
-        prikaziDodatne() {
-
-            var self = this;
+        /*prikaziDodatne() {
 
             var data = {
-                ime: this.ime, 
-                prezime: this.prezime, 
-                datumRodjenja: this.datumRodjenja 
+                ime: this.ime,
+                prezime: this.prezime,
+                datumRodjenja: this.datumRodjenja,
             };
             $('#tabelaOsiguranici').DataTable({
                 processing: true,
@@ -205,7 +226,7 @@ export default {
                     url: '/prikaziOsiguranike',
                     method: 'POST',
                     data: data,
-                    context: self,
+
                     success: function (response) {
 
                         var podaci = response.data;
@@ -254,7 +275,7 @@ export default {
             });
 
 
-        },
+        },*/
 
 
     },
