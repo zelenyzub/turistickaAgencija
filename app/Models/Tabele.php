@@ -114,7 +114,7 @@ class Tabele extends Model
     public function tabelaOsiguranici($request)
     {
         $start = isset($request['start']) ? $request['start'] : 0;;
-        $length = isset($request['length']) ? $request['length'] : 10;
+
         $orderColumn = isset($request['order'][0]['column']) ? $request['order'][0]['column'] : 0;
         $orderDir = isset($request['order'][0]['dir']) ? $request['order'][0]['dir'] : 'asc';
         $search = isset($request['search']['value']) ? $request['search']['value'] : '';
@@ -144,7 +144,7 @@ class Tabele extends Model
                 'osiguranici.datumRodjenja'
             )
             ->orderBy($orderColumn, $orderDir);
-
+            $length = isset($request['length']) ? $request['length'] : $filteri->count();
         if (!empty($search)) {
             $filteri = $filteri->whereRaw("(osiguranici.ime
             LIKE '%{$search}%' OR osiguranici.prezime LIKE '%{$search}%')");
@@ -163,13 +163,20 @@ class Tabele extends Model
         
     }
     
-
+    public function obrisiPolisu($idPolise){
+        $query = DB::table('polise_osiguranja')
+        ->where('idPolise', $idPolise)
+        ->delete();
+        return $query;
+    }
 
 
     public function obrisiBlog($idBloga)
     {
 
-        $query = DB::table('blog_vesti')->where('idBloga', $idBloga)->delete();
+        $query = DB::table('blog_vesti')
+        ->where('idBloga', $idBloga)
+        ->delete();
         return $query;
     }
 }

@@ -66,4 +66,13 @@ class TabeleContreller extends Controller
         return response()->json(['success' => true]);
 
     }
+
+    public function obrisiPolisu(Request $request)
+    {
+        $obrisi = new Tabele;
+        $obrisi = $obrisi->obrisiPolisu($request->all());
+
+        return response()->json(['success' => true]);
+
+    }
 }

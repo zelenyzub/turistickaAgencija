@@ -32,10 +32,11 @@ import axios from 'axios';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 function detalji(imena, prezimena, datumiRodjenja) {
     var tableHTML = `
-        <table class="table" cellpadding="5" cellspacing="0" border="1" style="padding-left:50px;">
+        <table class="table table-striped" cellpadding="5" cellspacing="0" border="1" style="padding-left:50px;">
           <tr>
             <th>Ime</th>
             <th>Prezime</th>
@@ -155,8 +156,8 @@ export default {
                         Akcije
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item btnIzmeni" data-korisnik-id="${data.idBloga}" href="#">Izmeni</a></li>
-                        <li><a class="dropdown-item btnObrisi" data-korisnik-id="${data.idBloga}" href="#">Obrisi</a></li>
+                        <li><a class="dropdown-item btnIzmeni" data-polisa-id="${data.idBloga}" href="#">Izmeni</a></li>
+                        <li><a class="dropdown-item btnObrisi" data-polisa-id="${data.idBloga}" href="#">Obrisi</a></li>
                     </ul>
                 </div>`;
 
@@ -171,6 +172,7 @@ export default {
             $(document).on('click', '.btnDetalji', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);
+                var idPolise = row.data().idPolise;
 
                 if (row.child.isShown()) {
                     row.child.hide();
@@ -180,13 +182,13 @@ export default {
                     var imena = [];
                     var prezimena = [];
                     var datumiRodjenja = [];
-                    var idPolise = row.data().idPolise;
+
                     //alert(idPolise);
                     axios.post('/prikaziOsiguranike')
                         .then(function (response) {
                             var data = response.data.data;
                             console.log('Podaci:', data);
-
+                            //alert(idPolise)
                             data.forEach(function (item) {
                                 if (item.idPolise === idPolise) {
                                     imena.push(item.ime);
@@ -197,6 +199,7 @@ export default {
                                     var year = date.getFullYear();
                                     var formattedDate = `${day}.${month}.${year}`;
                                     datumiRodjenja.push(formattedDate);
+                                    //alert(imena)
                                     row.child(detalji(imena, prezimena, datumiRodjenja)).show();
                                     tr.addClass('shown');
                                 }
@@ -210,6 +213,49 @@ export default {
             });
 
 
+        },
+
+        obrisiPolisu() {
+            var table = $('#tabelaOsiguranja').DataTable();
+            $(document).on('click', '.btnObrisi', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var idPolise = row.data().idPolise;
+                //alert(idPolise)
+                Swal.fire({
+                    title: 'Potvrda',
+                    text: 'Da li ste sigurni da želite da obrišete polisu?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Obrisi',
+                    cancelButtonText: 'Odustani'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/obrisiPolisu',
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                idPolise: idPolise,
+                            },
+                            success: function (data) {
+                                $('#tabelaOsiguranja').DataTable().ajax.reload();
+                            }
+                        });
+
+                        Swal.fire({
+                            title: 'Uspesno ste obrisali polisu.',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            });
         },
 
         /*prikaziDodatne() {
@@ -286,6 +332,7 @@ export default {
 
 
         this.prikaziOsiguranike();
+        this.obrisiPolisu();
 
     }
 }

@@ -51,7 +51,7 @@
 
             <div class="mb-3">
                 <label for="datumKreiranja" class="form-label">Datum Kreiranja</label><br>
-                <date-picker v-model="datumKreiranja" :format="'DD. MM. YYYY.'" ></date-picker>
+                <date-picker v-model="datumKreiranja" :format="'DD. MM. YYYY.'"></date-picker>
             </div>
 
 
@@ -180,7 +180,9 @@ export default {
                     console.log(response.data);
                     Swal.fire({
                         icon: 'success',
-                        title: 'Uspesno ste sacuvali vas blog.'
+                        title: 'Uspesno ste sacuvali vas blog.',
+                        timer: 1500,
+                        showConfirmButton: false
                     });
                 })
                 .catch(error => {

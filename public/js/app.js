@@ -5171,7 +5171,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'success',
-          title: 'Uspesno ste sacuvali vas blog.'
+          title: 'Uspesno ste sacuvali vas blog.',
+          timer: 1500,
+          showConfirmButton: false
         });
       })["catch"](function (error) {
         console.log(error);
@@ -5332,7 +5334,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       });
       sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
         icon: 'success',
-        title: 'Uspesno ste kupili polisu osiguranja'
+        title: 'Uspesno ste kupili polisu osiguranja',
+        timer: 1500,
+        showConfirmButton: false
       });
       this.imeNosioca = '';
       this.prezimeNosioca = '';
@@ -5553,12 +5557,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.mjs");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
 
 function detalji(imena, prezimena, datumiRodjenja) {
-  var tableHTML = "\n        <table class=\"table\" cellpadding=\"5\" cellspacing=\"0\" border=\"1\" style=\"padding-left:50px;\">\n          <tr>\n            <th>Ime</th>\n            <th>Prezime</th>\n            <th>Datum</th>\n          </tr>";
+  var tableHTML = "\n        <table class=\"table table-striped\" cellpadding=\"5\" cellspacing=\"0\" border=\"1\" style=\"padding-left:50px;\">\n          <tr>\n            <th>Ime</th>\n            <th>Prezime</th>\n            <th>Datum</th>\n          </tr>";
   for (var i = 0; i < imena.length; i++) {
     tableHTML += "\n          <tr>\n            <td>".concat(imena[i], "</td>\n            <td>").concat(prezimena[i], "</td>\n            <td>").concat(datumiRodjenja[i], "</td>\n          </tr>");
   }
@@ -5647,7 +5654,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
           data: null,
           render: function render(data, type, row) {
             if (type === 'display') {
-              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnIzmeni\" data-korisnik-id=\"".concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                    </ul>\n                </div>");
+              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnIzmeni\" data-polisa-id=\"".concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-polisa-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                    </ul>\n                </div>");
               return dropdownHtml;
             }
             return '';
@@ -5657,6 +5664,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnDetalji', function () {
         var tr = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).closest('tr');
         var row = table.row(tr);
+        var idPolise = row.data().idPolise;
         if (row.child.isShown()) {
           row.child.hide();
           tr.removeClass('shown');
@@ -5665,11 +5673,12 @@ function detalji(imena, prezimena, datumiRodjenja) {
           var imena = [];
           var prezimena = [];
           var datumiRodjenja = [];
-          var idPolise = row.data().idPolise;
+
           //alert(idPolise);
           axios__WEBPACK_IMPORTED_MODULE_0___default().post('/prikaziOsiguranike').then(function (response) {
             var data = response.data.data;
             console.log('Podaci:', data);
+            //alert(idPolise)
             data.forEach(function (item) {
               if (item.idPolise === idPolise) {
                 imena.push(item.ime);
@@ -5680,6 +5689,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
                 var year = date.getFullYear();
                 var formattedDate = "".concat(day, ".").concat(month, ".").concat(year);
                 datumiRodjenja.push(formattedDate);
+                //alert(imena)
                 row.child(detalji(imena, prezimena, datumiRodjenja)).show();
                 tr.addClass('shown');
               }
@@ -5688,6 +5698,47 @@ function detalji(imena, prezimena, datumiRodjenja) {
             console.log('Greška:', error);
           });
         }
+      });
+    },
+    obrisiPolisu: function obrisiPolisu() {
+      var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable();
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnObrisi', function () {
+        var tr = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).closest('tr');
+        var row = table.row(tr);
+        var idPolise = row.data().idPolise;
+        //alert(idPolise)
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          title: 'Potvrda',
+          text: 'Da li ste sigurni da želite da obrišete polisu?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Obrisi',
+          cancelButtonText: 'Odustani'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            jquery__WEBPACK_IMPORTED_MODULE_1___default().ajax({
+              url: '/obrisiPolisu',
+              method: 'POST',
+              headers: {
+                'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_1___default()('meta[name="csrf-token"]').attr('content')
+              },
+              data: {
+                idPolise: idPolise
+              },
+              success: function success(data) {
+                jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable().ajax.reload();
+              }
+            });
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: 'Uspesno ste obrisali polisu.',
+              icon: 'success',
+              timer: 1500,
+              showConfirmButton: false
+            });
+          }
+        });
       });
     }
     /*prikaziDodatne() {
@@ -5752,6 +5803,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
     });
     this.prikaziOsiguranike();
+    this.obrisiPolisu();
   }
 });
 

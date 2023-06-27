@@ -222,7 +222,9 @@ export default {
 
             Swal.fire({
                 icon: 'success',
-                title: 'Uspesno ste kupili polisu osiguranja'
+                title: 'Uspesno ste kupili polisu osiguranja',
+                timer: 1500,
+                showConfirmButton: false
             });
 
             this.imeNosioca = '';

@@ -29,6 +29,7 @@ Route::get('/admin',[KupovinaController::class,'adminStrana']);
 Route::get('/tabelaBlog',[TabeleContreller::class,'tabelaBlogStrana']);
 Route::get('/prikazBlog',[TabeleContreller::class,'tabelaBlog']);
 Route::post('/obrisiBlog',[TabeleContreller::class,'obrisiBlog']);
+Route::post('/obrisiPolisu',[TabeleContreller::class,'obrisiPolisu']);
 Route::get('/tabelaOsiguranja',[TabeleContreller::class,'tabelaOsiguranjaStrana']);
 Route::get('/prikaziOsiguranja',[TabeleContreller::class,'tabelaOsiguranja']);
 Route::post('/prikaziOsiguranike',[TabeleContreller::class,'tabelaOsiguranici']);
