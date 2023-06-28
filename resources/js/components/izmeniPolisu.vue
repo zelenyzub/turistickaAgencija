@@ -25,29 +25,10 @@
                 <input type="text" class="form-control" id="brojDana" name="brojDana" :value="brojDana" disabled><br><br>
                 <hr>
 
+                <input hidden type="text" class="form-control" id="idPolise" name="idPolise" v-model="idPolise"><br><br>
 
-                <div v-if="vrstaOsiguranja === 'grupna'">
-
-                    <h4>UNOS DODATNIH OSIGURANIKA</h4>
-
-                    <label for="ime" class="form-label">Ime Osiguranika:</label>
-                    <input type="text" class="form-control" id="imeOsiguranika" placeholder="Unesite ime osiguranika"
-                        v-model="imeOsiguranika">
-
-
-                    <label for="prezime" class="form-label">Prezime Osiguranika: </label>
-                    <input type="text" class="form-control" id="prezimeOsiguranika"
-                        placeholder="Unesite prezime osiguranika" v-model="prezimeOsiguranika">
-
-                    <label for="datRodjenja" class="form-label">Datum rodjenja: </label><br>
-                    <date-picker v-model="datumRodjenja" :format="'DD. MM. YYYY.'"></date-picker><br><br>
-
-                    <input type="submit" class="btn btn-outline-primary" name="btnDodajOsiguranika" id="btnDodajOsiguranika"
-                        @click="dodajOsiguranika"><br><br>
-                    <hr>
-                </div>
-                <input type="submit" class="btn btn-outline-success form-control" name="btnDodajPolisu" id="btnDodajPolisu"
-                    value="Dodaj polisu" @click="dodajPolisu">
+                <input type="submit" class="btn btn-outline-success form-control" name="btnIzmeni" id="btnIzmeni"
+                    value="Izmeni Polisu" @click="izmeniPolisu">
             </div>
             <div class="col-md-8">
 
@@ -64,10 +45,11 @@ import axios from 'axios'
 import path from 'path';
 import Swal from 'sweetalert2';
 
-export default{
-    components:{DatePicker},
-    data(){
-        return{
+export default {
+    components: { DatePicker },
+    data() {
+        return {
+            idPolise:'',
             datumOdmora: null,
             brojDana: 0,
             imeNosioca: '',
@@ -75,8 +57,67 @@ export default{
             telefon: '',
         };
     },
-    methods:{
-        
+    methods: {
+        izracunajBrojDana() {
+            if (this.datumOdmora && this.datumOdmora.length === 2) {
+                const pocetak = moment(this.datumOdmora[0]);
+                const kraj = moment(this.datumOdmora[1]);
+                if (pocetak.isValid() && kraj.isValid()) {
+                    this.brojDana = kraj.diff(pocetak, 'days') + 1;
+                }
+                else {
+                    this.brojDana = 0;
+                }
+            }
+            else {
+                this.brojDana = 0;
+            }
+        },
+
+        izmeniPolisu() {
+            if (
+                this.imeNosioca === '' ||
+                this.prezimeNosioca === '' ||
+                this.telefon === '' ||
+                this.datumOdmora === null
+            ) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sva polja su obavezna'
+                });
+                return;
+            }
+            const polisa = {
+                idPolise: localStorage.getItem('idPolise'),
+                imeNosioca: this.imeNosioca,
+                prezimeNosioca: this.prezimeNosioca,
+                vrstaOsiguranja: this.vrstaOsiguranja,
+                telefon: this.telefon,
+                datumOdmora: this.datumOdmora
+
+            };
+
+            axios.post('/izmeniPolisu', polisa)
+                .then(response => {
+                    
+                    console.log(response.data);
+                    //alert(this.datumOdmora)
+                    window.location.href = '/tabelaOsiguranja';
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Uspesno ste izmenili polisu osiguranja',
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+        },
+
     },
 }
 </script>

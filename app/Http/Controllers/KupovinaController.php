@@ -34,8 +34,8 @@ class KupovinaController extends Controller
         $prezimeNosioca = $request->input('prezimeNosioca');
         $vrstaPolise = $request->input('vrstaOsiguranja');
         $telefon = $request->input('telefon');
-        $datumPutovanjaOd = Carbon::parse($request->input('datumOdmora')[0])->toDateString();
-        $datumPutovanjaDo = Carbon::parse($request->input('datumOdmora')[1])->toDateString();
+        $datumPutovanjaOd = Carbon::parse($request->input('datumOdmora')[0])->addDay()->toDateString();
+        $datumPutovanjaDo = Carbon::parse($request->input('datumOdmora')[1])->addDay()->toDateString();
         $osiguranici = $request->input('osiguranici');
         if ($vrstaPolise === 'grupna') {
             $osiguranici = array_map(function ($osiguranik) {

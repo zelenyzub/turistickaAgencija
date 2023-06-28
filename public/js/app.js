@@ -5216,6 +5216,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      idPolise: '',
       datumOdmora: null,
       brojDana: 0,
       imeNosioca: '',
@@ -5223,7 +5224,51 @@ __webpack_require__.r(__webpack_exports__);
       telefon: ''
     };
   },
-  methods: {}
+  methods: {
+    izracunajBrojDana: function izracunajBrojDana() {
+      if (this.datumOdmora && this.datumOdmora.length === 2) {
+        var pocetak = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.datumOdmora[0]);
+        var kraj = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.datumOdmora[1]);
+        if (pocetak.isValid() && kraj.isValid()) {
+          this.brojDana = kraj.diff(pocetak, 'days') + 1;
+        } else {
+          this.brojDana = 0;
+        }
+      } else {
+        this.brojDana = 0;
+      }
+    },
+    izmeniPolisu: function izmeniPolisu() {
+      if (this.imeNosioca === '' || this.prezimeNosioca === '' || this.telefon === '' || this.datumOdmora === null) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
+          icon: 'warning',
+          title: 'Sva polja su obavezna'
+        });
+        return;
+      }
+      var polisa = {
+        idPolise: localStorage.getItem('idPolise'),
+        imeNosioca: this.imeNosioca,
+        prezimeNosioca: this.prezimeNosioca,
+        vrstaOsiguranja: this.vrstaOsiguranja,
+        telefon: this.telefon,
+        datumOdmora: this.datumOdmora
+      };
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post('/izmeniPolisu', polisa).then(function (response) {
+        console.log(response.data);
+        //alert(this.datumOdmora)
+        window.location.href = '/tabelaOsiguranja';
+      })["catch"](function (error) {
+        console.error(error);
+      });
+      sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
+        icon: 'success',
+        title: 'Uspesno ste izmenili polisu osiguranja',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -5304,10 +5349,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
 
@@ -5319,7 +5360,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return _defineProperty({
+    return {
       datumOdmora: null,
       brojDana: 0,
       vrstaOsiguranja: '',
@@ -5331,8 +5372,10 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       imeNosioca: '',
       prezimeNosioca: '',
       telefon: ''
-    }, "datumOdmora", '');
+      //datumOdmora: '',
+    };
   },
+
   methods: {
     dodajPolisu: function dodajPolisu() {
       if (this.imeNosioca === '' || this.prezimeNosioca === '' || this.vrstaOsiguranja === '' || this.telefon === '' || this.datumOdmora === null) {
@@ -5714,7 +5757,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
           data: null,
           render: function render(data, type, row) {
             if (type === 'display') {
-              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnIzmeni\" data-polisa-id=\"".concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-polisa-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                    </ul>\n                </div>");
+              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnIzmeni\" data-polisa-id=\"".concat(data.idPolise, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-polisa-id=\"").concat(data.idPolise, "\" href=\"#\">Obrisi</a></li>\n                    </ul>\n                </div>");
               return dropdownHtml;
             }
             return '';
@@ -5801,67 +5844,10 @@ function detalji(imena, prezimena, datumiRodjenja) {
         });
       });
     },
-    redirectToIzmeniPolisu: function redirectToIzmeniPolisu(idPolise) {
-      // Preusmeravanje na novu stranicu za izmenu polise
-      // Prenos podataka idPolise
+    redirectToIzmeni: function redirectToIzmeni(idPolise) {
+      localStorage.setItem('idPolise', idPolise);
       window.location.href = '/izmeni';
     }
-    /*prikaziDodatne() {
-          var data = {
-            ime: this.ime,
-            prezime: this.prezime,
-            datumRodjenja: this.datumRodjenja,
-        };
-        $('#tabelaOsiguranici').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: '/prikaziOsiguranike',
-                method: 'POST',
-                data: data,
-                  success: function (response) {
-                      var podaci = response.data;
-                      var ime = podaci[0].ime;
-                    var prezime = podaci[0].prezime;
-                    var datumRodjenja = podaci[0].datumRodjenja;
-                      var formatiraniPodaci = format(ime, prezime, datumRodjenja);
-                    console.log(formatiraniPodaci);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            },
-            'columnDefs': [
-                {
-                    'targets': 0,
-                    'orderable': true,
-                },
-                {
-                    'targets': 1,
-                    'orderable': true,
-                },
-                {
-                    'targets': 2,
-                    'orderable': false,
-                },
-            ],
-              'columns': [
-                { 'data': 'idPolise' },
-                { 'data': 'ime' },
-                { 'data': 'prezime' },
-                {
-                    data: 'datumRodjenja',
-                    render: function (data, type, row) {
-                        if (type === 'display' || type === 'filter') {
-                            var formattedDateTime = moment(data).format('DD. MM. YYYY. ');
-                            return formattedDateTime;
-                        }
-                        return data;
-                    }
-                },
-            ],
-        });
-        },*/
   },
   mounted: function mounted() {
     var _this = this;
@@ -5871,8 +5857,8 @@ function detalji(imena, prezimena, datumiRodjenja) {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnIzmeni', function (event) {
       event.preventDefault();
       var idPolise = jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.currentTarget).data('polisa-id');
-      alert(idPolise);
-      _this.redirectToIzmeniPolisu(idPolise);
+      //alert(idPolise)
+      _this.redirectToIzmeni(idPolise);
     });
     this.prikaziOsiguranike();
     this.obrisiPolisu();
@@ -6392,96 +6378,39 @@ var render = function render() {
     domProps: {
       value: _vm.brojDana
     }
-  }), _c("br"), _c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _vm.vrstaOsiguranja === "grupna" ? _c("div", [_c("h4", [_vm._v("UNOS DODATNIH OSIGURANIKA")]), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "ime"
-    }
-  }, [_vm._v("Ime Osiguranika:")]), _vm._v(" "), _c("input", {
+  }), _c("br"), _c("br"), _vm._v(" "), _c("hr"), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.imeOsiguranika,
-      expression: "imeOsiguranika"
+      value: _vm.idPolise,
+      expression: "idPolise"
     }],
     staticClass: "form-control",
     attrs: {
+      hidden: "",
       type: "text",
-      id: "imeOsiguranika",
-      placeholder: "Unesite ime osiguranika"
+      id: "idPolise",
+      name: "idPolise"
     },
     domProps: {
-      value: _vm.imeOsiguranika
+      value: _vm.idPolise
     },
     on: {
       input: function input($event) {
         if ($event.target.composing) return;
-        _vm.imeOsiguranika = $event.target.value;
+        _vm.idPolise = $event.target.value;
       }
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "prezime"
-    }
-  }, [_vm._v("Prezime Osiguranika: ")]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.prezimeOsiguranika,
-      expression: "prezimeOsiguranika"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      id: "prezimeOsiguranika",
-      placeholder: "Unesite prezime osiguranika"
-    },
-    domProps: {
-      value: _vm.prezimeOsiguranika
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.prezimeOsiguranika = $event.target.value;
-      }
-    }
-  }), _vm._v(" "), _c("label", {
-    staticClass: "form-label",
-    attrs: {
-      "for": "datRodjenja"
-    }
-  }, [_vm._v("Datum rodjenja: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
-    attrs: {
-      format: "DD. MM. YYYY."
-    },
-    model: {
-      value: _vm.datumRodjenja,
-      callback: function callback($$v) {
-        _vm.datumRodjenja = $$v;
-      },
-      expression: "datumRodjenja"
     }
   }), _c("br"), _c("br"), _vm._v(" "), _c("input", {
-    staticClass: "btn btn-outline-primary",
-    attrs: {
-      type: "submit",
-      name: "btnDodajOsiguranika",
-      id: "btnDodajOsiguranika"
-    },
-    on: {
-      click: _vm.dodajOsiguranika
-    }
-  }), _c("br"), _c("br"), _vm._v(" "), _c("hr")], 1) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "btn btn-outline-success form-control",
     attrs: {
       type: "submit",
-      name: "btnDodajPolisu",
-      id: "btnDodajPolisu",
-      value: "Dodaj polisu"
+      name: "btnIzmeni",
+      id: "btnIzmeni",
+      value: "Izmeni Polisu"
     },
     on: {
-      click: _vm.dodajPolisu
+      click: _vm.izmeniPolisu
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "col-md-8"

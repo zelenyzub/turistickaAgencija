@@ -86,12 +86,13 @@ class TabeleContreller extends Controller
         $imeNosioca = $request->input('imeNosioca');
         $prezimeNosioca = $request->input('prezimeNosioca');
         $telefon = $request->input('telefon');
-        $datumPutovanjaOd = Carbon::parse($request->input('datumOdmora')[0])->toDateString();
-        $datumPutovanjaDo = Carbon::parse($request->input('datumOdmora')[1])->toDateString();
+        $datumPutovanjaOd = Carbon::parse($request->input('datumOdmora')[0])->addDay()->toDateString();
+        $datumPutovanjaDo = Carbon::parse($request->input('datumOdmora')[1])->addDay()->toDateString();
 
         $query = new Tabele();
         $query->izmeniPolisu($idPolise,$imeNosioca,$prezimeNosioca,$telefon,$datumPutovanjaOd,$datumPutovanjaDo);
-
+        //dd($request->all());
+        //dd($request->input('datumOdmora'));
         return response()->json(['message' => 'Polisa osiguranja je uspešno izmenjena'], );
     }
 }

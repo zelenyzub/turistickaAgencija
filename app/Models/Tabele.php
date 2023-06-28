@@ -184,11 +184,13 @@ class Tabele extends Model
         DB::table('polise_osiguranja')
         ->where('idPolise', $idPolise)
         ->update([
+            'idPolise' => $idPolise,
             'imeNosiocaOsiguranja' => $imeNosioca,
             'prezimeNosiocaOsiguranja' => $prezimeNosioca,
             'telefon' => $telefon,
             'datumPutovanjaOd' => $datumPutovanjaOd,
             'datumPutovanjaDo' => $datumPutovanjaDo,
         ]);
+        //dd($datumPutovanjaOd);
     }
 }

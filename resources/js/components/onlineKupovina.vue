@@ -173,7 +173,7 @@ export default {
             imeNosioca: '',
             prezimeNosioca: '',
             telefon: '',
-            datumOdmora: '',
+            //datumOdmora: '',
 
         };
     },

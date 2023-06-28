@@ -157,8 +157,8 @@ export default {
                         Akcije
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item btnIzmeni" data-polisa-id="${data.idBloga}" href="#">Izmeni</a></li>
-                        <li><a class="dropdown-item btnObrisi" data-polisa-id="${data.idBloga}" href="#">Obrisi</a></li>
+                        <li><a class="dropdown-item btnIzmeni" data-polisa-id="${data.idPolise}" href="#">Izmeni</a></li>
+                        <li><a class="dropdown-item btnObrisi" data-polisa-id="${data.idPolise}" href="#">Obrisi</a></li>
                     </ul>
                 </div>`;
 
@@ -257,76 +257,10 @@ export default {
                 });
             });
         },
-        redirectToIzmeniPolisu(idPolise) {
-            // Preusmeravanje na novu stranicu za izmenu polise
-            // Prenos podataka idPolise
+        redirectToIzmeni(idPolise) {
+            localStorage.setItem('idPolise', idPolise);
             window.location.href = '/izmeni';
         },
-
-        /*prikaziDodatne() {
-
-            var data = {
-                ime: this.ime,
-                prezime: this.prezime,
-                datumRodjenja: this.datumRodjenja,
-            };
-            $('#tabelaOsiguranici').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '/prikaziOsiguranike',
-                    method: 'POST',
-                    data: data,
-
-                    success: function (response) {
-
-                        var podaci = response.data;
-
-                        var ime = podaci[0].ime;
-                        var prezime = podaci[0].prezime;
-                        var datumRodjenja = podaci[0].datumRodjenja;
-
-                        var formatiraniPodaci = format(ime, prezime, datumRodjenja);
-                        console.log(formatiraniPodaci);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                },
-                'columnDefs': [
-                    {
-                        'targets': 0,
-                        'orderable': true,
-                    },
-                    {
-                        'targets': 1,
-                        'orderable': true,
-                    },
-                    {
-                        'targets': 2,
-                        'orderable': false,
-                    },
-                ],
-
-                'columns': [
-                    { 'data': 'idPolise' },
-                    { 'data': 'ime' },
-                    { 'data': 'prezime' },
-                    {
-                        data: 'datumRodjenja',
-                        render: function (data, type, row) {
-                            if (type === 'display' || type === 'filter') {
-                                var formattedDateTime = moment(data).format('DD. MM. YYYY. ');
-                                return formattedDateTime;
-                            }
-                            return data;
-                        }
-                    },
-                ],
-            });
-
-
-        },*/
 
 
     },
@@ -337,8 +271,8 @@ export default {
         $(document).on('click', '.btnIzmeni', (event) => {
             event.preventDefault();
             const idPolise = $(event.currentTarget).data('polisa-id');
-            alert(idPolise)
-            this.redirectToIzmeniPolisu(idPolise);
+            //alert(idPolise)
+            this.redirectToIzmeni(idPolise);
         });
 
         this.prikaziOsiguranike();
