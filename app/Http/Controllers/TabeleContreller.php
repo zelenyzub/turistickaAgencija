@@ -95,4 +95,12 @@ class TabeleContreller extends Controller
         //dd($request->input('datumOdmora'));
         return response()->json(['message' => 'Polisa osiguranja je uspešno izmenjena'], );
     }
+
+    public function objavi(Request $request){
+        $idBloga = $request->input('idBloga');
+        $statusBloga = $request->input('statusBloga');
+
+        $query = new Tabele();
+        $query->objavi($idBloga,$statusBloga);
+    }
 }

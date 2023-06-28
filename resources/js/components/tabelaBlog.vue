@@ -188,6 +188,52 @@ export default {
             });
         },
 
+        objavi() {
+            $(document).on('click', '.btnObjavi', function () {
+                var table = $('#tabelaBlog').DataTable();
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var idBloga = row.data().idBloga;
+
+                Swal.fire({
+                    title: 'Potvrda',
+                    text: 'Da li ste sigurni da želite da objavite blog?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Objavi',
+                    cancelButtonText: 'Odustani'
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/objavi',
+                                method: 'post',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {
+                                    idBloga: idBloga,
+                                    statusBloga: 'objavljeno',
+                                },
+
+                                success: function (data) {
+                                    $('#tabelaBlog').DataTable().ajax.reload();
+                                }
+                            });
+
+                            Swal.fire({
+                                title: 'Blog je uspešno objavljen.',
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
+            });
+        },
+
     },
 
     mounted() {
@@ -197,6 +243,8 @@ export default {
         this.prikaziBlogove();
 
         this.obrisiBlog();
+
+        this.objavi();
     }
 
 

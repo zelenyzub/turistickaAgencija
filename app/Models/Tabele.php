@@ -193,4 +193,14 @@ class Tabele extends Model
         ]);
         //dd($datumPutovanjaOd);
     }
+
+    public function objavi($idBloga,$statusBloga){
+        DB::table('blog_vesti')
+        ->where('idBloga', $idBloga)
+        ->update([
+            'idBloga' => $idBloga,
+            'statusBloga' => $statusBloga,
+
+        ]);
+    }
 }

@@ -35,5 +35,6 @@ Route::get('/prikaziOsiguranja',[TabeleContreller::class,'tabelaOsiguranja']);
 Route::post('/prikaziOsiguranike',[TabeleContreller::class,'tabelaOsiguranici']);
 Route::get('/izmeni',[TabeleContreller::class,'izmeniPolisuStrana']);
 Route::post('/izmeniPolisu',[TabeleContreller::class,'izmeniPolisu']);
+Route::post('/objavi',[TabeleContreller::class,'objavi']);
 
 Route::post('/sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);

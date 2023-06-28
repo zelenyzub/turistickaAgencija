@@ -5629,6 +5629,47 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
+    },
+    objavi: function objavi() {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnObjavi', function () {
+        var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable();
+        var tr = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).closest('tr');
+        var row = table.row(tr);
+        var idBloga = row.data().idBloga;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          title: 'Potvrda',
+          text: 'Da li ste sigurni da želite da objavite blog?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Objavi',
+          cancelButtonText: 'Odustani'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            jquery__WEBPACK_IMPORTED_MODULE_1___default().ajax({
+              url: '/objavi',
+              method: 'post',
+              headers: {
+                'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_1___default()('meta[name="csrf-token"]').attr('content')
+              },
+              data: {
+                idBloga: idBloga,
+                statusBloga: 'objavljeno'
+              },
+              success: function success(data) {
+                jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
+              }
+            });
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: 'Blog je uspešno objavljen.',
+              icon: 'success',
+              timer: 1500,
+              showConfirmButton: false
+            });
+          }
+        });
+      });
     }
   },
   mounted: function mounted() {
@@ -5637,6 +5678,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.prikaziBlogove();
     this.obrisiBlog();
+    this.objavi();
   }
 });
 
