@@ -23,6 +23,23 @@
                 </tbody>
             </table>
 
+            <section>
+                <div class="modal fade" id="pregledBloga" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title">Pregled Bloga</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Show a second modal and hide this one with the button below.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
         </section>
     </div>
 </template>
@@ -37,6 +54,11 @@ import Swal from 'sweetalert2';
 
 export default {
     components: { DataTable },
+    data() {
+        return {
+            pregled: true,
+        };
+    },
     methods: {
         prikaziBlogove() {
             var table = $('#tabelaBlog').DataTable({
@@ -122,7 +144,7 @@ export default {
                         Akcije
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item btnPregled" data-korisnik-id="${data.idBloga}" href="#">Pregled</a></li>
+                        <li><a class="dropdown-item btnPregled" data-bs-toggle="modal" data-korisnik-id="${data.idBloga}" href="#pregledBloga">Pregled</a></li>
                         <li><a class="dropdown-item btnIzmeni" data-korisnik-id="${data.idBloga}" href="#">Izmeni</a></li>
                         <li><a class="dropdown-item btnObrisi" data-korisnik-id="${data.idBloga}" href="#">Obrisi</a></li>
                         <li><a class="dropdown-item btnObjavi" data-korisnik-id="${data.idBloga}" href="#">Objavi</a></li>
@@ -233,6 +255,29 @@ export default {
                     });
             });
         },
+        pregledBloga() {
+            $(document).on('click', '.btnPregled', function () {
+                var table = $('#tabelaBlog').DataTable();
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var blogData = row.data();
+
+                console.log(blogData);
+
+                var modalBodyHtml = `
+                    <h2>${blogData.naslov}</h2>
+                    <hr>
+                    <h4>${blogData.opis}</h4>
+                    <img src="${blogData.fotografija}" alt="Fotografija" width="500"><br><br><br><br>
+                    <p>${blogData.tekst}</p>
+                    <h5>Tip objave: ${blogData.tipObjave}</h5>
+                    <h5>Status Objave: ${blogData.statusBloga}</h5><br><br><br>
+                    <h4>Autor: ${blogData.autor}</h4>
+
+        `;
+                $('#pregledBloga .modal-body').html(modalBodyHtml);
+            });
+        },
 
     },
 
@@ -241,10 +286,9 @@ export default {
             $(this).siblings('.dropdown-menu').toggle();
         });
         this.prikaziBlogove();
-
         this.obrisiBlog();
-
         this.objavi();
+        this.pregledBloga();
     }
 
 

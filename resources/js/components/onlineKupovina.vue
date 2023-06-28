@@ -177,6 +177,7 @@ export default {
 
         };
     },
+
     methods: {
         dodajPolisu() {
             if (
@@ -245,6 +246,7 @@ export default {
                     this.brojDana = kraj.diff(pocetak, 'days') + 1;
                 }
                 else {
+                    alert(1)
                     this.brojDana = 0;
                 }
             }
@@ -252,6 +254,18 @@ export default {
                 this.brojDana = 0;
             }
         },
+
+        proveraDatuma() {
+            const pocetak = moment(this.datumOdmora[0]);
+            const kraj = moment(this.datumOdmora[1]);
+            if (kraj.isBefore(pocetak)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Morate uneti datum noviji od prethodnog'
+                });
+            }
+        },
+
 
         dodajOsiguranika() {
             if (this.vrstaOsiguranja === 'grupna') {

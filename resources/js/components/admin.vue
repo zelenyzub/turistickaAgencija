@@ -12,7 +12,7 @@
                                 Tabela</a></li>
                         <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
                                 Tabela</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2" @click="napraviBlog = true">Napravi
+                        <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Napravi
                                 Blog</a></li>
                     </ul>
                     <ul class="nav">
@@ -22,7 +22,7 @@
             </nav>
         </header>
 
-        <section v-if="napraviBlog">
+        <section>
             <div class="mb-3">
                 <label for="naslov" class="form-label">Naslov</label>
                 <input v-model="naslov" type="text" class="form-control" id="naslov">
@@ -112,7 +112,6 @@ export default {
 
             tekst: '',
             datumKreiranja: new Date(),
-            napraviBlog: false,
             naslov: '',
             opis: '',
             tipObjave: '',
@@ -189,25 +188,6 @@ export default {
             this.statusBloga = 'uPripremi';
         },
 
-        tabelaBlog() {
-
-        },
-
-
     },
 };
 </script>
-
-<style>
-@import "vue2-editor/dist/vue2-editor.css";
-
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-.mojNaslov {
-    text-align: center;
-}
-</style>
