@@ -5623,7 +5623,7 @@ __webpack_require__.r(__webpack_exports__);
           data: 'fotografija',
           render: function render(data, type, row) {
             if (type === 'display') {
-              var fotografijaHtml = "<img src=\"".concat(data, "\" alt=\"Fotografija\" width=\"100\">");
+              var fotografijaHtml = "<img src=\"".concat(data, "\" alt=\"Fotografija\" width=\"100\" style=\"height:100px\">");
               return fotografijaHtml;
             }
             return '';
@@ -5638,7 +5638,7 @@ __webpack_require__.r(__webpack_exports__);
           data: null,
           render: function render(data, type, row) {
             if (type === 'display') {
-              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnPregled\" data-bs-toggle=\"modal\" data-korisnik-id=\"".concat(data.idBloga, "\" href=\"#pregledBloga\">Pregled</a></li>\n                        <li><a class=\"dropdown-item btnIzmeni\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                        <li><a class=\"dropdown-item btnObjavi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Objavi</a></li>\n                    </ul>\n                </div>");
+              var dropdownHtml = "\n                <div class=\"dropdown\">\n                    <button class=\"btn btn-outline-danger dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">\n                        Akcije\n                    </button>\n                    <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton1\">\n                        <li><a class=\"dropdown-item btnPregled\" data-bs-toggle=\"modal\" data-korisnik-id=\"".concat(data.idBloga, "\" href=\"#pregledBloga\">Pregled</a></li>\n                        <li><a class=\"dropdown-item btnIzmeni\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Izmeni</a></li>\n                        <li><a class=\"dropdown-item btnObrisi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Obrisi</a></li>\n                        <li><a class=\"dropdown-item btnObjavi\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Objavi</a></li>\n                        <li><a class=\"dropdown-item btnArhiviraj\" data-korisnik-id=\"").concat(data.idBloga, "\" href=\"#\">Arhiviraj</a></li>\n                    </ul>\n                </div>");
               return dropdownHtml;
             }
             return '';
@@ -5703,9 +5703,8 @@ __webpack_require__.r(__webpack_exports__);
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK'
           });
-          return; // Interrupt the button action
+          return;
         }
-
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
           title: 'Potvrda',
           text: 'Da li ste sigurni da želite da objavite blog?',
@@ -5742,6 +5741,59 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
+    arhiviraj: function arhiviraj() {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnArhiviraj', function () {
+        var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable();
+        var tr = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).closest('tr');
+        var row = table.row(tr);
+        var idBloga = row.data().idBloga;
+        var statusBloga = row.data().statusBloga;
+        if (statusBloga === 'arhivirano') {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            title: 'Već arhivirano',
+            text: 'Blog je već arhiviran.',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          title: 'Potvrda',
+          text: 'Da li ste sigurni da želite da arhivirate blog?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Arhiviraj',
+          cancelButtonText: 'Odustani'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            jquery__WEBPACK_IMPORTED_MODULE_1___default().ajax({
+              url: '/arhiviraj',
+              method: 'post',
+              headers: {
+                'X-CSRF-TOKEN': jquery__WEBPACK_IMPORTED_MODULE_1___default()('meta[name="csrf-token"]').attr('content')
+              },
+              data: {
+                idBloga: idBloga,
+                statusBloga: 'arhivirano',
+                datumArhiviranja: new Date().toISOString().slice(0, 19).replace('T', ' ')
+              },
+              success: function success() {
+                jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
+              }
+            });
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: 'Blog je uspešno arhiviran.',
+              icon: 'success',
+              timer: 1500,
+              showConfirmButton: false
+            });
+          }
+        });
+      });
+    },
     pregledBloga: function pregledBloga() {
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnPregled', function () {
         var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable();
@@ -5764,6 +5816,7 @@ __webpack_require__.r(__webpack_exports__);
     this.prikaziBlogove();
     this.obrisiBlog();
     this.objavi();
+    this.arhiviraj();
     this.pregledBloga();
   }
 });

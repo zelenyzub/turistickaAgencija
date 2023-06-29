@@ -127,7 +127,7 @@ export default {
                         data: 'fotografija',
                         render: function (data, type, row) {
                             if (type === 'display') {
-                                var fotografijaHtml = `<img src="${data}" alt="Fotografija" width="100">`;
+                                var fotografijaHtml = `<img src="${data}" alt="Fotografija" width="100" style="height:100px">`;
                                 return fotografijaHtml;
                             }
                             return '';
@@ -151,6 +151,7 @@ export default {
                         <li><a class="dropdown-item btnIzmeni" data-korisnik-id="${data.idBloga}" href="#">Izmeni</a></li>
                         <li><a class="dropdown-item btnObrisi" data-korisnik-id="${data.idBloga}" href="#">Obrisi</a></li>
                         <li><a class="dropdown-item btnObjavi" data-korisnik-id="${data.idBloga}" href="#">Objavi</a></li>
+                        <li><a class="dropdown-item btnArhiviraj" data-korisnik-id="${data.idBloga}" href="#">Arhiviraj</a></li>
                     </ul>
                 </div>`;
 
@@ -229,7 +230,7 @@ export default {
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                     });
-                    return; // Interrupt the button action
+                    return;
                 }
                 Swal.fire({
                     title: 'Potvrda',
@@ -262,6 +263,64 @@ export default {
 
                             Swal.fire({
                                 title: 'Blog je uspešno objavljen.',
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
+            });
+        },
+
+        arhiviraj() {
+            $(document).on('click', '.btnArhiviraj', function () {
+                var table = $('#tabelaBlog').DataTable();
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+                var idBloga = row.data().idBloga;
+                var statusBloga = row.data().statusBloga;
+
+                if (statusBloga === 'arhivirano') {
+                    Swal.fire({
+                        title: 'Već arhivirano',
+                        text: 'Blog je već arhiviran.',
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+                Swal.fire({
+                    title: 'Potvrda',
+                    text: 'Da li ste sigurni da želite da arhivirate blog?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Arhiviraj',
+                    cancelButtonText: 'Odustani'
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/arhiviraj',
+                                method: 'post',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {
+                                    idBloga: idBloga,
+                                    statusBloga: 'arhivirano',
+                                    datumArhiviranja: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                                },
+
+                                success: function () {
+                                    $('#tabelaBlog').DataTable().ajax.reload();
+                                }
+                            });
+
+                            Swal.fire({
+                                title: 'Blog je uspešno arhiviran.',
                                 icon: 'success',
                                 timer: 1500,
                                 showConfirmButton: false
@@ -305,6 +364,7 @@ export default {
         this.prikaziBlogove();
         this.obrisiBlog();
         this.objavi();
+        this.arhiviraj();
         this.pregledBloga();
     }
 

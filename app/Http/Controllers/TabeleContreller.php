@@ -109,6 +109,16 @@ class TabeleContreller extends Controller
         $query->objavi($idBloga,$statusBloga,$datumObjavljivanja);
     }
 
+    public function arhiviraj(Request $request){
+        $idBloga = $request->input('idBloga');
+        $statusBloga = $request->input('statusBloga');
+        $datumArhiviranja = $request->input('datumArhiviranja');
+
+        $query = new Tabele();
+        $query->arhiviraj($idBloga,$statusBloga,$datumArhiviranja);
+
+    }
+
     public function blog(){
 
 

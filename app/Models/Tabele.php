@@ -206,11 +206,21 @@ class Tabele extends Model
         ]);
     }
 
+    public function arhiviraj($idBloga,$statusBloga,$datumArhiviranja){
+        DB::table('blog_vesti')
+        ->where('idBloga', $idBloga)
+        ->update([
+            'idBloga' => $idBloga,
+            'statusBloga' => $statusBloga,
+            'datumArhiviranja' => $datumArhiviranja
+        ]);
+    }
+
     public function blog(){
 
         $query = DB::table('blog_vesti')
         ->select('naslov','opis','tekst','fotografija','tipObjave','datumKreiranja','autor','statusBloga','datumObjavljivanja')
-        ->where('statusBloga', '=', 'objavljeno')
+        ->where('statusBloga', 'objavljeno')
         ->get();
         //dd($query);
 
