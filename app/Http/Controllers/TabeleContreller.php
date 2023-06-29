@@ -21,6 +21,10 @@ class TabeleContreller extends Controller
         return view('izmeniPolisu');
     }
 
+    public function blogStrana(){
+        return view('blog');
+    }
+
 
     public function tabelaBlog(Request $request)
     {
@@ -99,8 +103,18 @@ class TabeleContreller extends Controller
     public function objavi(Request $request){
         $idBloga = $request->input('idBloga');
         $statusBloga = $request->input('statusBloga');
+        $datumObjavljivanja = $request->input('datumObjavljivanja');
 
         $query = new Tabele();
-        $query->objavi($idBloga,$statusBloga);
+        $query->objavi($idBloga,$statusBloga,$datumObjavljivanja);
+    }
+
+    public function blog(){
+
+
+        $query = new Tabele();
+        $data = $query->blog();
+        //dd($data);
+        return response()->json($data);
     }
 }

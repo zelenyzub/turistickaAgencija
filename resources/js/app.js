@@ -29,6 +29,7 @@ Vue.component('tabelaosiguranja',require('./components/tabelaOsiguranja.vue').de
 Vue.component('izmenipolisu',require('./components/izmeniPolisu.vue').default);
 Vue.component('headeradmin',require('./components/headerAdmin.vue').default);
 Vue.component('footeradmin',require('./components/footerAdmin.vue').default);
+Vue.component('blog',require('./components/blog.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

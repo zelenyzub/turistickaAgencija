@@ -32,7 +32,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Show a second modal and hide this one with the button below.
+
+                            </div>
+                            <div class="modal-footer">
+
                             </div>
                         </div>
                     </div>
@@ -216,7 +219,18 @@ export default {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);
                 var idBloga = row.data().idBloga;
+                var statusBloga = row.data().statusBloga;
 
+                if (statusBloga === 'objavljeno') {
+                    Swal.fire({
+                        title: 'Već objavljeno',
+                        text: 'Blog je već objavljen.',
+                        icon: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    });
+                    return; // Interrupt the button action
+                }
                 Swal.fire({
                     title: 'Potvrda',
                     text: 'Da li ste sigurni da želite da objavite blog?',
@@ -238,10 +252,10 @@ export default {
                                 data: {
                                     idBloga: idBloga,
                                     statusBloga: 'objavljeno',
-                                    datumObjavljivanja: moment().format('DD. MM. YYYY. ')
+                                    datumObjavljivanja: new Date().toISOString().slice(0, 19).replace('T', ' ')
                                 },
 
-                                success: function (data) {
+                                success: function () {
                                     $('#tabelaBlog').DataTable().ajax.reload();
                                 }
                             });
@@ -274,10 +288,11 @@ export default {
                     <h5>Tip objave: ${blogData.tipObjave}</h5>
                     <h5>Status Objave: ${blogData.statusBloga}</h5><br><br><br>
                     <h4>Autor: ${blogData.autor}</h4>
-                    <h4>Datum Objavljivanja: ${blogData.datumObjavljivanja}</h4>
-
         `;
+                var formatDatumObjavljivanja = moment(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
+                var modalFooterHtml = `<p>Datum Objavljivanja: ${formatDatumObjavljivanja}</p>`;
                 $('#pregledBloga .modal-body').html(modalBodyHtml);
+                $('#pregledBloga .modal-footer').html(modalFooterHtml);
             });
         },
 

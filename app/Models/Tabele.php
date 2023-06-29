@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -194,13 +195,26 @@ class Tabele extends Model
         //dd($datumPutovanjaOd);
     }
 
-    public function objavi($idBloga,$statusBloga){
+    public function objavi($idBloga,$statusBloga,$datumObjavljivanja){
         DB::table('blog_vesti')
         ->where('idBloga', $idBloga)
         ->update([
             'idBloga' => $idBloga,
             'statusBloga' => $statusBloga,
+            'datumObjavljivanja' => $datumObjavljivanja,
 
         ]);
+    }
+
+    public function blog(){
+
+        $query = DB::table('blog_vesti')
+        ->select('naslov','opis','tekst','fotografija','tipObjave','datumKreiranja','autor','statusBloga','datumObjavljivanja')
+        ->where('statusBloga', '=', 'objavljeno')
+        ->get();
+        //dd($query);
+
+        return $query;
+
     }
 }
