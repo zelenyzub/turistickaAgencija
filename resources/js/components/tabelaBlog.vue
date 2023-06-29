@@ -238,6 +238,7 @@ export default {
                                 data: {
                                     idBloga: idBloga,
                                     statusBloga: 'objavljeno',
+                                    datumObjavljivanja: moment().format('DD. MM. YYYY. ')
                                 },
 
                                 success: function (data) {
@@ -273,6 +274,7 @@ export default {
                     <h5>Tip objave: ${blogData.tipObjave}</h5>
                     <h5>Status Objave: ${blogData.statusBloga}</h5><br><br><br>
                     <h4>Autor: ${blogData.autor}</h4>
+                    <h4>Datum Objavljivanja: ${blogData.datumObjavljivanja}</h4>
 
         `;
                 $('#pregledBloga .modal-body').html(modalBodyHtml);

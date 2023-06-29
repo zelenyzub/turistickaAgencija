@@ -39,7 +39,7 @@ class KupovinaController extends Controller
         $osiguranici = $request->input('osiguranici');
         if ($vrstaPolise === 'grupna') {
             $osiguranici = array_map(function ($osiguranik) {
-                $osiguranik['datumRodjenja'] = Carbon::parse($osiguranik['datumRodjenja'])->toDateString();
+                $osiguranik['datumRodjenja'] = Carbon::parse($osiguranik['datumRodjenja'])->addDay()->toDateString();
                 return $osiguranik;
             }, $osiguranici);
         }

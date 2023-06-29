@@ -1,26 +1,5 @@
 <template>
     <div class="container">
-        <header>
-            <nav class="py-2 bg-light border-bottom">
-                <div class="container d-flex flex-wrap">
-                    <ul class="nav me-auto">
-                        <li class="nav-item"><a href="/osiguranje" class="nav-link link-dark px-2 active"
-                                aria-current="page">Osiguranja</a>
-                        </li>
-                        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Blog</a></li>
-                        <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
-                                Tabela</a></li>
-                        <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
-                                Tabela</a></li>
-                        <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Napravi
-                                Blog</a></li>
-                    </ul>
-                    <ul class="nav">
-
-                    </ul>
-                </div>
-            </nav>
-        </header>
 
         <section>
             <div class="mb-3">
@@ -85,15 +64,6 @@
 
             <input type="submit" class="btn btn-info" value="Sacuvaj" @click="sacuvajBlog">
         </section>
-
-        <footer class="footer">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pocetna</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Blog</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">O nama</a></li>
-            </ul>
-            <p class="text-center text-muted">© 2023 Osiguranje Savo</p>
-        </footer>
     </div>
 </template>
 

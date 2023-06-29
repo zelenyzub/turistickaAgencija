@@ -5669,7 +5669,8 @@ __webpack_require__.r(__webpack_exports__);
               },
               data: {
                 idBloga: idBloga,
-                statusBloga: 'objavljeno'
+                statusBloga: 'objavljeno',
+                datumObjavljivanja: moment__WEBPACK_IMPORTED_MODULE_3___default()().format('DD. MM. YYYY. ')
               },
               success: function success(data) {
                 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
@@ -5692,7 +5693,7 @@ __webpack_require__.r(__webpack_exports__);
         var row = table.row(tr);
         var blogData = row.data();
         console.log(blogData);
-        var modalBodyHtml = "\n                    <h2>".concat(blogData.naslov, "</h2>\n                    <hr>\n                    <h4>").concat(blogData.opis, "</h4>\n                    <img src=\"").concat(blogData.fotografija, "\" alt=\"Fotografija\" width=\"500\"><br><br><br><br>\n                    <p>").concat(blogData.tekst, "</p>\n                    <h5>Tip objave: ").concat(blogData.tipObjave, "</h5>\n                    <h5>Status Objave: ").concat(blogData.statusBloga, "</h5><br><br><br>\n                    <h4>Autor: ").concat(blogData.autor, "</h4>\n\n        ");
+        var modalBodyHtml = "\n                    <h2>".concat(blogData.naslov, "</h2>\n                    <hr>\n                    <h4>").concat(blogData.opis, "</h4>\n                    <img src=\"").concat(blogData.fotografija, "\" alt=\"Fotografija\" width=\"500\"><br><br><br><br>\n                    <p>").concat(blogData.tekst, "</p>\n                    <h5>Tip objave: ").concat(blogData.tipObjave, "</h5>\n                    <h5>Status Objave: ").concat(blogData.statusBloga, "</h5><br><br><br>\n                    <h4>Autor: ").concat(blogData.autor, "</h4>\n                    <h4>Datum Objavljivanja: ").concat(blogData.datumObjavljivanja, "</h4>\n\n        ");
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('#pregledBloga .modal-body').html(modalBodyHtml);
       });
     }
@@ -5991,7 +5992,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container"
-  }, [_vm._m(0), _vm._v(" "), _c("section", [_c("div", {
+  }, [_c("section", [_c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6203,88 +6204,9 @@ var render = function render() {
     on: {
       click: _vm.sacuvajBlog
     }
-  })]), _vm._v(" "), _vm._m(1)]);
+  })])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("header", [_c("nav", {
-    staticClass: "py-2 bg-light border-bottom"
-  }, [_c("div", {
-    staticClass: "container d-flex flex-wrap"
-  }, [_c("ul", {
-    staticClass: "nav me-auto"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2 active",
-    attrs: {
-      href: "/osiguranje",
-      "aria-current": "page"
-    }
-  }, [_vm._v("Osiguranja")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/tabelaBlog"
-    }
-  }, [_vm._v("Blog\n                            Tabela")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/tabelaOsiguranja"
-    }
-  }, [_vm._v("Osiguranja\n                            Tabela")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/admin"
-    }
-  }, [_vm._v("Napravi\n                            Blog")])])]), _vm._v(" "), _c("ul", {
-    staticClass: "nav"
-  })])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("footer", {
-    staticClass: "footer"
-  }, [_c("ul", {
-    staticClass: "nav justify-content-center border-bottom pb-3 mb-3"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Pocetna")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("O nama")])])]), _vm._v(" "), _c("p", {
-    staticClass: "text-center text-muted"
-  }, [_vm._v("© 2023 Osiguranje Savo")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
