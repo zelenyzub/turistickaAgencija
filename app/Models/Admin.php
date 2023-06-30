@@ -9,17 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Admin extends Model
 {
-    public static function login($korisnickoIme, $lozinkaKorisnika, $role)
-    {
-        $query = DB::table('korisnici')
-            ->select('korisnickoIme', 'lozinkaKorisnika', 'role')
-            ->where('korisnickoIme', $korisnickoIme)
-            ->where('lozinkaKorisnika', $lozinkaKorisnika)
-            ->where('role', $role)
-            ->exists();
 
-        return $query;
-    }
 
     public function sacuvajBlog($naslov, $opis, $tekst, $fotografija, $tipObjave, $datumKreiranja, $autor, $statusBloga)
     {

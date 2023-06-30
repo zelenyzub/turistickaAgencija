@@ -22,9 +22,6 @@ Route::get('/', function () {
 });
 Route::get('/osiguranje',[KupovinaController::class,'onlineKupovina']);
 Route::post('/dodajPolisu',[KupovinaController::class,'dodajPolisu']);
-Route::get('/registracija',[KupovinaController::class,'registracijaKorisnika']);
-Route::get('/loginKorisnika',[KupovinaController::class,'loginKorisnika']);
-Route::post('/login',[KupovinaController::class,'login']);
 Route::get('/admin',[KupovinaController::class,'adminStrana']);
 Route::get('/tabelaBlog',[TabeleContreller::class,'tabelaBlogStrana']);
 Route::get('/prikazBlog',[TabeleContreller::class,'tabelaBlog']);
