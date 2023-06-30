@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\KorisnikController;
 use App\Http\Controllers\TabeleContreller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KupovinaController;
 
@@ -20,21 +21,30 @@ use App\Http\Controllers\KupovinaController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/osiguranje',[KupovinaController::class,'onlineKupovina']);
-Route::post('/dodajPolisu',[KupovinaController::class,'dodajPolisu']);
-Route::get('/admin',[KupovinaController::class,'adminStrana']);
-Route::get('/tabelaBlog',[TabeleContreller::class,'tabelaBlogStrana']);
-Route::get('/prikazBlog',[TabeleContreller::class,'tabelaBlog']);
-Route::post('/obrisiBlog',[TabeleContreller::class,'obrisiBlog']);
-Route::post('/obrisiPolisu',[TabeleContreller::class,'obrisiPolisu']);
-Route::get('/tabelaOsiguranja',[TabeleContreller::class,'tabelaOsiguranjaStrana']);
-Route::get('/prikaziOsiguranja',[TabeleContreller::class,'tabelaOsiguranja']);
-Route::post('/prikaziOsiguranike',[TabeleContreller::class,'tabelaOsiguranici']);
-Route::get('/izmeni',[TabeleContreller::class,'izmeniPolisuStrana']);
-Route::post('/izmeniPolisu',[TabeleContreller::class,'izmeniPolisu']);
-Route::post('/objavi',[TabeleContreller::class,'objavi']);
-Route::post('/arhiviraj',[TabeleContreller::class,'arhiviraj']);
-Route::get('/blog',[TabeleContreller::class,'blogStrana']);
-Route::get('/blogovi',[TabeleContreller::class,'blog']);
 
-Route::post('/sacuvajBlog',[KorisnikController::class,'sacuvajBlog']);
+Route::middleware(['auth','isAdmin'])->group(function () {
+
+    Route::get('/tabelaBlog', [TabeleContreller::class, 'tabelaBlogStrana']);
+    Route::get('/prikazBlog', [TabeleContreller::class, 'tabelaBlog']);
+    Route::post('/obrisiBlog', [TabeleContreller::class, 'obrisiBlog']);
+    Route::post('/obrisiPolisu', [TabeleContreller::class, 'obrisiPolisu']);
+    Route::get('/tabelaOsiguranja', [TabeleContreller::class, 'tabelaOsiguranjaStrana']);
+    Route::get('/prikaziOsiguranja', [TabeleContreller::class, 'tabelaOsiguranja']);
+    Route::post('/prikaziOsiguranike', [TabeleContreller::class, 'tabelaOsiguranici']);
+    Route::get('/izmeni', [TabeleContreller::class, 'izmeniPolisuStrana']);
+    Route::post('/izmeniPolisu', [TabeleContreller::class, 'izmeniPolisu']);
+    Route::post('/objavi', [TabeleContreller::class, 'objavi']);
+    Route::post('/arhiviraj', [TabeleContreller::class, 'arhiviraj']);
+
+});
+Route::middleware(['auth','isUser'])->group(function () {
+Route::get('/osiguranje', [KupovinaController::class, 'onlineKupovina'])->name('osiguranje');
+Route::get('/blog', [TabeleContreller::class, 'blogStrana']);
+Route::get('/blogovi', [TabeleContreller::class, 'blog']);
+Route::get('/admin', [KupovinaController::class, 'adminStrana']);
+Route::post('/dodajPolisu', [KupovinaController::class, 'dodajPolisu']);
+Route::post('/sacuvajBlog', [KorisnikController::class, 'sacuvajBlog']);
+});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

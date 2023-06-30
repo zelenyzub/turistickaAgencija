@@ -7,17 +7,19 @@
                             aria-current="page">Osiguranja</a>
                     </li>
                     <li class="nav-item"><a href="/blog" class="nav-link link-dark px-2">Blog</a></li>
+                    <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Napravi
+                            Blog</a></li>
+
+
+
                     <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
                             Tabela</a></li>
                     <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
                             Tabela</a></li>
-                    <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Napravi
-                            Blog</a></li>
-                </ul>
-                <ul class="nav">
+
 
                 </ul>
             </div>
-        </nav>
+        </nav><br>
     </header>
 </template>

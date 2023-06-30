@@ -6418,6 +6418,13 @@ var staticRenderFns = [function () {
   }, [_c("a", {
     staticClass: "nav-link link-dark px-2",
     attrs: {
+      href: "/admin"
+    }
+  }, [_vm._v("Napravi\n                        Blog")])]), _vm._v(" "), _c("li", {
+    staticClass: "nav-item"
+  }, [_c("a", {
+    staticClass: "nav-link link-dark px-2",
+    attrs: {
       href: "/tabelaBlog"
     }
   }, [_vm._v("Blog\n                        Tabela")])]), _vm._v(" "), _c("li", {
@@ -6427,16 +6434,7 @@ var staticRenderFns = [function () {
     attrs: {
       href: "/tabelaOsiguranja"
     }
-  }, [_vm._v("Osiguranja\n                        Tabela")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/admin"
-    }
-  }, [_vm._v("Napravi\n                        Blog")])])]), _vm._v(" "), _c("ul", {
-    staticClass: "nav"
-  })])])]);
+  }, [_vm._v("Osiguranja\n                        Tabela")])])])])]), _c("br")]);
 }];
 render._withStripped = true;
 
@@ -6643,28 +6641,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container"
-  }, [_c("header", [_vm._m(0), _vm._v(" "), _c("header", {
-    staticClass: "py-3 mb-4 border-bottom"
-  }, [_c("div", {
-    staticClass: "container d-flex flex-wrap justify-content-center"
-  }, [_c("a", {
-    staticClass: "d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none",
-    attrs: {
-      href: "/"
-    }
-  }, [_c("svg", {
-    staticClass: "bi me-2",
-    attrs: {
-      width: "40",
-      height: "32"
-    }
-  }, [_c("use", {
-    attrs: {
-      "xlink:href": "#bootstrap"
-    }
-  })]), _vm._v(" "), _c("span", {
-    staticClass: "fs-4"
-  }, [_vm._v("Double header")])]), _vm._v(" "), _vm._m(1)])])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-4"
@@ -6931,104 +6908,14 @@ var render = function render() {
         }
       }
     }, [_vm._v("Obriši")]), _vm._v(" "), _c("hr")]);
-  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(3)]);
+  }), 0) : _vm._e()])])]);
 };
 var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("nav", {
-    staticClass: "py-2 bg-light border-bottom"
-  }, [_c("div", {
-    staticClass: "container d-flex flex-wrap"
-  }, [_c("ul", {
-    staticClass: "nav me-auto"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2 active",
-    attrs: {
-      href: "/osiguranje",
-      "aria-current": "page"
-    }
-  }, [_vm._v("Pocetna")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("O nama")])])]), _vm._v(" "), _c("ul", {
-    staticClass: "nav"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "btn btn-outline-success",
-    attrs: {
-      href: "/loginKorisnika"
-    }
-  }, [_vm._v("Uloguj se")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "btn btn-outline-info",
-    attrs: {
-      href: "/registracija"
-    }
-  }, [_vm._v("Registruj\n                            se")])])])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("form", {
-    staticClass: "col-12 col-lg-auto mb-3 mb-lg-0"
-  }, [_c("input", {
-    staticClass: "form-control",
-    attrs: {
-      type: "search",
-      placeholder: "Search...",
-      "aria-label": "Search"
-    }
-  })]);
-}, function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("h2", [_vm._v("\n        OSIGURANJE SAVO\n        "), _c("small", {
     staticClass: "text-muted"
   }, [_vm._v("Sigurnost koja prati vaše putovanje.")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("footer", [_c("ul", {
-    staticClass: "nav justify-content-center border-bottom pb-3 mb-3"
-  }, [_c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Pocetna")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link px-2 text-muted",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("O nama")])])]), _vm._v(" "), _c("p", {
-    staticClass: "text-center text-muted"
-  }, [_vm._v("© 2023 Osiguranje Savo")])]);
 }];
 render._withStripped = true;
 
