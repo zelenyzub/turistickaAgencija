@@ -9,29 +9,37 @@
 
                 <label for="imeNosioca" class="form-label">Ime Nosioca Osiguranja:</label>
                 <input v-model="imeNosioca" type="text" class="form-control" id="imeNosioca"
-                    placeholder="Unesite ime nosioca osiguranja" required><br>
+                    :class="{ 'is-invalid': errors.imeNosioca }" placeholder="Unesite ime nosioca osiguranja" required>
+                <p v-if="errors.imeNosioca" class="invalid-feedback">
+                    Niste uneli ime nosioca.
+                </p>
 
 
                 <label for="prezimeNosioca" class="form-label">Prezime Nosioca: </label>
                 <input v-model="prezimeNosioca" type="text" class="form-control" id="prezimeNosioca"
-                    placeholder="Unesite prezime nosioca osiguranja"><br>
+                    placeholder="Unesite prezime nosioca osiguranja" :class="{ 'is-invalid': errors.prezimeNosioca }">
+                <p v-if="errors.prezimeNosioca" class="invalid-feedback">Niste Uneli prezime nosioca.</p>
 
 
                 <label for="vrstaOsiguranja" class="form-label">Vrsta Osiguranja</label>
-                <select v-model="vrstaOsiguranja" id="vrstaOsiguranja" name="vrstaOsiguranja" class="form-select">
+                <select v-model="vrstaOsiguranja" id="vrstaOsiguranja" name="vrstaOsiguranja" class="form-select"
+                    :class="{ 'is-invalid': errors.vrstaOsiguranja }">
                     <option disabled value="">-----Izaberite Vrstu Osiguranja-----</option>
                     <option value="individualna">Individualna</option>
                     <option value="grupna">Grupna</option>
-                </select><br>
+                </select>
+                <p v-if="errors.vrstaOsiguranja" class="invalid-feedback">Niste Uneli vrstu osiguranja.</p>
 
 
                 <label for="telefon" class="form-label">Telefon Nosioca: </label>
                 <input v-model="telefon" type="text" class="form-control" id="telefon"
-                    placeholder="Unesite telefon nosioca osiguranja"><br>
+                    placeholder="Unesite telefon nosioca osiguranja" :class="{ 'is-invalid': errors.telefon }">
+                <p v-if="errors.telefon" class="invalid-feedback">Niste Uneli telefon.</p>
 
                 <label for="datumPutovanja" class="form-label">Izaberite datum pocetka putovanja: </label>
                 <date-picker name="datumOdmora" v-model="datumOdmora" range :format="'DD. MM. YYYY.'"
-                    @input="izracunajBrojDana"></date-picker><br>
+                    @input="izracunajBrojDana" :class="{ 'is-invalid': errors.datumOdmora }"></date-picker><br>
+                <p v-if="errors.datumOdmora" class="invalid-feedback">Niste Uneli datum odmora.</p>
 
                 <label for="brojDana">Ukupan broj dana:</label>
                 <input type="text" class="form-control" id="brojDana" name="brojDana" :value="brojDana" disabled><br><br>
@@ -44,15 +52,20 @@
 
                     <label for="ime" class="form-label">Ime Osiguranika:</label>
                     <input type="text" class="form-control" id="imeOsiguranika" placeholder="Unesite ime osiguranika"
-                        v-model="imeOsiguranika">
+                        v-model="imeOsiguranika" :class="{ 'is-invalid': errors.imeOsiguranika }">
+                    <p v-if="errors.imeOsiguranika" class="invalid-feedback">Niste Uneli prezime osiguranika.</p>
 
 
                     <label for="prezime" class="form-label">Prezime Osiguranika: </label>
                     <input type="text" class="form-control" id="prezimeOsiguranika"
-                        placeholder="Unesite prezime osiguranika" v-model="prezimeOsiguranika">
+                        placeholder="Unesite prezime osiguranika" v-model="prezimeOsiguranika"
+                        :class="{ 'is-invalid': errors.prezimeOsiguranika }">
+                    <p v-if="errors.prezimeOsiguranika" class="invalid-feedback">Niste Uneli prezime osiguranika.</p>
 
                     <label for="datRodjenja" class="form-label">Datum rodjenja: </label><br>
-                    <date-picker v-model="datumRodjenja" :format="'DD. MM. YYYY.'"></date-picker><br><br>
+                    <date-picker v-model="datumRodjenja" :format="'DD. MM. YYYY.'"
+                        :class="{ 'is-invalid': errors.datumRodjenja }"></date-picker>
+                    <p v-if="errors.datumRodjenja" class="invalid-feedback">Niste Uneli datum rodjenja.</p><br><br>
 
                     <input type="submit" class="btn btn-outline-primary" name="btnDodajOsiguranika" id="btnDodajOsiguranika"
                         @click="dodajOsiguranika"><br><br>
@@ -129,13 +142,41 @@ export default {
             imeNosioca: '',
             prezimeNosioca: '',
             telefon: '',
-            //datumOdmora: '',
 
+            errors: {
+                imeNosioca: false,
+                prezimeNosioca: false,
+                vrstaOsiguranja: false,
+                telefon: false,
+                datumOdmora: false,
+                imeOsiguranika: false,
+                prezimeOsiguranika: false,
+                datumRodjenja: false
+            }
         };
     },
 
     methods: {
         dodajPolisu() {
+
+            this.errors = {};
+
+            if (this.imeNosioca === '') {
+                this.errors.imeNosioca = true;
+            }
+            if (this.prezimeNosioca === '') {
+                this.errors.prezimeNosioca = true;
+            }
+            if (this.vrstaOsiguranja === '') {
+                this.errors.vrstaOsiguranja = true;
+            }
+            if (this.telefon === '') {
+                this.errors.telefon = true;
+            }
+            if (this.datumOdmora === null) {
+                this.errors.datumOdmora = true;
+            }
+
             if (
                 this.imeNosioca === '' ||
                 this.prezimeNosioca === '' ||
@@ -225,17 +266,33 @@ export default {
 
         dodajOsiguranika() {
             if (this.vrstaOsiguranja === 'grupna') {
-                const osiguranik = {
-                    ime: this.imeOsiguranika,
-                    prezime: this.prezimeOsiguranika,
-                    datumRodjenja: this.datumRodjenja
-                };
-                this.osiguranici.push(osiguranik);
-                this.naslovListe = true;
 
-                this.imeOsiguranika = '';
-                this.prezimeOsiguranika = '';
-                this.datumRodjenja = null;
+                this.errors = {};
+
+                if (this.imeOsiguranika === '') {
+                    this.errors.imeOsiguranika = true;
+                }
+                if (this.prezimeOsiguranika === '') {
+                    this.errors.prezimeOsiguranika = true;
+                }
+                if (this.datumRodjenja === '') {
+                    this.errors.datumRodjenja = true;
+                }
+
+                else {
+
+                    const osiguranik = {
+                        ime: this.imeOsiguranika,
+                        prezime: this.prezimeOsiguranika,
+                        datumRodjenja: this.datumRodjenja
+                    };
+                    this.osiguranici.push(osiguranik);
+                    this.naslovListe = true;
+
+                    this.imeOsiguranika = '';
+                    this.prezimeOsiguranika = '';
+                    this.datumRodjenja = null;
+                }
             }
         },
 

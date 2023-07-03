@@ -5436,13 +5436,37 @@ __webpack_require__.r(__webpack_exports__);
       naslovListe: false,
       imeNosioca: '',
       prezimeNosioca: '',
-      telefon: ''
-      //datumOdmora: '',
+      telefon: '',
+      errors: {
+        imeNosioca: false,
+        prezimeNosioca: false,
+        vrstaOsiguranja: false,
+        telefon: false,
+        datumOdmora: false,
+        imeOsiguranika: false,
+        prezimeOsiguranika: false,
+        datumRodjenja: false
+      }
     };
   },
-
   methods: {
     dodajPolisu: function dodajPolisu() {
+      this.errors = {};
+      if (this.imeNosioca === '') {
+        this.errors.imeNosioca = true;
+      }
+      if (this.prezimeNosioca === '') {
+        this.errors.prezimeNosioca = true;
+      }
+      if (this.vrstaOsiguranja === '') {
+        this.errors.vrstaOsiguranja = true;
+      }
+      if (this.telefon === '') {
+        this.errors.telefon = true;
+      }
+      if (this.datumOdmora === null) {
+        this.errors.datumOdmora = true;
+      }
       if (this.imeNosioca === '' || this.prezimeNosioca === '' || this.vrstaOsiguranja === '' || this.telefon === '' || this.datumOdmora === null) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
           icon: 'warning',
@@ -5513,16 +5537,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     dodajOsiguranika: function dodajOsiguranika() {
       if (this.vrstaOsiguranja === 'grupna') {
-        var osiguranik = {
-          ime: this.imeOsiguranika,
-          prezime: this.prezimeOsiguranika,
-          datumRodjenja: this.datumRodjenja
-        };
-        this.osiguranici.push(osiguranik);
-        this.naslovListe = true;
-        this.imeOsiguranika = '';
-        this.prezimeOsiguranika = '';
-        this.datumRodjenja = null;
+        this.errors = {};
+        if (this.imeOsiguranika === '') {
+          this.errors.imeOsiguranika = true;
+        }
+        if (this.prezimeOsiguranika === '') {
+          this.errors.prezimeOsiguranika = true;
+        }
+        if (this.datumRodjenja === '') {
+          this.errors.datumRodjenja = true;
+        } else {
+          var osiguranik = {
+            ime: this.imeOsiguranika,
+            prezime: this.prezimeOsiguranika,
+            datumRodjenja: this.datumRodjenja
+          };
+          this.osiguranici.push(osiguranik);
+          this.naslovListe = true;
+          this.imeOsiguranika = '';
+          this.prezimeOsiguranika = '';
+          this.datumRodjenja = null;
+        }
       }
     },
     formatirajDatum: function formatirajDatum(datumRodjenja) {
@@ -6937,6 +6972,9 @@ var render = function render() {
       expression: "imeNosioca"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.imeNosioca
+    },
     attrs: {
       type: "text",
       id: "imeNosioca",
@@ -6952,7 +6990,9 @@ var render = function render() {
         _vm.imeNosioca = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.imeNosioca ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\n                Niste uneli ime nosioca.\n            ")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "prezimeNosioca"
@@ -6965,6 +7005,9 @@ var render = function render() {
       expression: "prezimeNosioca"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.prezimeNosioca
+    },
     attrs: {
       type: "text",
       id: "prezimeNosioca",
@@ -6979,7 +7022,9 @@ var render = function render() {
         _vm.prezimeNosioca = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.prezimeNosioca ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli prezime nosioca.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "vrstaOsiguranja"
@@ -6992,6 +7037,9 @@ var render = function render() {
       expression: "vrstaOsiguranja"
     }],
     staticClass: "form-select",
+    "class": {
+      "is-invalid": _vm.errors.vrstaOsiguranja
+    },
     attrs: {
       id: "vrstaOsiguranja",
       name: "vrstaOsiguranja"
@@ -7020,7 +7068,9 @@ var render = function render() {
     attrs: {
       value: "grupna"
     }
-  }, [_vm._v("Grupna")])]), _c("br"), _vm._v(" "), _c("label", {
+  }, [_vm._v("Grupna")])]), _vm._v(" "), _vm.errors.vrstaOsiguranja ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli vrstu osiguranja.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "telefon"
@@ -7033,6 +7083,9 @@ var render = function render() {
       expression: "telefon"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.telefon
+    },
     attrs: {
       type: "text",
       id: "telefon",
@@ -7047,12 +7100,17 @@ var render = function render() {
         _vm.telefon = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.telefon ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli telefon.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "datumPutovanja"
     }
   }, [_vm._v("Izaberite datum pocetka putovanja: ")]), _vm._v(" "), _c("date-picker", {
+    "class": {
+      "is-invalid": _vm.errors.datumOdmora
+    },
     attrs: {
       name: "datumOdmora",
       range: "",
@@ -7068,7 +7126,9 @@ var render = function render() {
       },
       expression: "datumOdmora"
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _c("br"), _vm._v(" "), _vm.errors.datumOdmora ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli datum odmora.")]) : _vm._e(), _vm._v(" "), _c("label", {
     attrs: {
       "for": "brojDana"
     }
@@ -7096,6 +7156,9 @@ var render = function render() {
       expression: "imeOsiguranika"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.imeOsiguranika
+    },
     attrs: {
       type: "text",
       id: "imeOsiguranika",
@@ -7110,7 +7173,9 @@ var render = function render() {
         _vm.imeOsiguranika = $event.target.value;
       }
     }
-  }), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.imeOsiguranika ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli prezime osiguranika.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "prezime"
@@ -7123,6 +7188,9 @@ var render = function render() {
       expression: "prezimeOsiguranika"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.prezimeOsiguranika
+    },
     attrs: {
       type: "text",
       id: "prezimeOsiguranika",
@@ -7137,12 +7205,17 @@ var render = function render() {
         _vm.prezimeOsiguranika = $event.target.value;
       }
     }
-  }), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.prezimeOsiguranika ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli prezime osiguranika.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "datRodjenja"
     }
   }, [_vm._v("Datum rodjenja: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
+    "class": {
+      "is-invalid": _vm.errors.datumRodjenja
+    },
     attrs: {
       format: "DD. MM. YYYY."
     },
@@ -7153,7 +7226,9 @@ var render = function render() {
       },
       expression: "datumRodjenja"
     }
-  }), _c("br"), _c("br"), _vm._v(" "), _c("input", {
+  }), _vm._v(" "), _vm.errors.datumRodjenja ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli datum rodjenja.")]) : _vm._e(), _c("br"), _c("br"), _vm._v(" "), _c("input", {
     staticClass: "btn btn-outline-primary",
     attrs: {
       type: "submit",
