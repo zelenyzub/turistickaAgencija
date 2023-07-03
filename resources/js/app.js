@@ -25,6 +25,7 @@ Vue.component('admin',require('./components/admin.vue').default);
 Vue.component('tabelablog',require('./components/tabelaBlog.vue').default);
 Vue.component('tabelaosiguranja',require('./components/tabelaOsiguranja.vue').default);
 Vue.component('izmenipolisu',require('./components/izmeniPolisu.vue').default);
+Vue.component('izmeniblog',require('./components/izmeniBlog.vue').default);
 Vue.component('headeradmin',require('./components/headerAdmin.vue').default);
 Vue.component('footeradmin',require('./components/footerAdmin.vue').default);
 Vue.component('blog',require('./components/blog.vue').default);

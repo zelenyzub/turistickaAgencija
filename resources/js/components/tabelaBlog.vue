@@ -354,12 +354,22 @@ export default {
                 $('#pregledBloga .modal-footer').html(modalFooterHtml);
             });
         },
+        redirectToIzmeni(idBloga) {
+            localStorage.setItem('idBloga', idBloga);
+            window.location.href = '/izmeniBlogStr';
+        },
 
     },
 
     mounted() {
         $(document).on('click', '.dropdown-toggle', function () {
             $(this).siblings('.dropdown-menu').toggle();
+        });
+        $(document).on('click', '.btnIzmeni', (event) => {
+            event.preventDefault();
+            const idBloga = $(event.currentTarget).data('korisnik-id');
+            //alert(idBloga)
+            this.redirectToIzmeni(idBloga);
         });
         this.prikaziBlogove();
         this.obrisiBlog();

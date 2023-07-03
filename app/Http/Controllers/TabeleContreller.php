@@ -20,6 +20,10 @@ class TabeleContreller extends Controller
     {
         return view('izmeniPolisu');
     }
+    public function izmeniBlogStrana()
+    {
+        return view('izmeniBlog');
+    }
 
     public function blogStrana(){
         return view('blog');
@@ -126,5 +130,30 @@ class TabeleContreller extends Controller
         $data = $query->blog();
         //dd($data);
         return response()->json($data);
+    }
+
+    public function izmeniBlog(Request $request)
+    {
+
+        if ($request->hasFile('fotografija')) {
+            $fotografija = $request->file('fotografija')->store('public/images');
+           
+        } else {
+            $fotografija = null;
+        }
+        //dd($fotografija);
+        $idBloga = $request->input('idBloga');
+        $naslov = $request->input('naslov');
+        $opis = $request->input('opis');
+        $tekst = $request->input('tekst');
+        $tipObjave = $request->input('tipObjave');
+        $autor = $request->input('autor');
+        $izmeniBlog = new Tabele();
+        $izmeniBlog->izmeniBlog($idBloga,$naslov, $opis, $tekst, $fotografija, $tipObjave,  $autor);
+
+
+
+        return response()->json(['message' => 'Uspesno sacuvan blog.']);
+
     }
 }

@@ -94,7 +94,6 @@ export default {
                 vrstaOsiguranja: this.vrstaOsiguranja,
                 telefon: this.telefon,
                 datumOdmora: this.datumOdmora
-
             };
 
             axios.post('/izmeniPolisu', polisa)

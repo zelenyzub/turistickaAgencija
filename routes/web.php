@@ -35,6 +35,8 @@ Route::middleware(['auth','isAdmin'])->group(function () {
     Route::post('/izmeniPolisu', [TabeleContreller::class, 'izmeniPolisu']);
     Route::post('/objavi', [TabeleContreller::class, 'objavi']);
     Route::post('/arhiviraj', [TabeleContreller::class, 'arhiviraj']);
+    Route::get('/izmeniBlogStr', [TabeleContreller::class, 'izmeniBlogStrana']);
+    Route::post('/izmeniBlog', [TabeleContreller::class, 'izmeniBlog']);
 
 });
 Route::middleware(['auth','isUser'])->group(function () {

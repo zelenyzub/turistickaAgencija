@@ -6,6 +6,7 @@ use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Tabele extends Model
 {
@@ -114,7 +115,8 @@ class Tabele extends Model
 
     public function tabelaOsiguranici($request)
     {
-        $start = isset($request['start']) ? $request['start'] : 0;;
+        $start = isset($request['start']) ? $request['start'] : 0;
+        ;
 
         $orderColumn = isset($request['order'][0]['column']) ? $request['order'][0]['column'] : 0;
         $orderDir = isset($request['order'][0]['dir']) ? $request['order'][0]['dir'] : 'asc';
@@ -145,7 +147,7 @@ class Tabele extends Model
                 'osiguranici.datumRodjenja'
             )
             ->orderBy($orderColumn, $orderDir);
-            $length = isset($request['length']) ? $request['length'] : $filteri->count();
+        $length = isset($request['length']) ? $request['length'] : $filteri->count();
         if (!empty($search)) {
             $filteri = $filteri->whereRaw("(osiguranici.ime
             LIKE '%{$search}%' OR osiguranici.prezime LIKE '%{$search}%')");
@@ -161,13 +163,14 @@ class Tabele extends Model
             'filtered' => $filtered,
             'data' => $total
         ];
-        
+
     }
-    
-    public function obrisiPolisu($idPolise){
+
+    public function obrisiPolisu($idPolise)
+    {
         $query = DB::table('polise_osiguranja')
-        ->where('idPolise', $idPolise)
-        ->delete();
+            ->where('idPolise', $idPolise)
+            ->delete();
         return $query;
     }
 
@@ -176,52 +179,79 @@ class Tabele extends Model
     {
 
         $query = DB::table('blog_vesti')
-        ->where('idBloga', $idBloga)
-        ->delete();
+            ->where('idBloga', $idBloga)
+            ->delete();
         return $query;
     }
 
-    public function izmeniPolisu($idPolise,$imeNosioca,$prezimeNosioca,$telefon,$datumPutovanjaOd,$datumPutovanjaDo){
+    public function izmeniPolisu($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo)
+    {
         DB::table('polise_osiguranja')
-        ->where('idPolise', $idPolise)
-        ->update([
-            'idPolise' => $idPolise,
-            'imeNosiocaOsiguranja' => $imeNosioca,
-            'prezimeNosiocaOsiguranja' => $prezimeNosioca,
-            'telefon' => $telefon,
-            'datumPutovanjaOd' => $datumPutovanjaOd,
-            'datumPutovanjaDo' => $datumPutovanjaDo,
-        ]);
+            ->where('idPolise', $idPolise)
+            ->update([
+                'idPolise' => $idPolise,
+                'imeNosiocaOsiguranja' => $imeNosioca,
+                'prezimeNosiocaOsiguranja' => $prezimeNosioca,
+                'telefon' => $telefon,
+                'datumPutovanjaOd' => $datumPutovanjaOd,
+                'datumPutovanjaDo' => $datumPutovanjaDo,
+            ]);
         //dd($datumPutovanjaOd);
     }
 
-    public function objavi($idBloga,$statusBloga,$datumObjavljivanja){
-        DB::table('blog_vesti')
-        ->where('idBloga', $idBloga)
-        ->update([
-            'idBloga' => $idBloga,
-            'statusBloga' => $statusBloga,
-            'datumObjavljivanja' => $datumObjavljivanja,
 
-        ]);
+    public function izmeniBlog($idBloga, $naslov, $opis, $tekst, $fotografija, $tipObjave, $autor)
+    {
+
+        if ($fotografija) {
+            $fotografija = Storage::url($fotografija);
+        } else {
+            $fotografija = null;
+        }
+
+        DB::table('blog_vesti')
+            ->where('idBloga', $idBloga)
+            ->update([
+                'idBloga' => $idBloga,
+                'naslov' => $naslov,
+                'opis' => $opis,
+                'tekst' => $tekst,
+                'fotografija' => $fotografija,
+                'tipObjave' => $tipObjave,
+                'autor' => $autor,
+            ]);
     }
 
-    public function arhiviraj($idBloga,$statusBloga,$datumArhiviranja){
+    public function objavi($idBloga, $statusBloga, $datumObjavljivanja)
+    {
         DB::table('blog_vesti')
-        ->where('idBloga', $idBloga)
-        ->update([
-            'idBloga' => $idBloga,
-            'statusBloga' => $statusBloga,
-            'datumArhiviranja' => $datumArhiviranja
-        ]);
+            ->where('idBloga', $idBloga)
+            ->update([
+                'idBloga' => $idBloga,
+                'statusBloga' => $statusBloga,
+                'datumObjavljivanja' => $datumObjavljivanja,
+
+            ]);
     }
 
-    public function blog(){
+    public function arhiviraj($idBloga, $statusBloga, $datumArhiviranja)
+    {
+        DB::table('blog_vesti')
+            ->where('idBloga', $idBloga)
+            ->update([
+                'idBloga' => $idBloga,
+                'statusBloga' => $statusBloga,
+                'datumArhiviranja' => $datumArhiviranja
+            ]);
+    }
+
+    public function blog()
+    {
 
         $query = DB::table('blog_vesti')
-        ->select('naslov','opis','tekst','fotografija','tipObjave','datumKreiranja','autor','statusBloga','datumObjavljivanja')
-        ->where('statusBloga', 'objavljeno')
-        ->get();
+            ->select('naslov', 'opis', 'tekst', 'fotografija', 'tipObjave', 'datumKreiranja', 'autor', 'statusBloga', 'datumObjavljivanja')
+            ->where('statusBloga', 'objavljeno')
+            ->get();
         //dd($query);
 
         return $query;
