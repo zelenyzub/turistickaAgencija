@@ -21,7 +21,7 @@
             <!--Fotografijaaa-->
             <div class="mb-3">
                 <label for="fotografija" class="form-label">Izaberite Fotografiju</label>
-                <input class="form-control" type="file" id="fotografija" @change="handleFotografijaChange"
+                <input class="form-control" type="file" id="fotografija" @change="handleFotografijaChange" accept=".jpg, .jpeg, .png"
                     :class="{ 'is-invalid': errors.fotografija }">
                 <p v-if="errors.fotografija" class="invalid-feedback">Niste izabrali fotografiju.</p>
             </div>
@@ -116,7 +116,7 @@ export default {
             if (this.tekst === '') {
                 this.errors.tekst = true
             }
-            if (this.fotografija === '') {
+            if (this.fotografija === null) {
                 this.errors.fotografija = true;
             }
             if (this.tipObjave === '') {

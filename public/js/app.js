@@ -5155,7 +5155,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.tekst === '') {
         this.errors.tekst = true;
       }
-      if (this.fotografija === '') {
+      if (this.fotografija === null) {
         this.errors.fotografija = true;
       }
       if (this.tipObjave === '') {
@@ -5292,7 +5292,16 @@ __webpack_require__.r(__webpack_exports__);
       opis: '',
       tipObjave: '',
       autor: '',
-      fotografija: null
+      fotografija: null,
+      selectedFotografija: null,
+      errors: {
+        naslov: false,
+        opis: false,
+        tekst: false,
+        fotografija: false,
+        tipObjave: false,
+        autor: false
+      }
     };
   },
   methods: {
@@ -5300,6 +5309,25 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedFotografija = event.target.files[0];
     },
     izmeniBlog: function izmeniBlog() {
+      this.errors = {};
+      if (this.naslov === '') {
+        this.errors.naslov = true;
+      }
+      if (this.opis === '') {
+        this.errors.opis = true;
+      }
+      if (this.tekst === '') {
+        this.errors.tekst = true;
+      }
+      if (this.fotografija === null) {
+        this.errors.fotografija = true;
+      }
+      if (this.tipObjave === '') {
+        this.errors.tipObjave = true;
+      }
+      if (this.autor === '') {
+        this.errors.autor = true;
+      }
       if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.autor === '') {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'warning',
@@ -5372,7 +5400,13 @@ __webpack_require__.r(__webpack_exports__);
       brojDana: 0,
       imeNosioca: '',
       prezimeNosioca: '',
-      telefon: ''
+      telefon: '',
+      errors: {
+        imeNosioca: false,
+        prezimeNosioca: false,
+        telefon: false,
+        datumOdmora: false
+      }
     };
   },
   methods: {
@@ -5390,6 +5424,19 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     izmeniPolisu: function izmeniPolisu() {
+      this.errors = {};
+      if (this.imeNosioca === '') {
+        this.errors.imeNosioca = true;
+      }
+      if (this.prezimeNosioca === '') {
+        this.errors.prezimeNosioca = true;
+      }
+      if (this.telefon === '') {
+        this.errors.telefon = true;
+      }
+      if (this.datumOdmora === null) {
+        this.errors.datumOdmora = true;
+      }
       if (this.imeNosioca === '' || this.prezimeNosioca === '' || this.telefon === '' || this.datumOdmora === null) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
           icon: 'warning',
@@ -5549,21 +5596,10 @@ __webpack_require__.r(__webpack_exports__);
         if (pocetak.isValid() && kraj.isValid()) {
           this.brojDana = kraj.diff(pocetak, 'days') + 1;
         } else {
-          alert(1);
           this.brojDana = 0;
         }
       } else {
         this.brojDana = 0;
-      }
-    },
-    proveraDatuma: function proveraDatuma() {
-      var pocetak = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.datumOdmora[0]);
-      var kraj = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.datumOdmora[1]);
-      if (kraj.isBefore(pocetak)) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
-          icon: 'warning',
-          title: 'Morate uneti datum noviji od prethodnog'
-        });
       }
     },
     dodajOsiguranika: function dodajOsiguranika() {
@@ -5637,8 +5673,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    akcije: function akcije() {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
+      });
+    },
     prikaziBlogove: function prikaziBlogove() {
-      var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable({
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -5871,21 +5912,27 @@ __webpack_require__.r(__webpack_exports__);
         console.log(blogData);
         var modalBodyHtml = "\n                    <h2>".concat(blogData.naslov, "</h2>\n                    <hr>\n                    <h4>").concat(blogData.opis, "</h4>\n                    <img src=\"").concat(blogData.fotografija, "\" alt=\"Fotografija\" width=\"500\"><br><br><br><br>\n                    <p>").concat(blogData.tekst, "</p>\n                    <h5>Tip objave: ").concat(blogData.tipObjave, "</h5>\n                    <h5>Status Objave: ").concat(blogData.statusBloga, "</h5><br><br><br>\n                    <h4>Autor: ").concat(blogData.autor, "</h4>\n        ");
         var formatDatumObjavljivanja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
-        var modalFooterHtml = "<p>Datum Objavljivanja: ".concat(formatDatumObjavljivanja, "</p>");
+        var formatDatumArhiviranja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
+        if (blogData.statusBloga === 'objavljeno') {
+          var modalFooterHtml = "<p>Datum Objavljivanja: ".concat(formatDatumObjavljivanja, "</p>");
+        }
+        if (blogData.statusBloga === 'arhivirano') {
+          var modalFooterHtml = "<p>Datum Arhiviranja: ".concat(formatDatumArhiviranja, "</p>");
+        }
+        if (blogData.statusBloga === 'uPripremi') {
+          var modalFooterHtml = '';
+        }
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('#pregledBloga .modal-body').html(modalBodyHtml);
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('#pregledBloga .modal-footer').html(modalFooterHtml);
       });
     },
-    redirectToIzmeni: function redirectToIzmeni(idBloga) {
+    redirectToIzmeni: function redirectToIzmeni(idBloga, naslov) {
       localStorage.setItem('idBloga', idBloga);
       window.location.href = '/izmeniBlogStr';
     }
   },
   mounted: function mounted() {
     var _this = this;
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
-    });
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnIzmeni', function (event) {
       event.preventDefault();
       var idBloga = jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.currentTarget).data('korisnik-id');
@@ -5945,6 +5992,11 @@ function detalji(imena, prezimena, datumiRodjenja) {
     };
   },
   methods: {
+    akcije: function akcije() {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
+      });
+    },
     prikaziOsiguranike: function prikaziOsiguranike() {
       var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaOsiguranja').DataTable({
         processing: true,
@@ -6111,9 +6163,6 @@ function detalji(imena, prezimena, datumiRodjenja) {
   },
   mounted: function mounted() {
     var _this = this;
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
-    });
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.btnIzmeni', function (event) {
       event.preventDefault();
       var idPolise = jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.currentTarget).data('polisa-id');
@@ -6283,7 +6332,8 @@ var render = function render() {
     },
     attrs: {
       type: "file",
-      id: "fotografija"
+      id: "fotografija",
+      accept: ".jpg, .jpeg, .png"
     },
     on: {
       change: _vm.handleFotografijaChange
@@ -6659,6 +6709,9 @@ var render = function render() {
       expression: "naslov"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.naslov
+    },
     attrs: {
       type: "text",
       id: "naslov"
@@ -6672,7 +6725,9 @@ var render = function render() {
         _vm.naslov = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.naslov ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli naslov.")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6687,6 +6742,9 @@ var render = function render() {
       expression: "opis"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.opis
+    },
     attrs: {
       type: "text",
       id: "opis"
@@ -6700,7 +6758,9 @@ var render = function render() {
         _vm.opis = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.opis ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli opis.")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6708,6 +6768,9 @@ var render = function render() {
       "for": "tekst"
     }
   }, [_vm._v("Tekst")]), _vm._v(" "), _c("vue-editor", {
+    "class": {
+      "is-invalid": _vm.errors.tekst
+    },
     model: {
       value: _vm.tekst,
       callback: function callback($$v) {
@@ -6715,7 +6778,9 @@ var render = function render() {
       },
       expression: "tekst"
     }
-  })], 1), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.tekst ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli tekst.")]) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6724,14 +6789,20 @@ var render = function render() {
     }
   }, [_vm._v("Izaberite Fotografiju")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.fotografija
+    },
     attrs: {
       type: "file",
-      id: "fotografija"
+      id: "fotografija",
+      accept: ".jpg, .jpeg, .png"
     },
     on: {
       change: _vm.handleFotografijaChange
     }
-  })]), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.fotografija ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste izabrali fotografiju.")]) : _vm._e()]), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "tipObjave"
@@ -6744,6 +6815,9 @@ var render = function render() {
       expression: "tipObjave"
     }],
     staticClass: "form-select",
+    "class": {
+      "is-invalid": _vm.errors.tipObjave
+    },
     attrs: {
       id: "tipObjave",
       name: "tipObjave"
@@ -6772,7 +6846,9 @@ var render = function render() {
     attrs: {
       value: "vest"
     }
-  }, [_vm._v("Vest")])]), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("Vest")])]), _c("br"), _vm._v(" "), _vm.errors.tipObjave ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli tip objave.")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6787,6 +6863,9 @@ var render = function render() {
       expression: "autor"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.autor
+    },
     attrs: {
       type: "text",
       id: "autor"
@@ -6800,7 +6879,9 @@ var render = function render() {
         _vm.autor = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("input", {
+  }), _vm._v(" "), _vm.errors.autor ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli autora.")]) : _vm._e()]), _vm._v(" "), _c("input", {
     staticClass: "btn btn-info",
     attrs: {
       type: "submit",
@@ -6851,6 +6932,9 @@ var render = function render() {
       expression: "imeNosioca"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.imeNosioca
+    },
     attrs: {
       type: "text",
       id: "imeNosioca",
@@ -6866,7 +6950,9 @@ var render = function render() {
         _vm.imeNosioca = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.imeNosioca ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli ime nosioca.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "prezimeNosioca"
@@ -6879,6 +6965,9 @@ var render = function render() {
       expression: "prezimeNosioca"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.prezimeNosioca
+    },
     attrs: {
       type: "text",
       id: "prezimeNosioca",
@@ -6893,7 +6982,9 @@ var render = function render() {
         _vm.prezimeNosioca = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.prezimeNosioca ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli prezime nosioca.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "telefon"
@@ -6906,6 +6997,9 @@ var render = function render() {
       expression: "telefon"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.telefon
+    },
     attrs: {
       type: "text",
       id: "telefon",
@@ -6920,12 +7014,17 @@ var render = function render() {
         _vm.telefon = $event.target.value;
       }
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.telefon ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli telefon.")]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "datumPutovanja"
     }
   }, [_vm._v("Izaberite datum pocetka putovanja: ")]), _vm._v(" "), _c("date-picker", {
+    "class": {
+      "is-invalid": _vm.errors.datumOdmora
+    },
     attrs: {
       name: "datumOdmora",
       range: "",
@@ -6941,7 +7040,9 @@ var render = function render() {
       },
       expression: "datumOdmora"
     }
-  }), _c("br"), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.datumOdmora ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli datum odmora.")]) : _vm._e(), _vm._v(" "), _c("label", {
     attrs: {
       "for": "brojDana"
     }

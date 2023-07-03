@@ -28,6 +28,7 @@
         "datatables.net": "^1.13.4",
         "datatables.net-select": "^1.6.2",
         "datatables.net-vue3": "^2.1.1",
+        "date-fns": "^2.30.0",
         "jl-datatable": "^1.1.1",
         "jquery": "^3.7.0",
         "path": "^0.12.7",

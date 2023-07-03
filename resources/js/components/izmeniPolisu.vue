@@ -5,21 +5,25 @@
             <div class="col-md-4">
                 <label for="imeNosioca" class="form-label">Ime Nosioca Osiguranja:</label>
                 <input v-model="imeNosioca" type="text" class="form-control" id="imeNosioca"
-                    placeholder="Unesite ime nosioca osiguranja" required><br>
+                    placeholder="Unesite ime nosioca osiguranja" required :class="{'is-invalid': errors.imeNosioca}">
+                    <p v-if="errors.imeNosioca" class="invalid-feedback">Niste Uneli ime nosioca.</p>
 
 
                 <label for="prezimeNosioca" class="form-label">Prezime Nosioca: </label>
                 <input v-model="prezimeNosioca" type="text" class="form-control" id="prezimeNosioca"
-                    placeholder="Unesite prezime nosioca osiguranja"><br>
+                    placeholder="Unesite prezime nosioca osiguranja" :class="{'is-invalid': errors.prezimeNosioca}">
+                    <p v-if="errors.prezimeNosioca" class="invalid-feedback">Niste Uneli prezime nosioca.</p>
 
 
                 <label for="telefon" class="form-label">Telefon Nosioca: </label>
                 <input v-model="telefon" type="text" class="form-control" id="telefon"
-                    placeholder="Unesite telefon nosioca osiguranja"><br>
+                    placeholder="Unesite telefon nosioca osiguranja" :class="{'is-invalid': errors.telefon}">
+                    <p v-if="errors.telefon" class="invalid-feedback">Niste Uneli telefon.</p>
 
                 <label for="datumPutovanja" class="form-label">Izaberite datum pocetka putovanja: </label>
                 <date-picker name="datumOdmora" v-model="datumOdmora" range :format="'DD. MM. YYYY.'"
-                    @input="izracunajBrojDana"></date-picker><br>
+                    @input="izracunajBrojDana" :class="{'is-invalid': errors.datumOdmora}"></date-picker>
+                    <p v-if="errors.datumOdmora" class="invalid-feedback">Niste Uneli datum odmora.</p>
 
                 <label for="brojDana">Ukupan broj dana:</label>
                 <input type="text" class="form-control" id="brojDana" name="brojDana" :value="brojDana" disabled><br><br>
@@ -55,6 +59,13 @@ export default {
             imeNosioca: '',
             prezimeNosioca: '',
             telefon: '',
+
+            errors:{
+                imeNosioca: false,
+                prezimeNosioca: false,
+                telefon: false,
+                datumOdmora: false
+            }
         };
     },
     methods: {
@@ -75,6 +86,22 @@ export default {
         },
 
         izmeniPolisu() {
+
+            this.errors = {};
+
+            if(this.imeNosioca === ''){
+                this.errors.imeNosioca = true;
+            }
+            if(this.prezimeNosioca === ''){
+                this.errors.prezimeNosioca = true;
+            }
+            if(this.telefon === ''){
+                this.errors.telefon = true;
+            }
+            if(this.datumOdmora === null){
+                this.errors.datumOdmora = true;
+            }
+
             if (
                 this.imeNosioca === '' ||
                 this.prezimeNosioca === '' ||

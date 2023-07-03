@@ -63,8 +63,15 @@ export default {
         };
     },
     methods: {
+
+        akcije() {
+            $(document).on('click', '.dropdown-toggle', function () {
+                $(this).siblings('.dropdown-menu').toggle();
+            });
+        },
+
         prikaziBlogove() {
-            var table = $('#tabelaBlog').DataTable({
+            $('#tabelaBlog').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -349,12 +356,23 @@ export default {
                     <h4>Autor: ${blogData.autor}</h4>
         `;
                 var formatDatumObjavljivanja = moment(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
-                var modalFooterHtml = `<p>Datum Objavljivanja: ${formatDatumObjavljivanja}</p>`;
+                var formatDatumArhiviranja = moment(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
+
+                if (blogData.statusBloga === 'objavljeno') {
+                    var modalFooterHtml = `<p>Datum Objavljivanja: ${formatDatumObjavljivanja}</p>`;
+                }
+                if (blogData.statusBloga === 'arhivirano') {
+                    var modalFooterHtml = `<p>Datum Arhiviranja: ${formatDatumArhiviranja}</p>`;
+                }
+                if(blogData.statusBloga === 'uPripremi'){
+                    var modalFooterHtml = '';
+                }
+
                 $('#pregledBloga .modal-body').html(modalBodyHtml);
                 $('#pregledBloga .modal-footer').html(modalFooterHtml);
             });
         },
-        redirectToIzmeni(idBloga) {
+        redirectToIzmeni(idBloga, naslov) {
             localStorage.setItem('idBloga', idBloga);
             window.location.href = '/izmeniBlogStr';
         },
@@ -362,9 +380,6 @@ export default {
     },
 
     mounted() {
-        $(document).on('click', '.dropdown-toggle', function () {
-            $(this).siblings('.dropdown-menu').toggle();
-        });
         $(document).on('click', '.btnIzmeni', (event) => {
             event.preventDefault();
             const idBloga = $(event.currentTarget).data('korisnik-id');

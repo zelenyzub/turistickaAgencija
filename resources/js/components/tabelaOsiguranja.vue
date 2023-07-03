@@ -66,6 +66,11 @@ export default {
     },
     methods: {
 
+        akcije() {
+            $(document).on('click', '.dropdown-toggle', function () {
+                $(this).siblings('.dropdown-menu').toggle();
+            });
+        },
 
         prikaziOsiguranike() {
 
@@ -265,9 +270,6 @@ export default {
 
     },
     mounted() {
-        $(document).on('click', '.dropdown-toggle', function () {
-            $(this).siblings('.dropdown-menu').toggle();
-        });
         $(document).on('click', '.btnIzmeni', (event) => {
             event.preventDefault();
             const idPolise = $(event.currentTarget).data('polisa-id');
