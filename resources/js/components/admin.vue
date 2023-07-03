@@ -4,63 +4,53 @@
         <section>
             <div class="mb-3">
                 <label for="naslov" class="form-label">Naslov</label>
-                <input v-model="naslov" type="text" class="form-control" id="naslov">
+                <input v-model="naslov" type="text" class="form-control" id="naslov" :class="{ 'is-invalid': errors.naslov }">
+                <p v-if="errors.naslov" class="invalid-feedback">Niste Uneli naslov.</p>
             </div>
             <div class="mb-3">
                 <label for="opis" class="form-label">Opis</label>
-                <input v-model="opis" type="text" class="form-control" id="opis">
+                <input v-model="opis" type="text" class="form-control" id="opis" :class="{ 'is-invalid': errors.opis }">
+                <p v-if="errors.opis" class="invalid-feedback">Niste Uneli opis.</p>
             </div>
 
             <div class="mb-3">
                 <label for="tekst" class="form-label">Tekst</label>
-                <vue-editor v-model="tekst"></vue-editor>
+                <vue-editor v-model="tekst" :class="{ 'is-invalid': errors.tekst }"></vue-editor>
+                <p v-if="errors.tekst" class="invalid-feedback">Niste Uneli tekst.</p>
             </div>
             <!--Fotografijaaa-->
             <div class="mb-3">
                 <label for="fotografija" class="form-label">Izaberite Fotografiju</label>
-                <input class="form-control" type="file" id="fotografija" @change="handleFotografijaChange">
+                <input class="form-control" type="file" id="fotografija" @change="handleFotografijaChange"
+                    :class="{ 'is-invalid': errors.fotografija }">
+                <p v-if="errors.fotografija" class="invalid-feedback">Niste izabrali fotografiju.</p>
             </div>
 
             <label for="tipObjave" class="form-label">Tip Objave</label>
-            <select v-model="tipObjave" id="tipObjave" name="tipObjave" class="form-select">
+            <select v-model="tipObjave" id="tipObjave" name="tipObjave" class="form-select"
+                :class="{ 'is-invalid': errors.tipObjave }">
                 <option disabled value="">-----Izaberite Tip Objave-----</option>
                 <option value="blog">Blog</option>
                 <option value="vest">Vest</option>
             </select><br>
+            <p v-if="errors.tipObjave" class="invalid-feedback">Niste Uneli tip.</p>
 
             <div class="mb-3">
                 <label for="datumKreiranja" class="form-label">Datum Kreiranja</label><br>
-                <date-picker v-model="datumKreiranja" :format="'DD. MM. YYYY.'"></date-picker>
+                <date-picker v-model="datumKreiranja" :format="'DD. MM. YYYY.'" :disabled-date="disabledDate"></date-picker>
             </div>
 
 
             <div class="mb-3">
                 <label for="autor" class="form-label">Autor</label>
-                <input v-model="autor" type="text" class="form-control" id="autor">
+                <input v-model="autor" type="text" class="form-control" id="autor" :class="{ 'is-invalid': errors.autor }">
+                <p v-if="errors.autor" class="invalid-feedback">Niste Uneli autora.</p>
             </div>
-
-            <!----<label for="statusBloga" class="form-label">StatusBloga</label>
-            <select v-model="statusBloga" id="statusBloga" name="statusBloga" class="form-select">
-                <option disabled value="">-----Izaberite Tip Objave-----</option>
-                <option value="objavljeno">Objavljeno</option>
-                <option value="uPripremi">U Pripremi</option>
-                <option value="arhivirano">Arhivirano</option>
-            </select><br>!-->
 
             <div class="mb-3">
                 <label for="statusBloga" class="form-label">Status Bloga</label>
                 <input v-model="statusBloga" type="text" class="form-control" id="statusBloga" disabled>
             </div>
-
-            <!--<div class="mb-3">
-                <label for="datumObjavljivanja" class="form-label">Datum Objavljivanja</label><br>
-                <date-picker v-model="datumObjavljivanja" :format="'DD. MM. YYYY.'"></date-picker>
-            </div>
-
-            <div class="mb-3">
-                <label for="datumArhiviranja" class="form-label">Datum Arhiviranja</label><br>
-                <date-picker v-model="datumArhiviranja" :format="'DD. MM. YYYY.'"></date-picker>
-            </div>!-->
 
             <input type="submit" class="btn btn-info" value="Sacuvaj" @click="sacuvajBlog">
         </section>
@@ -90,15 +80,51 @@ export default {
             datumArhiviranja: '',
             autor: '',
             fotografija: null,
+
+
+            errors: {
+                naslov: false,
+                opis: false,
+                tekst: false,
+                fotografija: false,
+                tipObjave: false,
+                autor: false
+            }
         };
     },
     methods: {
+
+        disabledDate(date) {
+            const datumOdmora = new Date();
+            return date < datumOdmora;
+        },
 
         handleFotografijaChange(event) {
             this.selectedFotografija = event.target.files[0];
         },
 
         sacuvajBlog() {
+
+            this.errors = {};
+
+            if (this.naslov === '') {
+                this.errors.naslov = true;
+            }
+            if (this.opis === '') {
+                this.errors.opis = true;
+            }
+            if (this.tekst === '') {
+                this.errors.tekst = true
+            }
+            if (this.fotografija === '') {
+                this.errors.fotografija = true;
+            }
+            if (this.tipObjave === '') {
+                this.errors.tipObjave = true
+            }
+            if (this.autor === '') {
+                this.errors.autor = true;
+            }
 
             if (
                 this.naslov === '' ||
@@ -125,7 +151,7 @@ export default {
             formData.append('datumKreiranja', this.datumKreiranja.toISOString());
             formData.append('autor', this.autor);
             formData.append('statusBloga', this.statusBloga);
-  
+
 
             axios.post('/sacuvajBlog', formData, {
                 headers: {
@@ -143,6 +169,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error);
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Greska'

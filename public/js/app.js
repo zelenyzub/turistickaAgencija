@@ -5125,14 +5125,45 @@ __webpack_require__.r(__webpack_exports__);
       datumObjavljivanja: '',
       datumArhiviranja: '',
       autor: '',
-      fotografija: null
+      fotografija: null,
+      errors: {
+        naslov: false,
+        opis: false,
+        tekst: false,
+        fotografija: false,
+        tipObjave: false,
+        autor: false
+      }
     };
   },
   methods: {
+    disabledDate: function disabledDate(date) {
+      var datumOdmora = new Date();
+      return date < datumOdmora;
+    },
     handleFotografijaChange: function handleFotografijaChange(event) {
       this.selectedFotografija = event.target.files[0];
     },
     sacuvajBlog: function sacuvajBlog() {
+      this.errors = {};
+      if (this.naslov === '') {
+        this.errors.naslov = true;
+      }
+      if (this.opis === '') {
+        this.errors.opis = true;
+      }
+      if (this.tekst === '') {
+        this.errors.tekst = true;
+      }
+      if (this.fotografija === '') {
+        this.errors.fotografija = true;
+      }
+      if (this.tipObjave === '') {
+        this.errors.tipObjave = true;
+      }
+      if (this.autor === '') {
+        this.errors.autor = true;
+      }
       if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.datumKreiranja === '' || this.autor === '' || this.statusBloga === '') {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'warning',
@@ -6167,6 +6198,9 @@ var render = function render() {
       expression: "naslov"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.naslov
+    },
     attrs: {
       type: "text",
       id: "naslov"
@@ -6180,7 +6214,9 @@ var render = function render() {
         _vm.naslov = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.naslov ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli naslov.")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6195,6 +6231,9 @@ var render = function render() {
       expression: "opis"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.opis
+    },
     attrs: {
       type: "text",
       id: "opis"
@@ -6208,7 +6247,9 @@ var render = function render() {
         _vm.opis = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.opis ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli opis.")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6216,6 +6257,9 @@ var render = function render() {
       "for": "tekst"
     }
   }, [_vm._v("Tekst")]), _vm._v(" "), _c("vue-editor", {
+    "class": {
+      "is-invalid": _vm.errors.tekst
+    },
     model: {
       value: _vm.tekst,
       callback: function callback($$v) {
@@ -6223,7 +6267,9 @@ var render = function render() {
       },
       expression: "tekst"
     }
-  })], 1), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.tekst ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli tekst.")]) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6232,6 +6278,9 @@ var render = function render() {
     }
   }, [_vm._v("Izaberite Fotografiju")]), _vm._v(" "), _c("input", {
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.fotografija
+    },
     attrs: {
       type: "file",
       id: "fotografija"
@@ -6239,7 +6288,9 @@ var render = function render() {
     on: {
       change: _vm.handleFotografijaChange
     }
-  })]), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.errors.fotografija ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste izabrali fotografiju.")]) : _vm._e()]), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "tipObjave"
@@ -6252,6 +6303,9 @@ var render = function render() {
       expression: "tipObjave"
     }],
     staticClass: "form-select",
+    "class": {
+      "is-invalid": _vm.errors.tipObjave
+    },
     attrs: {
       id: "tipObjave",
       name: "tipObjave"
@@ -6280,7 +6334,9 @@ var render = function render() {
     attrs: {
       value: "vest"
     }
-  }, [_vm._v("Vest")])]), _c("br"), _vm._v(" "), _c("div", {
+  }, [_vm._v("Vest")])]), _c("br"), _vm._v(" "), _vm.errors.tipObjave ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli tip.")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -6289,7 +6345,8 @@ var render = function render() {
     }
   }, [_vm._v("Datum Kreiranja")]), _c("br"), _vm._v(" "), _c("date-picker", {
     attrs: {
-      format: "DD. MM. YYYY."
+      format: "DD. MM. YYYY.",
+      "disabled-date": _vm.disabledDate
     },
     model: {
       value: _vm.datumKreiranja,
@@ -6313,6 +6370,9 @@ var render = function render() {
       expression: "autor"
     }],
     staticClass: "form-control",
+    "class": {
+      "is-invalid": _vm.errors.autor
+    },
     attrs: {
       type: "text",
       id: "autor"
@@ -6326,7 +6386,9 @@ var render = function render() {
         _vm.autor = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.autor ? _c("p", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Niste Uneli autora.")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
