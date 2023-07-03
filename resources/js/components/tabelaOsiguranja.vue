@@ -200,7 +200,7 @@ export default {
                                     imena.push(item.ime);
                                     prezimena.push(item.prezime);
                                     var date = new Date(item.datumRodjenja);
-                                    var day = (date.getDate() + 1).toString().padStart(2, '0');
+                                    var day = (date.getDate()).toString().padStart(2, '0');
                                     var month = (date.getMonth() + 1).toString().padStart(2, '0');
                                     var year = date.getFullYear();
                                     var formattedDate = `${day}.${month}.${year}`;

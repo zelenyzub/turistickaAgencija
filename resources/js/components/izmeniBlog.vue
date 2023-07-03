@@ -4,7 +4,8 @@
         <section>
             <div class="mb-3">
                 <label for="naslov" class="form-label">Naslov</label>
-                <input v-model="naslov" type="text" class="form-control" id="naslov" :class="{ 'is-invalid': errors.naslov }">
+                <input v-model="naslov" type="text" class="form-control" id="naslov"
+                    :class="{ 'is-invalid': errors.naslov }">
                 <p v-if="errors.naslov" class="invalid-feedback">Niste Uneli naslov.</p>
             </div>
             <div class="mb-3">
@@ -94,7 +95,7 @@ export default {
             if (this.tekst === '') {
                 this.errors.tekst = true
             }
-            if (this.fotografija === null) {
+            if (this.fotografija === '') {
                 this.errors.fotografija = true;
             }
             if (this.tipObjave === '') {
@@ -147,7 +148,7 @@ export default {
             });
         },
 
-},
+    },
 
 }
 </script>

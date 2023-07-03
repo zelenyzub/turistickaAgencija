@@ -5155,7 +5155,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.tekst === '') {
         this.errors.tekst = true;
       }
-      if (this.fotografija === null) {
+      if (this.fotografija === '') {
         this.errors.fotografija = true;
       }
       if (this.tipObjave === '') {
@@ -5319,7 +5319,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.tekst === '') {
         this.errors.tekst = true;
       }
-      if (this.fotografija === null) {
+      if (this.fotografija === '') {
         this.errors.fotografija = true;
       }
       if (this.tipObjave === '') {
@@ -6099,7 +6099,7 @@ function detalji(imena, prezimena, datumiRodjenja) {
                 imena.push(item.ime);
                 prezimena.push(item.prezime);
                 var date = new Date(item.datumRodjenja);
-                var day = (date.getDate() + 1).toString().padStart(2, '0');
+                var day = date.getDate().toString().padStart(2, '0');
                 var month = (date.getMonth() + 1).toString().padStart(2, '0');
                 var year = date.getFullYear();
                 var formattedDate = "".concat(day, ".").concat(month, ".").concat(year);
@@ -6663,14 +6663,14 @@ var staticRenderFns = [function () {
     attrs: {
       href: "/tabelaBlog"
     }
-  }, [_vm._v("Blog\n                        Tabela")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Blog\n                            Tabela")])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link link-dark px-2",
     attrs: {
       href: "/tabelaOsiguranja"
     }
-  }, [_vm._v("Osiguranja\n                        Tabela")])])])])]), _c("br")]);
+  }, [_vm._v("Osiguranja\n                            Tabela")])])])])]), _c("br")]);
 }];
 render._withStripped = true;
 

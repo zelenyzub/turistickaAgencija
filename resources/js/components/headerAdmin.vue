@@ -11,13 +11,11 @@
                             Blog</a></li>
 
 
-
-                    <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
-                            Tabela</a></li>
-                    <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
-                            Tabela</a></li>
-
-
+                    
+                        <li class="nav-item"><a href="/tabelaBlog" class="nav-link link-dark px-2">Blog
+                                Tabela</a></li>
+                        <li class="nav-item"><a href="/tabelaOsiguranja" class="nav-link link-dark px-2">Osiguranja
+                                Tabela</a></li>
                 </ul>
             </div>
         </nav><br>

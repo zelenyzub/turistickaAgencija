@@ -116,7 +116,7 @@ export default {
             if (this.tekst === '') {
                 this.errors.tekst = true
             }
-            if (this.fotografija === null) {
+            if (this.fotografija === '') {
                 this.errors.fotografija = true;
             }
             if (this.tipObjave === '') {

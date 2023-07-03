@@ -40,6 +40,4 @@ class KupovinaPolise extends Model
             DB::rollBack();
         }
     }
-
-
 }

@@ -154,6 +154,8 @@ class TabeleContreller extends Controller
 
 
         return response()->json(['message' => 'Uspesno sacuvan blog.']);
-
+    
     }
+
+
 }
