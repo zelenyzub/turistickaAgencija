@@ -20,6 +20,9 @@
                     placeholder="Unesite telefon nosioca osiguranja" :class="{'is-invalid': errors.telefon}">
                     <p v-if="errors.telefon" class="invalid-feedback">Niste Uneli telefon.</p>
 
+
+                <label for="stariDatumi">Stari datumi:</label>
+                <input type="text" class="form-control" id="stariDatumi" name="stariDatumi" v-model="stariDatumi" disabled>
                 <label for="datumPutovanja" class="form-label">Izaberite datum pocetka putovanja: </label>
                 <date-picker name="datumOdmora" v-model="datumOdmora" range :format="'DD. MM. YYYY.'"
                     @input="izracunajBrojDana" :class="{'is-invalid': errors.datumOdmora}"></date-picker>
@@ -59,6 +62,7 @@ export default {
             imeNosioca: '',
             prezimeNosioca: '',
             telefon: '',
+            stariDatumi: '',
 
             errors:{
                 imeNosioca: false,
@@ -143,7 +147,30 @@ export default {
             });
 
         },
+        polisaIzmeni(idPolise) {
+            axios.get(`/popuniPodPolise?idPolise=${idPolise}`)
+            
+                .then(response => { 
+                    const data = response.data;
+                    this.imeNosioca = data[0].imeNosiocaOsiguranja;
+                    this.prezimeNosioca = data[0].prezimeNosiocaOsiguranja;
+                    this.telefon = data[0].telefon;
+                    this.stariDatumi = moment(data[0].datumPutovanjaOd).format('DD.MM.YYYY') + ' - ' + moment(data[0].datumPutovanjaDo).format('DD.MM.YYYY')
+                    
+                    
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+                
+        },
 
+    },
+    mounted() {
+        const idPolise = localStorage.getItem('idPolise');
+        if (idPolise) {
+            this.polisaIzmeni(idPolise);
+        }
     },
 }
 </script>

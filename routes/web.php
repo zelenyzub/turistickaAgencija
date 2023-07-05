@@ -38,6 +38,7 @@ Route::middleware(['auth','isAdmin'])->group(function () {
     Route::get('/izmeniBlogStr', [TabeleContreller::class, 'izmeniBlogStrana']);
     Route::post('/izmeniBlog', [TabeleContreller::class, 'izmeniBlog']);
     Route::get('/popuniPodBlog', [TabeleContreller::class, 'popuniPodBlog']);
+    Route::get('/popuniPodPolise', [TabeleContreller::class, 'popuniPodPolise']);
 
 
 });

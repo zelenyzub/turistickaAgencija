@@ -5423,6 +5423,7 @@ __webpack_require__.r(__webpack_exports__);
       imeNosioca: '',
       prezimeNosioca: '',
       telefon: '',
+      stariDatumi: '',
       errors: {
         imeNosioca: false,
         prezimeNosioca: false,
@@ -5487,6 +5488,24 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500,
         showConfirmButton: false
       });
+    },
+    polisaIzmeni: function polisaIzmeni(idPolise) {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_3___default().get("/popuniPodPolise?idPolise=".concat(idPolise)).then(function (response) {
+        var data = response.data;
+        _this.imeNosioca = data[0].imeNosiocaOsiguranja;
+        _this.prezimeNosioca = data[0].prezimeNosiocaOsiguranja;
+        _this.telefon = data[0].telefon;
+        _this.stariDatumi = moment__WEBPACK_IMPORTED_MODULE_2___default()(data[0].datumPutovanjaOd).format('DD.MM.YYYY') + ' - ' + moment__WEBPACK_IMPORTED_MODULE_2___default()(data[0].datumPutovanjaDo).format('DD.MM.YYYY');
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var idPolise = localStorage.getItem('idPolise');
+    if (idPolise) {
+      this.polisaIzmeni(idPolise);
     }
   }
 });
@@ -7026,6 +7045,33 @@ var render = function render() {
   }), _vm._v(" "), _vm.errors.telefon ? _c("p", {
     staticClass: "invalid-feedback"
   }, [_vm._v("Niste Uneli telefon.")]) : _vm._e(), _vm._v(" "), _c("label", {
+    attrs: {
+      "for": "stariDatumi"
+    }
+  }, [_vm._v("Stari datumi:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.stariDatumi,
+      expression: "stariDatumi"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "stariDatumi",
+      name: "stariDatumi",
+      disabled: ""
+    },
+    domProps: {
+      value: _vm.stariDatumi
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.stariDatumi = $event.target.value;
+      }
+    }
+  }), _vm._v(" "), _c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "datumPutovanja"

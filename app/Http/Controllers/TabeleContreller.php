@@ -175,5 +175,22 @@ class TabeleContreller extends Controller
         return response()->json($data);
     }
 
+    public static function popuniPodPolise(Request $request)
+    {
+        $idPolise = $request->input('idPolise');
+        $imeNosioca = $request->input('imeNosioca');
+        $prezimeNosioca = $request->input('prezimeNosioca');
+        $telefon = $request->input('telefon');
+        $datumPutovanjaOd = $request->input('datumOdmora');
+        $datumPutovanjaDo = $request->input('datumOdmora');
+        $query = new Tabele();
+        $data = $query->popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo);
+
+        //dd($data);
+    
+
+        return response()->json($data);
+    }
+
 
 }

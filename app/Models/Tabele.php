@@ -258,22 +258,26 @@ class Tabele extends Model
 
     }
 
-    public function popuniPodBlog($idBloga,$naslov,$opis,$tekst,$fotografija,$tipObjave,$autor)
+    public function popuniPodBlog($idBloga, $naslov, $opis, $tekst, $fotografija, $tipObjave, $autor)
     {
         $blogVest = DB::table('blog_vesti')
-        ->select([
-            'naslov',
-            'opis' ,
-            'tekst' ,
-            'fotografija' ,
-            'tipObjave',
-            'autor'
-        ])
-            ->where('idBloga',$idBloga)
+            ->select('naslov', 'opis', 'tekst', 'fotografija', 'tipObjave', 'autor')
+            ->where('idBloga', $idBloga)
             ->get();
-    
-            //dd($blogVest);
+
+        //dd($blogVest);
         return $blogVest;
-        
+
+    }
+    public function popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo)
+    {
+        $poupuniPolisu = DB::table('polise_osiguranja')
+            ->select('imeNosiocaOsiguranja','prezimeNosiocaOsiguranja','telefon','datumPutovanjaOd','datumPutovanjaDo')
+            ->where('idPolise', $idPolise)
+            ->get();
+
+        //dd($idPolise);
+        return $poupuniPolisu;
+
     }
 }
