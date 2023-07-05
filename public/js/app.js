@@ -6656,21 +6656,7 @@ var staticRenderFns = [function () {
     attrs: {
       href: "/admin"
     }
-  }, [_vm._v("Napravi\n                        Blog")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/tabelaBlog"
-    }
-  }, [_vm._v("Blog\n                            Tabela")])]), _vm._v(" "), _c("li", {
-    staticClass: "nav-item"
-  }, [_c("a", {
-    staticClass: "nav-link link-dark px-2",
-    attrs: {
-      href: "/tabelaOsiguranja"
-    }
-  }, [_vm._v("Osiguranja\n                            Tabela")])])])])]), _c("br")]);
+  }, [_vm._v("Napravi\n                        Blog")])])])])]), _c("br")]);
 }];
 render._withStripped = true;
 
