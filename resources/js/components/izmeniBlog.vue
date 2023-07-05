@@ -4,7 +4,7 @@
         <section>
             <div class="mb-3">
                 <label for="naslov" class="form-label">Naslov</label>
-                <input v-model="naslov" type="text" class="form-control" id="naslov"
+                <input v-model="naslov" name="naslov" type="text" class="form-control" id="naslov"
                     :class="{ 'is-invalid': errors.naslov }">
                 <p v-if="errors.naslov" class="invalid-feedback">Niste Uneli naslov.</p>
             </div>
@@ -133,6 +133,7 @@ export default {
                 .then(response => {
 
                     console.log(response.data);
+
                     //alert(this.datumOdmora)
                     window.location.href = '/tabelaBlog';
 
@@ -148,7 +149,31 @@ export default {
                 showConfirmButton: false
             });
         },
+        fetchBlogData(idBloga) {
+            axios.get(`/popuniPodBlog?idBloga=${idBloga}`)
+            
+                .then(response => { 
+                    const data = response.data;
+                    this.naslov = data[0].naslov;
+                    this.opis = data[0].opis;
+                    this.tekst = data[0].tekst;
+                    this.selectedFotografija = data[0].fotografija;
+                    this.tipObjave = data[0].tipObjave;
+                    this.autor = data[0].autor;
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+                
+        },
 
+    },
+    mounted() {
+        const idBloga = localStorage.getItem('idBloga');
+        if (idBloga) {
+            this.fetchBlogData(idBloga);
+        }
     },
 
 }

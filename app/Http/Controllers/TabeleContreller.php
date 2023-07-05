@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tabele;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TabeleContreller extends Controller
 {
@@ -155,6 +156,23 @@ class TabeleContreller extends Controller
 
         return response()->json(['message' => 'Uspesno sacuvan blog.']);
     
+    }
+
+    public static function popuniPodBlog(Request $request)
+    {
+        $idBloga = $request -> input('idBloga');
+        $idBloga = $request->input('idBloga');
+        $naslov = $request->input('naslov');
+        $opis = $request->input('opis');
+        $tekst = $request->input('tekst');
+        $fotografija = $request->input('fotografija');
+        $tipObjave = $request->input('tipObjave');
+        $autor = $request->input('autor');
+        $query = new Tabele();
+        $data = $query->popuniPodBlog($idBloga,$naslov, $opis, $tekst, $fotografija, $tipObjave,  $autor);
+    
+
+        return response()->json($data);
     }
 
 

@@ -372,8 +372,9 @@ export default {
                 $('#pregledBloga .modal-footer').html(modalFooterHtml);
             });
         },
-        redirectToIzmeni(idBloga, naslov) {
+        redirectToIzmeni(idBloga) {
             localStorage.setItem('idBloga', idBloga);
+
             window.location.href = '/izmeniBlogStr';
         },
 

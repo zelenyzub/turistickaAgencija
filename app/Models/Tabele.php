@@ -257,4 +257,23 @@ class Tabele extends Model
         return $query;
 
     }
+
+    public function popuniPodBlog($idBloga,$naslov,$opis,$tekst,$fotografija,$tipObjave,$autor)
+    {
+        $blogVest = DB::table('blog_vesti')
+        ->select([
+            'naslov',
+            'opis' ,
+            'tekst' ,
+            'fotografija' ,
+            'tipObjave',
+            'autor'
+        ])
+            ->where('idBloga',$idBloga)
+            ->get();
+    
+            //dd($blogVest);
+        return $blogVest;
+        
+    }
 }

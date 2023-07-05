@@ -5345,6 +5345,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('autor', this.autor);
       axios__WEBPACK_IMPORTED_MODULE_4___default().post('/izmeniBlog', formData).then(function (response) {
         console.log(response.data);
+
         //alert(this.datumOdmora)
         window.location.href = '/tabelaBlog';
       })["catch"](function (error) {
@@ -5356,6 +5357,27 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500,
         showConfirmButton: false
       });
+    },
+    fetchBlogData: function fetchBlogData(idBloga) {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_4___default().get("/popuniPodBlog?idBloga=".concat(idBloga)).then(function (response) {
+        var data = response.data;
+        _this.naslov = data[0].naslov;
+        _this.opis = data[0].opis;
+        _this.tekst = data[0].tekst;
+        _this.selectedFotografija = data[0].fotografija;
+        _this.tipObjave = data[0].tipObjave;
+        _this.autor = data[0].autor;
+        console.log(data);
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var idBloga = localStorage.getItem('idBloga');
+    if (idBloga) {
+      this.fetchBlogData(idBloga);
     }
   }
 });
@@ -5926,7 +5948,7 @@ __webpack_require__.r(__webpack_exports__);
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('#pregledBloga .modal-footer').html(modalFooterHtml);
       });
     },
-    redirectToIzmeni: function redirectToIzmeni(idBloga, naslov) {
+    redirectToIzmeni: function redirectToIzmeni(idBloga) {
       localStorage.setItem('idBloga', idBloga);
       window.location.href = '/izmeniBlogStr';
     }
@@ -6699,6 +6721,7 @@ var render = function render() {
       "is-invalid": _vm.errors.naslov
     },
     attrs: {
+      name: "naslov",
       type: "text",
       id: "naslov"
     },
