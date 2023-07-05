@@ -5164,7 +5164,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.autor === '') {
         this.errors.autor = true;
       }
-      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.datumKreiranja === '' || this.autor === '' || this.statusBloga === '') {
+      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.datumKreiranja === '' || this.autor === '' || this.statusBloga === '' || this.selectedFotografija === null) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'warning',
           title: 'Sva polja su obavezna'
@@ -5328,7 +5328,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.autor === '') {
         this.errors.autor = true;
       }
-      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.autor === '') {
+      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.autor === '' || this.selectedFotografija === null) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'warning',
           title: 'Sva polja su obavezna'
@@ -6583,14 +6583,14 @@ var staticRenderFns = [function () {
   }, [_c("a", {
     staticClass: "nav-link px-2 text-muted",
     attrs: {
-      href: "#"
+      href: "/osiguranje"
     }
   }, [_vm._v("Pocetna")])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("a", {
     staticClass: "nav-link px-2 text-muted",
     attrs: {
-      href: "#"
+      href: "/blog"
     }
   }, [_vm._v("Blog")])]), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
@@ -7103,7 +7103,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "container"
+    staticClass: "container",
+    staticStyle: {
+      "padding-bottom": "200px"
+    }
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {

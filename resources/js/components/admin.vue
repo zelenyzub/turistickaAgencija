@@ -119,6 +119,7 @@ export default {
             if (this.fotografija === '') {
                 this.errors.fotografija = true;
             }
+            
             if (this.tipObjave === '') {
                 this.errors.tipObjave = true
             }
@@ -133,7 +134,8 @@ export default {
                 this.tipObjave === '' ||
                 this.datumKreiranja === '' ||
                 this.autor === '' ||
-                this.statusBloga === ''
+                this.statusBloga === '' || 
+                this.selectedFotografija === null
             ) {
                 Swal.fire({
                     icon: 'warning',

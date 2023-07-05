@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" style="padding-bottom: 200px;">
         <h2>
             OSIGURANJE SAVO
             <small class="text-muted">Sigurnost koja prati vaše putovanje.</small>

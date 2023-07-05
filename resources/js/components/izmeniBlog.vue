@@ -110,7 +110,8 @@ export default {
                 this.opis === '' ||
                 this.tekst === '' ||
                 this.tipObjave === '' ||
-                this.autor === ''
+                this.autor === '' ||
+                this.selectedFotografija === null
             ) {
                 Swal.fire({
                     icon: 'warning',
