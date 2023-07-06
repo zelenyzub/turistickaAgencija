@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "ag-grid-community": "^30.0.3",
         "data-table-vue-v3": "^1.0.16",
         "datatables.net": "^1.13.4",
         "datatables.net-select": "^1.6.2",

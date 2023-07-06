@@ -147,7 +147,7 @@ export default {
             formData.append('naslov', this.naslov);
             formData.append('opis', this.opis);
             formData.append('tekst', this.tekst);
-            formData.append('fotografija', this.fotografija);
+            formData.append('fotografija', this.selectedFotografija);
             formData.append('tipObjave', this.tipObjave);
             formData.append('datumKreiranja', this.datumKreiranja.toISOString());
             formData.append('autor', this.autor);

@@ -2,11 +2,13 @@
     <div class="container">
         <section>
             <h1>Blogovi</h1>
-            <hr><br>
+            <hr>
 
             <div>
-                <label for="datumFilter" class="form-label">Filtriraj datum: </label><br>
-                <date-picker v-model="selektovaniDatum" :format="'DD. MM. YYYY.'" id="datumFilter"></date-picker>
+                <div class="form-group col-md-2">
+                    <label for="datumFilter" class="form-label">Filtriraj datum: </label><br>
+                    <input type="date" id="datumFilter" class="form-control" @change="prikaziBlogove">
+                </div>
             </div><br><br>
 
             <table class="table" id="tabelaBlog">
@@ -79,16 +81,15 @@ export default {
         },
 
         prikaziBlogove() {
-
-            let datumFilter = $('#datumFilter').val();
+            $('#tabelaBlog').DataTable().destroy();
             $('#tabelaBlog').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: '/prikazBlog',
-                    data: {
-                        datumFilter: datumFilter
-                    },
+                    data: function (d) {
+                        d.selektovaniDatum = $('#datumFilter').val();
+                    }
                 },
                 'columnDefs': [
                     {
@@ -97,7 +98,7 @@ export default {
                     },
                     {
                         'targets': 1,
-                        'orderable': false,
+                        'orderable': true,
                     },
                     {
                         'targets': 2,
@@ -127,6 +128,7 @@ export default {
                         'targets': 8,
                         'orderable': false,
                     },
+
                 ],
 
                 'columns': [
@@ -147,7 +149,7 @@ export default {
                         data: 'fotografija',
                         render: function (data, type, row) {
                             if (type === 'display') {
-                                var fotografijaHtml = `<img src="${data}" alt="Fotografija" width="100" style="height:100px">`;
+                                var fotografijaHtml = `<img src="${data}" width="100" style="height:100px">`;
                                 return fotografijaHtml;
                             }
                             return '';
@@ -181,6 +183,13 @@ export default {
                         }
                     }
                 ],
+            });
+
+            $('#datumFilter').on('change', function () {
+                //alert( "asfasfa" );
+                var selektovaniDatum = $(this).val();
+                $('#tabelaBlog').DataTable().column(1).search(selektovaniDatum).draw();
+
             });
 
         },
@@ -274,7 +283,7 @@ export default {
                                 },
                                 data: {
                                     idBloga: idBloga,
-                                    statusBloga: 'objavljeno',
+                                    statusBloga: 'Objavljeno',
                                     datumObjavljivanja: new Date().toISOString().slice(0, 19).replace('T', ' ')
                                 },
 
@@ -332,7 +341,7 @@ export default {
                                 },
                                 data: {
                                     idBloga: idBloga,
-                                    statusBloga: 'arhivirano',
+                                    statusBloga: 'Arhivirano',
                                     datumArhiviranja: new Date().toISOString().slice(0, 19).replace('T', ' ')
                                 },
 
@@ -407,6 +416,7 @@ export default {
         this.objavi();
         this.arhiviraj();
         this.pregledBloga();
+        console.log(this.selektovaniDatum);
     }
 
 

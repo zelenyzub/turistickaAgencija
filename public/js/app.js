@@ -5176,7 +5176,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('naslov', this.naslov);
       formData.append('opis', this.opis);
       formData.append('tekst', this.tekst);
-      formData.append('fotografija', this.fotografija);
+      formData.append('fotografija', this.selectedFotografija);
       formData.append('tipObjave', this.tipObjave);
       formData.append('datumKreiranja', this.datumKreiranja.toISOString());
       formData.append('autor', this.autor);
@@ -5725,14 +5725,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     prikaziBlogove: function prikaziBlogove() {
-      var datumFilter = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').val();
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().destroy();
       jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
           url: '/prikazBlog',
-          data: {
-            datumFilter: datumFilter
+          data: function data(d) {
+            d.selektovaniDatum = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').val();
           }
         },
         'columnDefs': [{
@@ -5740,7 +5740,7 @@ __webpack_require__.r(__webpack_exports__);
           'orderable': true
         }, {
           'targets': 1,
-          'orderable': false
+          'orderable': true
         }, {
           'targets': 2,
           'orderable': true
@@ -5782,7 +5782,7 @@ __webpack_require__.r(__webpack_exports__);
           data: 'fotografija',
           render: function render(data, type, row) {
             if (type === 'display') {
-              var fotografijaHtml = "<img src=\"".concat(data, "\" alt=\"Fotografija\" width=\"100\" style=\"height:100px\">");
+              var fotografijaHtml = "<img src=\"".concat(data, "\" width=\"100\" style=\"height:100px\">");
               return fotografijaHtml;
             }
             return '';
@@ -5803,6 +5803,11 @@ __webpack_require__.r(__webpack_exports__);
             return '';
           }
         }]
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').on('change', function () {
+        //alert( "asfasfa" );
+        var selektovaniDatum = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).val();
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().column(1).search(selektovaniDatum).draw();
       });
     },
     obrisiBlog: function obrisiBlog() {
@@ -5883,7 +5888,7 @@ __webpack_require__.r(__webpack_exports__);
               },
               data: {
                 idBloga: idBloga,
-                statusBloga: 'objavljeno',
+                statusBloga: 'Objavljeno',
                 datumObjavljivanja: new Date().toISOString().slice(0, 19).replace('T', ' ')
               },
               success: function success() {
@@ -5936,7 +5941,7 @@ __webpack_require__.r(__webpack_exports__);
               },
               data: {
                 idBloga: idBloga,
-                statusBloga: 'arhivirano',
+                statusBloga: 'Arhivirano',
                 datumArhiviranja: new Date().toISOString().slice(0, 19).replace('T', ' ')
               },
               success: function success() {
@@ -5994,6 +5999,7 @@ __webpack_require__.r(__webpack_exports__);
     this.objavi();
     this.arhiviraj();
     this.pregledBloga();
+    console.log(this.selektovaniDatum);
   }
 });
 
@@ -7523,24 +7529,23 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "container"
-  }, [_c("section", [_c("h1", [_vm._v("Blogovi")]), _vm._v(" "), _c("hr"), _c("br"), _vm._v(" "), _c("div", [_c("label", {
+  }, [_c("section", [_c("h1", [_vm._v("Blogovi")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", [_c("div", {
+    staticClass: "form-group col-md-2"
+  }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "datumFilter"
     }
-  }, [_vm._v("Filtriraj datum: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
+  }, [_vm._v("Filtriraj datum: ")]), _c("br"), _vm._v(" "), _c("input", {
+    staticClass: "form-control",
     attrs: {
-      format: "DD. MM. YYYY.",
+      type: "date",
       id: "datumFilter"
     },
-    model: {
-      value: _vm.selektovaniDatum,
-      callback: function callback($$v) {
-        _vm.selektovaniDatum = $$v;
-      },
-      expression: "selektovaniDatum"
+    on: {
+      change: _vm.prikaziBlogove
     }
-  })], 1), _c("br"), _c("br"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])]);
+  })])]), _c("br"), _c("br"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

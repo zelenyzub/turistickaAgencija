@@ -34,8 +34,6 @@ class Tabele extends Model
         $sorting = $request['order'][0]['dir'];
         if (isset($request['selektovaniDatum'])) {
             $selektovaniDatum = $request['selektovaniDatum'];
-        } else {
-           
         }
         
 
