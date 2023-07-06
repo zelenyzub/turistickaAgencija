@@ -50,6 +50,10 @@ Route::get('/admin', [KupovinaController::class, 'adminStrana']);
 Route::post('/dodajPolisu', [KupovinaController::class, 'dodajPolisu']);
 Route::post('/sacuvajBlog', [KorisnikController::class, 'sacuvajBlog']);
 });
+Route::get('/osiguranje', [KupovinaController::class, 'onlineKupovina'])->name('osiguranje');
+Route::post('/dodajPolisu', [KupovinaController::class, 'dodajPolisu']);
+Route::get('/blog', [TabeleContreller::class, 'blogStrana']);
+Route::get('/blogovi', [TabeleContreller::class, 'blog']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

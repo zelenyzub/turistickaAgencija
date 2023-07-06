@@ -80,7 +80,7 @@ export default {
             datumArhiviranja: '',
             autor: '',
             fotografija: null,
-
+            selectedFotografija: null,
 
             errors: {
                 naslov: false,
@@ -134,8 +134,7 @@ export default {
                 this.tipObjave === '' ||
                 this.datumKreiranja === '' ||
                 this.autor === '' ||
-                this.statusBloga === '' || 
-                this.selectedFotografija === null
+                this.statusBloga === ''
             ) {
                 Swal.fire({
                     icon: 'warning',
@@ -148,7 +147,7 @@ export default {
             formData.append('naslov', this.naslov);
             formData.append('opis', this.opis);
             formData.append('tekst', this.tekst);
-            formData.append('fotografija', this.selectedFotografija);
+            formData.append('fotografija', this.fotografija);
             formData.append('tipObjave', this.tipObjave);
             formData.append('datumKreiranja', this.datumKreiranja.toISOString());
             formData.append('autor', this.autor);

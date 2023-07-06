@@ -32,12 +32,22 @@ class Tabele extends Model
         }
 
         $sorting = $request['order'][0]['dir'];
+        if (isset($request['selektovaniDatum'])) {
+            $selektovaniDatum = $request['selektovaniDatum'];
+        } else {
+           
+        }
+        
 
         $filteri = DB::table('blog_vesti')
             ->orderBy($sort, $sorting);
 
         if (!empty($search)) {
             $filteri = $filteri->whereRaw("(naslov LIKE '%{$search}%')");
+        }
+
+        if (!empty($selektovaniDatum)) {
+            $filteri = $filteri->whereRaw("(datumKreiranja LIKE '%{$selektovaniDatum}%')");
         }
 
         $filtered = $filteri->count();

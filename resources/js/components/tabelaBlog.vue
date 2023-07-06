@@ -2,7 +2,12 @@
     <div class="container">
         <section>
             <h1>Blogovi</h1>
-            <hr>
+            <hr><br>
+
+            <div>
+                <label for="datumFilter" class="form-label">Filtriraj datum: </label><br>
+                <date-picker v-model="selektovaniDatum" :format="'DD. MM. YYYY.'" id="datumFilter"></date-picker>
+            </div><br><br>
 
             <table class="table" id="tabelaBlog">
                 <thead>
@@ -53,15 +58,18 @@ import $ from 'jquery';
 import DataTable from 'datatables.net';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import DatePicker from 'vue2-datepicker';
 
 
 export default {
-    components: { DataTable },
+    components: { DataTable, DatePicker },
     data() {
         return {
             pregled: true,
+            selektovaniDatum: '',
         };
     },
+
     methods: {
 
         akcije() {
@@ -71,11 +79,16 @@ export default {
         },
 
         prikaziBlogove() {
+
+            let datumFilter = $('#datumFilter').val();
             $('#tabelaBlog').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: '/prikazBlog',
+                    data: {
+                        datumFilter: datumFilter
+                    },
                 },
                 'columnDefs': [
                     {
@@ -173,6 +186,7 @@ export default {
         },
 
 
+
         obrisiBlog() {
             var table = $('#tabelaBlog').DataTable();
             $(document).on('click', '.btnObrisi', function () {
@@ -219,6 +233,7 @@ export default {
 
 
             });
+
         },
 
         objavi() {
@@ -364,7 +379,7 @@ export default {
                 if (blogData.statusBloga === 'arhivirano') {
                     var modalFooterHtml = `<p>Datum Arhiviranja: ${formatDatumArhiviranja}</p>`;
                 }
-                if(blogData.statusBloga === 'uPripremi'){
+                if (blogData.statusBloga === 'uPripremi') {
                     var modalFooterHtml = '';
                 }
 

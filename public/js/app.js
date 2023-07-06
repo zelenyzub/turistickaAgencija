@@ -5126,6 +5126,7 @@ __webpack_require__.r(__webpack_exports__);
       datumArhiviranja: '',
       autor: '',
       fotografija: null,
+      selectedFotografija: null,
       errors: {
         naslov: false,
         opis: false,
@@ -5164,7 +5165,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.autor === '') {
         this.errors.autor = true;
       }
-      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.datumKreiranja === '' || this.autor === '' || this.statusBloga === '' || this.selectedFotografija === null) {
+      if (this.naslov === '' || this.opis === '' || this.tekst === '' || this.tipObjave === '' || this.datumKreiranja === '' || this.autor === '' || this.statusBloga === '') {
         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
           icon: 'warning',
           title: 'Sva polja su obavezna'
@@ -5175,7 +5176,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('naslov', this.naslov);
       formData.append('opis', this.opis);
       formData.append('tekst', this.tekst);
-      formData.append('fotografija', this.selectedFotografija);
+      formData.append('fotografija', this.fotografija);
       formData.append('tipObjave', this.tipObjave);
       formData.append('datumKreiranja', this.datumKreiranja.toISOString());
       formData.append('autor', this.autor);
@@ -5699,6 +5700,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+
 
 
 
@@ -5706,11 +5709,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
+    DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"],
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
-      pregled: true
+      pregled: true,
+      selektovaniDatum: ''
     };
   },
   methods: {
@@ -5720,11 +5725,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     prikaziBlogove: function prikaziBlogove() {
+      var datumFilter = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').val();
       jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-          url: '/prikazBlog'
+          url: '/prikazBlog',
+          data: {
+            datumFilter: datumFilter
+          }
         },
         'columnDefs': [{
           'targets': 0,
@@ -7512,14 +7521,31 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
+  return _c("div", {
+    staticClass: "container"
+  }, [_c("section", [_c("h1", [_vm._v("Blogovi")]), _vm._v(" "), _c("hr"), _c("br"), _vm._v(" "), _c("div", [_c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "datumFilter"
+    }
+  }, [_vm._v("Filtriraj datum: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
+    attrs: {
+      format: "DD. MM. YYYY.",
+      id: "datumFilter"
+    },
+    model: {
+      value: _vm.selektovaniDatum,
+      callback: function callback($$v) {
+        _vm.selektovaniDatum = $$v;
+      },
+      expression: "selektovaniDatum"
+    }
+  })], 1), _c("br"), _c("br"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "container"
-  }, [_c("section", [_c("h1", [_vm._v("Blogovi")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("table", {
+  return _c("table", {
     staticClass: "table",
     attrs: {
       id: "tabelaBlog"
@@ -7560,7 +7586,11 @@ var staticRenderFns = [function () {
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")]), _vm._v(" "), _c("section", [_c("div", {
+  }, [_vm._v("Akcije")])])]), _vm._v(" "), _c("tbody")]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("section", [_c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "pregledBloga",
@@ -7586,7 +7616,7 @@ var staticRenderFns = [function () {
     staticClass: "modal-body"
   }), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
-  })])])])])])]);
+  })])])])]);
 }];
 render._withStripped = true;
 
