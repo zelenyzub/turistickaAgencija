@@ -155,6 +155,7 @@ export default {
                     this.imeNosioca = data[0].imeNosiocaOsiguranja;
                     this.prezimeNosioca = data[0].prezimeNosiocaOsiguranja;
                     this.telefon = data[0].telefon;
+                    this.vrstaOsiguranja = data[0].vrstaPolise
                     this.stariDatumi = moment(data[0].datumPutovanjaOd).format('DD.MM.YYYY') + ' - ' + moment(data[0].datumPutovanjaDo).format('DD.MM.YYYY')
                     
                     

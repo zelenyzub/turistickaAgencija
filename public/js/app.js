@@ -5497,6 +5497,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.imeNosioca = data[0].imeNosiocaOsiguranja;
         _this.prezimeNosioca = data[0].prezimeNosiocaOsiguranja;
         _this.telefon = data[0].telefon;
+        _this.vrstaOsiguranja = data[0].vrstaPolise;
         _this.stariDatumi = moment__WEBPACK_IMPORTED_MODULE_2___default()(data[0].datumPutovanjaOd).format('DD.MM.YYYY') + ' - ' + moment__WEBPACK_IMPORTED_MODULE_2___default()(data[0].datumPutovanjaDo).format('DD.MM.YYYY');
       })["catch"](function (error) {
         console.error(error);
@@ -5709,8 +5710,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"],
-    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__["default"]
+    DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -5740,7 +5740,7 @@ __webpack_require__.r(__webpack_exports__);
           'orderable': true
         }, {
           'targets': 1,
-          'orderable': true
+          'orderable': false
         }, {
           'targets': 2,
           'orderable': true
@@ -5859,7 +5859,7 @@ __webpack_require__.r(__webpack_exports__);
         var row = table.row(tr);
         var idBloga = row.data().idBloga;
         var statusBloga = row.data().statusBloga;
-        if (statusBloga === 'objavljeno') {
+        if (statusBloga === 'Objavljeno') {
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
             title: 'Već objavljeno',
             text: 'Blog je već objavljen.',
@@ -5912,7 +5912,7 @@ __webpack_require__.r(__webpack_exports__);
         var row = table.row(tr);
         var idBloga = row.data().idBloga;
         var statusBloga = row.data().statusBloga;
-        if (statusBloga === 'arhivirano') {
+        if (statusBloga === 'Arhivirano') {
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
             title: 'Već arhivirano',
             text: 'Blog je već arhiviran.',
@@ -5968,13 +5968,13 @@ __webpack_require__.r(__webpack_exports__);
         var modalBodyHtml = "\n                    <h2>".concat(blogData.naslov, "</h2>\n                    <hr>\n                    <h4>").concat(blogData.opis, "</h4>\n                    <img src=\"").concat(blogData.fotografija, "\" alt=\"Fotografija\" width=\"500\"><br><br><br><br>\n                    <p>").concat(blogData.tekst, "</p>\n                    <h5>Tip objave: ").concat(blogData.tipObjave, "</h5>\n                    <h5>Status Objave: ").concat(blogData.statusBloga, "</h5><br><br><br>\n                    <h4>Autor: ").concat(blogData.autor, "</h4>\n        ");
         var formatDatumObjavljivanja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
         var formatDatumArhiviranja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
-        if (blogData.statusBloga === 'objavljeno') {
+        if (blogData.statusBloga === 'Objavljeno') {
           var modalFooterHtml = "<p>Datum Objavljivanja: ".concat(formatDatumObjavljivanja, "</p>");
         }
-        if (blogData.statusBloga === 'arhivirano') {
+        if (blogData.statusBloga === 'Arhivirano') {
           var modalFooterHtml = "<p>Datum Arhiviranja: ".concat(formatDatumArhiviranja, "</p>");
         }
-        if (blogData.statusBloga === 'uPripremi') {
+        if (blogData.statusBloga === 'UPripremi') {
           var modalFooterHtml = '';
         }
         jquery__WEBPACK_IMPORTED_MODULE_1___default()('#pregledBloga .modal-body').html(modalBodyHtml);

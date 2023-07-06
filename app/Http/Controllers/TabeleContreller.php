@@ -183,8 +183,9 @@ class TabeleContreller extends Controller
         $telefon = $request->input('telefon');
         $datumPutovanjaOd = $request->input('datumOdmora');
         $datumPutovanjaDo = $request->input('datumOdmora');
+        $vrstaPolise = $request->input('vrstaPolise');
         $query = new Tabele();
-        $data = $query->popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo);
+        $data = $query->popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo,$vrstaPolise);
 
         //dd($data);
     

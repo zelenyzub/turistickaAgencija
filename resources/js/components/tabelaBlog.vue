@@ -64,7 +64,7 @@ import DatePicker from 'vue2-datepicker';
 
 
 export default {
-    components: { DataTable, DatePicker },
+    components: { DataTable },
     data() {
         return {
             pregled: true,
@@ -98,7 +98,7 @@ export default {
                     },
                     {
                         'targets': 1,
-                        'orderable': true,
+                        'orderable': false,
                     },
                     {
                         'targets': 2,
@@ -253,7 +253,7 @@ export default {
                 var idBloga = row.data().idBloga;
                 var statusBloga = row.data().statusBloga;
 
-                if (statusBloga === 'objavljeno') {
+                if (statusBloga === 'Objavljeno') {
                     Swal.fire({
                         title: 'Već objavljeno',
                         text: 'Blog je već objavljen.',
@@ -311,7 +311,7 @@ export default {
                 var idBloga = row.data().idBloga;
                 var statusBloga = row.data().statusBloga;
 
-                if (statusBloga === 'arhivirano') {
+                if (statusBloga === 'Arhivirano') {
                     Swal.fire({
                         title: 'Već arhivirano',
                         text: 'Blog je već arhiviran.',
@@ -382,13 +382,13 @@ export default {
                 var formatDatumObjavljivanja = moment(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
                 var formatDatumArhiviranja = moment(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
 
-                if (blogData.statusBloga === 'objavljeno') {
+                if (blogData.statusBloga === 'Objavljeno') {
                     var modalFooterHtml = `<p>Datum Objavljivanja: ${formatDatumObjavljivanja}</p>`;
                 }
-                if (blogData.statusBloga === 'arhivirano') {
+                if (blogData.statusBloga === 'Arhivirano') {
                     var modalFooterHtml = `<p>Datum Arhiviranja: ${formatDatumArhiviranja}</p>`;
                 }
-                if (blogData.statusBloga === 'uPripremi') {
+                if (blogData.statusBloga === 'UPripremi') {
                     var modalFooterHtml = '';
                 }
 

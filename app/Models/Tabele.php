@@ -277,10 +277,10 @@ class Tabele extends Model
         return $blogVest;
 
     }
-    public function popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo)
+    public function popuniPodPolise($idPolise, $imeNosioca, $prezimeNosioca, $telefon, $datumPutovanjaOd, $datumPutovanjaDo,$vrstaPolise)
     {
         $poupuniPolisu = DB::table('polise_osiguranja')
-            ->select('imeNosiocaOsiguranja','prezimeNosiocaOsiguranja','telefon','datumPutovanjaOd','datumPutovanjaDo')
+            ->select('imeNosiocaOsiguranja','prezimeNosiocaOsiguranja','telefon','datumPutovanjaOd','datumPutovanjaDo','vrstaPolise')
             ->where('idPolise', $idPolise)
             ->get();
 
