@@ -5697,11 +5697,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var datatables_net__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! datatables.net */ "./node_modules/datatables.net/js/jquery.dataTables.mjs");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! path */ "./node_modules/path/path.js");
+/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_7__);
+
+
 
 
 
@@ -5710,29 +5715,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"],
     DataTable: datatables_net__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
       pregled: true,
-      selektovaniDatum: ''
+      selektovaniDatum: null
     };
   },
   methods: {
+    formatiraniDatum: function formatiraniDatum() {
+      console.log('datummmm', this.selektovaniDatum);
+      if (this.selektovaniDatum != null) {
+        return moment__WEBPACK_IMPORTED_MODULE_5___default()(this.selektovaniDatum).format('YYYY-MM-DD');
+      }
+      return null;
+    },
     akcije: function akcije() {
       jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', '.dropdown-toggle', function () {
         jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).siblings('.dropdown-menu').toggle();
       });
     },
     prikaziBlogove: function prikaziBlogove() {
+      var self = this;
       jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().destroy();
       jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
           url: '/prikazBlog',
-          data: function data(d) {
-            d.selektovaniDatum = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').val();
+          data: {
+            selektovaniDatum: self.formatiraniDatum()
           }
         },
         'columnDefs': [{
@@ -5769,9 +5783,10 @@ __webpack_require__.r(__webpack_exports__);
           data: 'datumKreiranja',
           render: function render(data, type, row) {
             if (type === 'display' || type === 'filter') {
-              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_3___default()(data).format('DD. MM. YYYY.');
+              var formattedDateTime = moment__WEBPACK_IMPORTED_MODULE_5___default()(data).format('DD. MM. YYYY.');
               return formattedDateTime;
             }
+            console.log(data);
             return data;
           }
         }, {
@@ -5804,11 +5819,8 @@ __webpack_require__.r(__webpack_exports__);
           }
         }]
       });
-      jquery__WEBPACK_IMPORTED_MODULE_1___default()('#datumFilter').on('change', function () {
-        //alert( "asfasfa" );
-        var selektovaniDatum = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).val();
-        jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().column(1).search(selektovaniDatum).draw();
-      });
+      //console.log(self.formatiraniDatum());
+      //alert(self.selektovaniDatum)
     },
     obrisiBlog: function obrisiBlog() {
       var table = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable();
@@ -5818,7 +5830,7 @@ __webpack_require__.r(__webpack_exports__);
         var idBloga = row.data().idBloga;
         //alert(idBloga)
 
-        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
           title: 'Potvrda',
           text: 'Da li ste sigurni da želite da obrišete blog?',
           icon: 'warning',
@@ -5842,7 +5854,7 @@ __webpack_require__.r(__webpack_exports__);
                 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
               }
             });
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
               title: 'Uspesno ste obrisali blog.',
               icon: 'success',
               timer: 1500,
@@ -5860,7 +5872,7 @@ __webpack_require__.r(__webpack_exports__);
         var idBloga = row.data().idBloga;
         var statusBloga = row.data().statusBloga;
         if (statusBloga === 'Objavljeno') {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
             title: 'Već objavljeno',
             text: 'Blog je već objavljen.',
             icon: 'warning',
@@ -5869,7 +5881,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return;
         }
-        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
           title: 'Potvrda',
           text: 'Da li ste sigurni da želite da objavite blog?',
           icon: 'warning',
@@ -5895,7 +5907,7 @@ __webpack_require__.r(__webpack_exports__);
                 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
               }
             });
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
               title: 'Blog je uspešno objavljen.',
               icon: 'success',
               timer: 1500,
@@ -5913,7 +5925,7 @@ __webpack_require__.r(__webpack_exports__);
         var idBloga = row.data().idBloga;
         var statusBloga = row.data().statusBloga;
         if (statusBloga === 'Arhivirano') {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
             title: 'Već arhivirano',
             text: 'Blog je već arhiviran.',
             icon: 'warning',
@@ -5922,7 +5934,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return;
         }
-        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
           title: 'Potvrda',
           text: 'Da li ste sigurni da želite da arhivirate blog?',
           icon: 'warning',
@@ -5948,7 +5960,7 @@ __webpack_require__.r(__webpack_exports__);
                 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabelaBlog').DataTable().ajax.reload();
               }
             });
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
               title: 'Blog je uspešno arhiviran.',
               icon: 'success',
               timer: 1500,
@@ -5966,8 +5978,8 @@ __webpack_require__.r(__webpack_exports__);
         var blogData = row.data();
         console.log(blogData);
         var modalBodyHtml = "\n                    <h2>".concat(blogData.naslov, "</h2>\n                    <hr>\n                    <h4>").concat(blogData.opis, "</h4>\n                    <img src=\"").concat(blogData.fotografija, "\" alt=\"Fotografija\" width=\"500\"><br><br><br><br>\n                    <p>").concat(blogData.tekst, "</p>\n                    <h5>Tip objave: ").concat(blogData.tipObjave, "</h5>\n                    <h5>Status Objave: ").concat(blogData.statusBloga, "</h5><br><br><br>\n                    <h4>Autor: ").concat(blogData.autor, "</h4>\n        ");
-        var formatDatumObjavljivanja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
-        var formatDatumArhiviranja = moment__WEBPACK_IMPORTED_MODULE_3___default()(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
+        var formatDatumObjavljivanja = moment__WEBPACK_IMPORTED_MODULE_5___default()(blogData.datumObjavljivanja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
+        var formatDatumArhiviranja = moment__WEBPACK_IMPORTED_MODULE_5___default()(blogData.datumArhiviranja).add(2, 'hours').format('DD.MM.YYYY. - HH:mm');
         if (blogData.statusBloga === 'Objavljeno') {
           var modalFooterHtml = "<p>Datum Objavljivanja: ".concat(formatDatumObjavljivanja, "</p>");
         }
@@ -7536,16 +7548,22 @@ var render = function render() {
     attrs: {
       "for": "datumFilter"
     }
-  }, [_vm._v("Filtriraj datum: ")]), _c("br"), _vm._v(" "), _c("input", {
-    staticClass: "form-control",
+  }, [_vm._v("Filtriraj datum: ")]), _c("br"), _vm._v(" "), _c("date-picker", {
     attrs: {
-      type: "date",
+      format: "DD. MM. YYYY.",
       id: "datumFilter"
     },
     on: {
       change: _vm.prikaziBlogove
+    },
+    model: {
+      value: _vm.selektovaniDatum,
+      callback: function callback($$v) {
+        _vm.selektovaniDatum = $$v;
+      },
+      expression: "selektovaniDatum"
     }
-  })])]), _c("br"), _c("br"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])]);
+  })], 1)]), _c("br"), _c("br"), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

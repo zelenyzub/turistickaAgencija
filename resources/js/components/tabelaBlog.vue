@@ -7,7 +7,9 @@
             <div>
                 <div class="form-group col-md-2">
                     <label for="datumFilter" class="form-label">Filtriraj datum: </label><br>
-                    <input type="date" id="datumFilter" class="form-control" @change="prikaziBlogove">
+                    <!--<input type="date" id="datumFilter" class="form-control" @change="prikaziBlogove">-->
+                    <date-picker v-model="selektovaniDatum" :format="'DD. MM. YYYY.'" id="datumFilter"
+                        @change="prikaziBlogove"></date-picker>
                 </div>
             </div><br><br>
 
@@ -58,21 +60,35 @@
 import axios from 'axios';
 import $ from 'jquery';
 import DataTable from 'datatables.net';
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 import moment from 'moment';
 import Swal from 'sweetalert2';
-import DatePicker from 'vue2-datepicker';
+import { format } from 'path';
+
 
 
 export default {
-    components: { DataTable },
+    components: { DatePicker, DataTable },
     data() {
         return {
             pregled: true,
-            selektovaniDatum: '',
+            selektovaniDatum: null,
         };
     },
 
     methods: {
+        formatiraniDatum() {
+            console.log(  'datummmm',this.selektovaniDatum)
+
+            if (this.selektovaniDatum != null) {
+                return moment(this.selektovaniDatum).format('YYYY-MM-DD');
+            }
+           
+
+            return null;
+            
+        },
 
         akcije() {
             $(document).on('click', '.dropdown-toggle', function () {
@@ -81,16 +97,22 @@ export default {
         },
 
         prikaziBlogove() {
+            let self = this;
+
             $('#tabelaBlog').DataTable().destroy();
             $('#tabelaBlog').DataTable({
+
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: '/prikazBlog',
-                    data: function (d) {
-                        d.selektovaniDatum = $('#datumFilter').val();
-                    }
+                    data: {
+                        selektovaniDatum: self.formatiraniDatum()
+                    },
+
                 },
+                
+
                 'columnDefs': [
                     {
                         'targets': 0,
@@ -139,8 +161,11 @@ export default {
                             if (type === 'display' || type === 'filter') {
                                 var formattedDateTime = moment(data).format('DD. MM. YYYY.');
                                 return formattedDateTime;
+
                             }
+                            console.log(data);
                             return data;
+
                         }
                     },
                     { 'data': 'naslov' },
@@ -183,14 +208,11 @@ export default {
                         }
                     }
                 ],
-            });
-
-            $('#datumFilter').on('change', function () {
-                //alert( "asfasfa" );
-                var selektovaniDatum = $(this).val();
-                $('#tabelaBlog').DataTable().column(1).search(selektovaniDatum).draw();
 
             });
+            //console.log(self.formatiraniDatum());
+            //alert(self.selektovaniDatum)
+
 
         },
 

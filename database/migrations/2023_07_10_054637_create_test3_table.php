@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFotografijaToBlogs extends Migration
+class CreateTest3Table extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddFotografijaToBlogs extends Migration
      */
     public function up()
     {
-        Schema::table('blogs', function (Blueprint $table) {
-            $table->string('fotografija')->nullable();
+        Schema::create('test3', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('ime');
+            $table->string('prezime');
+            $table->string('telefon')->nullable();
+            $table->string('email');
         });
     }
 
@@ -25,8 +29,6 @@ class AddFotografijaToBlogs extends Migration
      */
     public function down()
     {
-        Schema::table('blogs', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('test3');
     }
 }

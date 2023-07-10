@@ -45,7 +45,11 @@ class Tabele extends Model
         }
 
         if (!empty($selektovaniDatum)) {
-            $filteri = $filteri->whereRaw("(datumKreiranja LIKE '%{$selektovaniDatum}%')");
+            // $filteri = $filteri->whereRaw("(datumKreiranja LIKE '%{$selektovaniDatum}%')");
+            $filteri = $filteri->whereDate('datumKreiranja', $selektovaniDatum);
+
+            //dd($selektovaniDatum);
+
         }
 
         $filtered = $filteri->count();
